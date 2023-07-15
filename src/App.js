@@ -69,14 +69,12 @@ function App() {
           onChange={handleWeightChange}
         />
         <br />
-        <div className="btn-container">
-          <button className="btn" onClick={handlePrediction}>
-            Predict Salary
-          </button>
-          <button className="btn reset-btn" onClick={handleReset}>
-            Reset
-          </button>
-        </div>
+        <button className="btn" onClick={handlePrediction}>
+          Predict Salary
+        </button>
+        <button className="reset-btn" onClick={handleReset}>
+          Reset
+        </button>
       </div>
       {error && <p className="error">{error}</p>}
       {prediction && <p className="prediction">The predicted salary is: {prediction} each year</p>}

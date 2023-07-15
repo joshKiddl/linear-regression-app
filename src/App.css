@@ -16,6 +16,7 @@ body {
   margin-top: 20px;
   gap: 4px;
 }
+
 .title {
   font-size: 28px;
   color: #fff;
@@ -72,16 +73,15 @@ body {
 
 .reset-btn {
   padding: 10px 20px;
-  font-size: 18px;
-  background-color: #000000;
+  font-size: 16px;
+  background-color: transparent; /* Set the background color to transparent */
   color: #fff;
-  border: 1px solid #fff; /* Specify the border style */
-  border-radius: 4px;
+  border: none; /* Remove the border */
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
   transition: background-color 0.3s ease;
-  
 }
+
 
 .btn:hover {
   background-color: #45b9d3;
@@ -103,28 +103,3 @@ body {
 
 /* Add the following styles for the background shapes */
 
-body::before,
-body::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.05) 10px,
-    rgba(0, 0, 0, 0) 10px,
-    rgba(0, 0, 0, 0) 20px
-  );
-}
-
-body::before {
-  transform: rotate(45deg);
-}
-
-body::after {
-  transform: rotate(-45deg);
-}
