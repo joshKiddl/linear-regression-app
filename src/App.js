@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import axios from 'axios';
 
 function App() {
   const [age, setAge] = useState('');
@@ -21,15 +22,19 @@ function App() {
       return;
     }
 
-    // Perform the prediction logic here and update the 'prediction' state with the result
-    // You can make an API request to your backend server running the linear regression model
-
-    // Example code to update the 'prediction' state
-    const predictedSalary = 50000 + parseInt(age) * 1000 + parseInt(weight) * 2000;
-    setPrediction(predictedSalary);
-
-    // Reset the error state
-    setError('');
+    // Make the API request to your backend server
+    axios
+      .post('https://ml-linear-regression.onrender.com', { age: age, weight: weight })
+      .then((response) => {
+        // Update the 'prediction' state with the received result
+        setPrediction(response.data.predicted_salary);
+        setError('');
+      })
+      .catch((error) => {
+        console.error(error);
+        setError('Error occurred during prediction');
+        setPrediction('');
+      });
   };
 
   return (
