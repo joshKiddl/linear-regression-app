@@ -3,6 +3,7 @@ import './App.css';
 import axios from 'axios';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import NavBar from './components/navBar';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA9ze-yVFEIexpEfnaKBalQzYlg5fTufpI",
@@ -95,19 +96,13 @@ function App() {
     }
   };
 
-  const scrollToElement = (ref) => {
-    if (ref && ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="container">
+      <NavBar />
       <div className="header-section">
-        <h1 className="title">Josh's Salary Predictor</h1>
-        <h2 className="subtitle">Based on age and weight</h2>
+        <h1 className="title">Linear Regression</h1>
+        <h2 className="subtitle">Salary Predictor based on age and weight</h2>
         <h3 className="blurb">This is a Machine Learning experiment utilizing the Linear Regression statistical modeling technique</h3>
-        
       </div>
       <div className="content-section">
         <div className="form-section" ref={formRef}>
@@ -159,7 +154,6 @@ function App() {
           </div>
         </div>
       </div>
-      <footer className="footer">© 2023 Your Company. All rights reserved.</footer>
     </div>
   );
 }

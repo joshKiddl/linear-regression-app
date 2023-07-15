@@ -7,7 +7,7 @@ body {
 
 .container {
   text-align: center;
-  margin: 50px auto;
+  margin: 20px auto;
 }
 .content-container {
   margin-bottom: 20px
@@ -123,3 +123,25 @@ body {
   font-size: 14px;
   color: #777;
 }
+.navbar-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.navbar-item {
+  margin-right: 10px;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #fff;
+  padding: 5px 5px;
+  font-family: 'Montserrat', sans-serif;
+    /* Add other styling properties if needed */
+  }
+
+.navbar-link:hover {
+  color: #00BFFF;
+}
+
