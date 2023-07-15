@@ -16,28 +16,36 @@ function App() {
     setWeight(event.target.value);
   };
 
-const handlePrediction = () => {
-  if (!age || !weight) {
-    setError('Enter values to generate an output');
-    return;
-  }
+  const handlePrediction = () => {
+    if (!age || !weight) {
+      setError('Enter values to generate an output');
+      return;
+    }
 
-  // Make the API request to your backend server
-  axios
-    .post('https://ml-linear-regression.onrender.com/predict', { age: age, weight: weight })
-    .then((response) => {
-      const predictedSalary = response.data.predicted_salary.toFixed(0); // Limit to zero decimal points
-      const formattedSalary = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(predictedSalary);
-      setPrediction(formattedSalary);
-      setError('');
-    })
-    .catch((error) => {
-      console.error(error);
-      setError('Error occurred during prediction');
-      setPrediction('');
-    });
-};
+    // Make the API request to your backend server
+    axios
+      .post('https://ml-linear-regression.onrender.com/predict', { age: age, weight: weight })
+      .then((response) => {
+        const predictedSalary = response.data.predicted_salary.toFixed(0); // Limit to zero decimal points
+        const formattedSalary = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(
+          predictedSalary
+        );
+        setPrediction(formattedSalary);
+        setError('');
+      })
+      .catch((error) => {
+        console.error(error);
+        setError('Error occurred during prediction');
+        setPrediction('');
+      });
+  };
 
+  const handleReset = () => {
+    setAge('');
+    setWeight('');
+    setPrediction('');
+    setError('');
+  };
 
   return (
     <div className="container">
@@ -61,6 +69,9 @@ const handlePrediction = () => {
         <br />
         <button className="btn" onClick={handlePrediction}>
           Predict Salary
+        </button>
+        <button className="reset-btn" onClick={handleReset}>
+          Reset
         </button>
       </div>
       {error && <p className="error">{error}</p>}
