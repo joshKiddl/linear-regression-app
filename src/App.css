@@ -9,6 +9,16 @@ body {
   text-align: center;
   margin: 50px auto;
 }
+.content-container {
+  margin-bottom: 20px;
+}
+
+.email-form {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
 
 .btn-container {
   display: flex;
@@ -27,6 +37,13 @@ body {
 .subtitle {
   font-size: 20px;
   color: #fff;
+  margin-bottom: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.h4 {
+  font-size: 20px;
+  color: #000000;
   margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
 }
@@ -51,8 +68,7 @@ body {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  margin-bottom: 5px;
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
   text-align: left;
@@ -100,6 +116,10 @@ body {
   margin-top: 10px;
   font-family: 'Montserrat', sans-serif;
 }
-
-/* Add the following styles for the background shapes */
-
+.footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
