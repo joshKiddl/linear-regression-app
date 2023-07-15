@@ -49,7 +49,9 @@ function App() {
 
   return (
     <div className="container">
-      <h1 className="title">Josh's Linear Regression Model Test</h1>
+      <h1 className="title">Josh's Salary Predictor</h1>
+      <h2 className="subtitle">Based on age and weight</h2>
+      <h3 className="blurb">This is a Machine Learning experiment utilising the Linear Regression statistical modelling technique</h3>
       <div className="form">
         <input
           type="text"
@@ -67,12 +69,14 @@ function App() {
           onChange={handleWeightChange}
         />
         <br />
-        <button className="btn" onClick={handlePrediction}>
-          Predict Salary
-        </button>
-        <button className="reset-btn" onClick={handleReset}>
-          Reset
-        </button>
+        <div className="btn-container">
+          <button className="btn" onClick={handlePrediction}>
+            Predict Salary
+          </button>
+          <button className="btn reset-btn" onClick={handleReset}>
+            Reset
+          </button>
+        </div>
       </div>
       {error && <p className="error">{error}</p>}
       {prediction && <p className="prediction">The predicted salary is: {prediction} each year</p>}

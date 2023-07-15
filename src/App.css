@@ -10,10 +10,30 @@ body {
   margin: 50px auto;
 }
 
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 4px;
+}
 .title {
   font-size: 28px;
   color: #fff;
-  margin-bottom: 70px;
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.blurb {
+  font-size: 12px;
+  color: #fff;
+  margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -38,6 +58,8 @@ body {
 }
 
 .btn {
+  flex: 1;
+  margin: 0 5px;
   padding: 10px 20px;
   font-size: 18px;
   background-color: #1c4bba;
@@ -53,12 +75,12 @@ body {
   font-size: 18px;
   background-color: #000000;
   color: #fff;
-  border: 1;
-  border-color: #fff;
+  border: 1px solid #fff; /* Specify the border style */
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
   transition: background-color 0.3s ease;
+  
 }
 
 .btn:hover {
