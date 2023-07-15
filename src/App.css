@@ -1,38 +1,95 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  background-color: #000;
+  position: relative;
+}
+
+.container {
   text-align: center;
+  margin: 50px auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  font-size: 28px;
+  color: #fff;
+  margin-bottom: 70px;
+  font-family: 'Montserrat', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.form-input {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+  text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn {
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #61dafb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #45b9d3;
+}
+
+.prediction {
+  font-size: 20px;
+  color: #fff;
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 16px;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Add the following styles for the background shapes */
+
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 10px,
+    rgba(0, 0, 0, 0) 10px,
+    rgba(0, 0, 0, 0) 20px
+  );
+}
+
+body::before {
+  transform: rotate(45deg);
+}
+
+body::after {
+  transform: rotate(-45deg);
 }
