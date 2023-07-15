@@ -26,8 +26,9 @@ const handlePrediction = () => {
   axios
     .post('https://ml-linear-regression.onrender.com/predict', { age: age, weight: weight })
     .then((response) => {
-      // Update the 'prediction' state with the received result
-      setPrediction(response.data.predicted_salary);
+      const predictedSalary = response.data.predicted_salary.toFixed(0); // Limit to zero decimal points
+      const formattedSalary = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(predictedSalary);
+      setPrediction(formattedSalary);
       setError('');
     })
     .catch((error) => {
@@ -53,7 +54,7 @@ const handlePrediction = () => {
         <input
           type="text"
           className="form-input"
-          placeholder="Weight"
+          placeholder="Weight (kg)"
           value={weight}
           onChange={handleWeightChange}
         />
@@ -63,7 +64,7 @@ const handlePrediction = () => {
         </button>
       </div>
       {error && <p className="error">{error}</p>}
-      {prediction && <p className="prediction">The predicted salary is: {prediction}</p>}
+      {prediction && <p className="prediction">The predicted salary is: {prediction} each year</p>}
     </div>
   );
 }
