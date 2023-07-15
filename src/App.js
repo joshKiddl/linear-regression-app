@@ -16,26 +16,27 @@ function App() {
     setWeight(event.target.value);
   };
 
-  const handlePrediction = () => {
-    if (!age || !weight) {
-      setError('Enter values to generate an output');
-      return;
-    }
+const handlePrediction = () => {
+  if (!age || !weight) {
+    setError('Enter values to generate an output');
+    return;
+  }
 
-    // Make the API request to your backend server
-    axios
-      .post('https://ml-linear-regression.onrender.com', { age: age, weight: weight })
-      .then((response) => {
-        // Update the 'prediction' state with the received result
-        setPrediction(response.data.predicted_salary);
-        setError('');
-      })
-      .catch((error) => {
-        console.error(error);
-        setError('Error occurred during prediction');
-        setPrediction('');
-      });
-  };
+  // Make the API request to your backend server
+  axios
+    .post('https://ml-linear-regression.onrender.com/predict', { age: age, weight: weight })
+    .then((response) => {
+      // Update the 'prediction' state with the received result
+      setPrediction(response.data.predicted_salary);
+      setError('');
+    })
+    .catch((error) => {
+      console.error(error);
+      setError('Error occurred during prediction');
+      setPrediction('');
+    });
+};
+
 
   return (
     <div className="container">
