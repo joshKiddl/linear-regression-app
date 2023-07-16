@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import '../App';
 import axios from 'axios';
 import NavBar from '../components/navBar';
 
@@ -25,9 +24,9 @@ function DecisionTrees() {
       return;
     }
 
-    // Make the API request to your backend server
+    // Make the API request to your backend server for decision trees
     axios
-      .post('https://ml-linear-regression.onrender.com/predict', { age: age, weight: weight })
+      .post('https://ml-linear-regression.onrender.com/predict-decision-tree', { age: age, weight: weight })
       .then((response) => {
         const predictedSalary = response.data.predicted_salary.toFixed(0);
         const formattedSalary = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(
@@ -50,14 +49,12 @@ function DecisionTrees() {
     setError('');
   };
 
-  
   return (
-      <div className="container">
-        <NavBar />
+    <div className="container">
+      <NavBar />
       <div className="header-section">
         <h1 className="title">Decision Trees</h1>
         <h3 className="blurb">This is a Machine Learning experiment utilizing the Decision Trees statistical modeling technique</h3>
-        
       </div>
       <div className="content-section">
         <div className="form-section" ref={formRef}>

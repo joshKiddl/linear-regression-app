@@ -57,9 +57,6 @@ function App() {
         );
         setPrediction(formattedSalary);
         setError('');
-
-        // Add email to Firestore
-        addEmailToFirestore(email);
       })
       .catch((error) => {
         console.error(error);
@@ -101,7 +98,6 @@ function App() {
       <NavBar />
       <div className="header-section">
         <h1 className="title">Linear Regression</h1>
-        <h2 className="subtitle">Salary Predictor based on age and weight</h2>
         <h3 className="blurb">This is a Machine Learning experiment utilizing the Linear Regression statistical modeling technique</h3>
       </div>
       <div className="content-section">

@@ -27,7 +27,7 @@ function LogicalRegression() {
 
     // Make the API request to your backend server
     axios
-      .post('https://ml-linear-regression.onrender.com/predict', { age: age, weight: weight })
+      .post('https://ml-linear-regression.onrender.com/predict-logistic', { age: age, weight: weight })
       .then((response) => {
         const predictedSalary = response.data.predicted_salary.toFixed(0);
         const formattedSalary = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(
@@ -55,8 +55,8 @@ function LogicalRegression() {
       <div className="container">
         <NavBar />
       <div className="header-section">
-        <h1 className="title">Logical Regression</h1>
-        <h3 className="blurb">This is a Machine Learning experiment utilizing the Logical Regression statistical modeling technique</h3>
+        <h1 className="title">Logistical Regression</h1>
+        <h3 className="blurb">This is a Machine Learning experiment utilizing the Logistical Regression statistical modeling technique</h3>
         
       </div>
       <div className="content-section">
