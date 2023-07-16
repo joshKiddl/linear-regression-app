@@ -54,6 +54,8 @@ body {
   color: #fff;
   margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .form {

@@ -98,7 +98,7 @@ function App() {
       <NavBar />
       <div className="header-section">
         <h1 className="title">Linear Regression</h1>
-        <h3 className="blurb">This is a Machine Learning experiment utilizing the Linear Regression statistical modeling technique</h3>
+        <h3 className="blurb">Linear regression is a statistical modeling technique used to predict outcomes based on the relationship between independent variables and a dependent variable. Examples include predicting housing prices, estimating sales revenue, and analyzing the impact of study time on exam scores. It finds widespread use in various fields for forecasting and understanding relationships between variables.</h3>
       </div>
       <div className="content-section">
         <div className="form-section" ref={formRef}>

@@ -7,6 +7,9 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <ul className="navbar-list">
+      <li className="navbar-item">
+          <Link to="/home" className="navbar-link">Home</Link>
+        </li>
         <li className="navbar-item">
           <Link to="/" className="navbar-link">Linear Regression</Link>
         </li>
@@ -15,6 +18,9 @@ const NavBar = () => {
         </li>
         <li className="navbar-item">
           <Link to="/logicalRegression" className="navbar-link">Logical Regression</Link>
+        </li>
+        <li className="navbar-item">
+          <Link to="/dataSet" className="navbar-link">The Data Set</Link>
         </li>
       </ul>
     </nav>

@@ -56,7 +56,7 @@ function LogicalRegression() {
         <NavBar />
       <div className="header-section">
         <h1 className="title">Logistical Regression</h1>
-        <h3 className="blurb">This is a Machine Learning experiment utilizing the Logistical Regression statistical modeling technique</h3>
+        <h3 className="blurb">Logistic regression is a statistical model used for binary classification problems. It estimates the probability of an event occurring based on input variables. It is widely used in various real-life applications, including credit risk assessment, spam detection, and disease diagnosis. Logistic regression is particularly suitable when the outcome variable is categorical and the relationships between predictors and the outcome are non-linear. It provides interpretable coefficients that indicate the impact of each predictor on the likelihood of the event, making it valuable for understanding the underlying factors driving the outcome.</h3>
         
       </div>
       <div className="content-section">

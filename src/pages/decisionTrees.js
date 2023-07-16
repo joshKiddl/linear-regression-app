@@ -54,7 +54,7 @@ function DecisionTrees() {
       <NavBar />
       <div className="header-section">
         <h1 className="title">Decision Trees</h1>
-        <h3 className="blurb">This is a Machine Learning experiment utilizing the Decision Trees statistical modeling technique</h3>
+        <h3 className="blurb">Decision trees are a machine learning algorithm that uses a tree-like model to make predictions. They are used in real-life scenarios such as credit scoring, fraud detection, and medical diagnosis, as they can handle both numerical and categorical data. Decision trees are interpretable and provide insights into feature importance, making them valuable for decision-making in diverse domains. They are versatile and robust, capable of handling complex datasets and capturing non-linear relationships between variables.</h3>
       </div>
       <div className="content-section">
         <div className="form-section" ref={formRef}>
