@@ -9,7 +9,13 @@ h1 {
   font-size: 24px;
   margin-bottom: 20px;
   font-family: 'Montserrat', sans-serif;
-  
+}
+
+/* Add CSS for the input field */
+.problem-statement-input {
+  width: 100%; 
+  border-color: black;
+  border-width: 2px;
 }
 
 .input-container {
@@ -45,7 +51,6 @@ h1 {
 .ai-response .response-item.selected {
   background-color: lightskyblue;
 }
-
 
 input {
   padding: 10px;

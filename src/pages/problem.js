@@ -87,7 +87,7 @@ function Problem() {
             // If aiResponse is a list, map through the items and render each as a separate <div> box
             aiResponse.map((item, index) => {
               // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*/, ''); // Removes '1. ' from the start of the item
+              const itemText = item.replace(/^\d+\.\s*-*\s*/, ''); // Removes numbering and dashes from the start of the item
               return (
                 <div
                   key={index}
@@ -107,9 +107,10 @@ function Problem() {
         <input
           type="text"
           id="finalProblemStatement"
-          value={problemStatement.replace(/^\d+\.\s*/, '')} // Remove the number and period from the start of the statement
+          value={problemStatement.replace(/^\d+\.\s*/, '').replace(/-/g, '')} // Remove the number, period, and dashes from the start of the statement
           onChange={(e) => setProblemStatement(e.target.value)}
           placeholder="Enter final Problem Statement"
+          className="problem-statement-input" // Add a class to the input field
         />
       </div>
       {/* End of Final Problem Statement field */}
