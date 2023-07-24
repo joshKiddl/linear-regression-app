@@ -1,14 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 body {
-  background-color: #000;
-  position: relative;
+  min-height: 100vh; /* Set body height to at least 100% of the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
 .container {
-  text-align: center;
-  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
+
+/* Rest of your CSS styles for the App component */
+
 .content-container {
   margin-bottom: 20px
 }
@@ -19,6 +29,20 @@ body {
   margin-bottom: 0px;
 }
 
+.spinning-logo {
+  animation: spin 15s linear infinite; /* Apply the "spin" animation with 2 seconds duration, linear timing function, and repeat infinitely */
+  width: 100px; /* Adjust the width to make the logo smaller */
+
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .btn-container {
   display: flex;
@@ -28,16 +52,18 @@ body {
 }
 
 .title {
-  font-size: 28px;
-  color: #fff;
-  margin-bottom: 10px;
-  margin-top: 60px;
+  font-size: 34px;
+  color: #000;
+  margin-bottom: 0px;
+  margin-top: 0px;
   font-family: 'Montserrat', sans-serif;
+  font-weight: bold; /* Add the font-weight property to make the title bold */
 }
+
 
 .subtitle {
   font-size: 20px;
-  color: #fff;
+  color: #000;
   margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
 }
@@ -78,17 +104,22 @@ body {
 }
 
 .btn {
-  flex: 1;
-  margin: 0 5px;
-  padding: 10px 20px;
+  display: block;
+  margin: 0 auto;
+  padding: 15px 30px;
   font-size: 18px;
   background-color: #1c4bba;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  text-align: center;
+  text-decoration: none; /* Remove default underline style for anchor tags */
+  width: fit-content; /* Adjust the button width based on content */
+  font-family: 'Montserrat', sans-serif;
 }
+
 
 .reset-btn {
   padding: 10px 20px;
