@@ -5,6 +5,7 @@ import DecisionTrees from './pages/decisionTrees';
 import LogicalRegression from './pages/logicalRegression';
 import DataSet from './pages/dataSet';
 import Home from './pages/home'
+import NLP from './pages/NLP';
 
 const AppRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
       <Route path="/logicalRegression" element={<LogicalRegression />} />
       <Route path="/dataSet" element={<DataSet />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/NLP" element={<NLP />} />
     </Routes>
   );
 };

@@ -20,6 +20,9 @@ const NavBar = () => {
           <Link to="/logicalRegression" className="navbar-link">Logical Regression</Link>
         </li>
         <li className="navbar-item">
+          <Link to="/NLP" className="navbar-link">NLP</Link>
+        </li>
+        <li className="navbar-item">
           <Link to="/dataSet" className="navbar-link">The Data Set</Link>
         </li>
       </ul>
