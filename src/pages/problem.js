@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../problem.css';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
 
 function Problem() {
   const navigate = useNavigate();
@@ -9,6 +12,8 @@ function Problem() {
   const [aiResponse, setAIResponse] = useState('');
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); // New state to keep track of the selected item
+  const [progress, setProgress] = useState(0); // New state for the progress
+
 
   const handleSubmit = () => {
     // Replace 'YOUR_OPENAI_API_ENDPOINT' with the actual endpoint of the OpenAI API
@@ -44,7 +49,14 @@ function Problem() {
   const handleResponseItemClick = (item) => {
     setSelectedItem(item); // Update the selected item state with the clicked item's text
     setProblemStatement(item); // Automatically fill the Final Problem Statement box with the clicked item's text
+  
+    // Calculate progress as a percentage of the maximum allowed length
+    // You can adjust maxChars depending on your requirements
+    const maxChars = 100;
+    const progress = (item.length / maxChars) * 100;
+    setProgress(progress);
   };
+  
 
   const handleBack = () => {
     navigate(-1); // Go back to the previous page
@@ -62,6 +74,17 @@ function Problem() {
     if (e.key === 'Enter') {
       handleSubmit(); // Trigger the handleSubmit function when Enter key is pressed
     }
+  };
+
+  const handleProblemStatementChange = (e) => {
+    const value = e.target.value;
+    setProblemStatement(value);
+
+    // Calculate progress as a percentage of the maximum allowed length
+    // You can adjust maxChars depending on your requirements
+    const maxChars = 100;
+    const progress = (value.length / maxChars) * 100;
+    setProgress(progress);
   };
 
   return (
@@ -108,9 +131,18 @@ function Problem() {
           type="text"
           id="finalProblemStatement"
           value={problemStatement.replace(/^\d+\.\s*/, '').replace(/-/g, '')} // Remove the number, period, and dashes from the start of the statement
-          onChange={(e) => setProblemStatement(e.target.value)}
+          onChange={handleProblemStatementChange}
           placeholder="Enter final Problem Statement"
           className="problem-statement-input" // Add a class to the input field
+        />
+        {/* Add the progress bar here, below the input field */}
+        <label className="finalProblemStatementLabel" htmlFor="progressBar">Problem Statement strength</label>
+        <ProgressBar
+          now={progress}
+          id="progressBar"
+          label={`${Math.round(progress)}%`} // Show progress percentage as label
+           // Optional: adds striped animation
+          variant="success" // Optional: adds color
         />
       </div>
       {/* End of Final Problem Statement field */}

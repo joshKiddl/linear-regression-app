@@ -7,7 +7,7 @@
 
 h1 {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -16,12 +16,13 @@ h1 {
   width: 100%; 
   border-color: black;
   border-width: 2px;
+  margin-bottom: 10px;
 }
 
 .input-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .input-container2 {
@@ -41,6 +42,7 @@ h1 {
   padding: 10px;
   margin-bottom: 5px; /* Add some bottom margin between the items */
   transition: background-color 0.3s; /* Add a smooth transition effect for the background color */
+  font-size: 14px;
 }
 
 .ai-response .response-item:hover {
@@ -75,7 +77,7 @@ button {
 }
 
 .ai-response {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   border: 2px solid #1c4bba; /* Add a blue border */
@@ -110,10 +112,8 @@ h2 {
   font-family: 'Montserrat', sans-serif;
 }
 
-
-
 .finalProblemStatementLabel {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
 }
