@@ -5,7 +5,7 @@ import '../problem.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
-function Problem() {
+function Hypothesis() {
   const navigate = useNavigate();
   const [inputText, setInputText] = useState('');
   const [problemStatement, setProblemStatement] = useState('');
@@ -17,7 +17,7 @@ function Problem() {
 
   const handleSubmit = () => {
     // Replace 'YOUR_OPENAI_API_ENDPOINT' with the actual endpoint of the OpenAI API
-    fetch('https://ml-linear-regression.onrender.com/openai-predict', {
+    fetch('https://ml-linear-regression.onrender.com/openai-solution', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ function Problem() {
   };
 
   const handleNext = () => {
-    navigate('/hypothesis'); // Navigate to the next page (replace '/next-page' with the desired route)
+    navigate('/next-page'); // Navigate to the next page (replace '/next-page' with the desired route)
   };
 
   const handleReset = () => {
@@ -89,7 +89,7 @@ function Problem() {
 
   return (
     <div className="container">
-      <h1>What problem are you trying to solve?</h1>
+      <h1>What is your solution hypothesis</h1>
       {/* Problem Description field */}
       <div className="input-container">
         <input
@@ -97,7 +97,7 @@ function Problem() {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Enter your problem here"
+          placeholder="Enter your solution here"
         />
         <button onClick={handleSubmit}>Check</button>
       </div>
@@ -123,10 +123,10 @@ function Problem() {
             })
           ) : (
             // If aiResponse is not a list, render it as a single <p>
-            <p>{aiResponse}</p>
-          )}
+            <p>{aiResponse.error}</p>
+            )}
         </div>
-        <label className="finalProblemStatementLabel" htmlFor="finalProblemStatement">Final Problem Statement</label>
+        <label className="finalProblemStatementLabel" htmlFor="finalProblemStatement">Final Solution Hypothesis</label>
         <input
           type="text"
           id="finalProblemStatement"
@@ -136,7 +136,7 @@ function Problem() {
           className="problem-statement-input" // Add a class to the input field
         />
         {/* Add the progress bar here, below the input field */}
-        <label className="finalProblemStatementLabel" htmlFor="progressBar">Problem Statement strength</label>
+        <label className="finalProblemStatementLabel" htmlFor="progressBar">Solution Hypothesis strength</label>
         <ProgressBar
           now={progress}
           id="progressBar"
@@ -155,4 +155,4 @@ function Problem() {
   );
 }
 
-export default Problem;
+export default Hypothesis;
