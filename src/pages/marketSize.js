@@ -5,7 +5,7 @@ import '../problem.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
-function Hypothesis() {
+function MarketSize() {
   const navigate = useNavigate();
   const [inputText, setInputText] = useState('');
   const [problemStatement, setProblemStatement] = useState('');
@@ -63,7 +63,7 @@ function Hypothesis() {
   };
 
   const handleNext = () => {
-    navigate('/marketingMaterial'); // Navigate to the next page (replace '/next-page' with the desired route)
+    navigate('/dataElements'); // Navigate to the next page (replace '/next-page' with the desired route)
   };
 
   const handleReset = () => {
@@ -89,7 +89,7 @@ function Hypothesis() {
 
   return (
     <div className="container">
-      <h1>What is your solution hypothesis</h1>
+      <h1>This is the Market Size</h1>
       {/* Problem Description field */}
       <div className="input-container">
         <input
@@ -155,4 +155,4 @@ function Hypothesis() {
   );
 }
 
-export default Hypothesis;
+export default MarketSize;

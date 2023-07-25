@@ -1,21 +1,31 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import App from './App';
-import DecisionTrees from './pages/decisionTrees';
-import LogicalRegression from './pages/logicalRegression';
-import DataSet from './pages/dataSet';
-import Hypothesis from './pages/hypothesis';
 import Problem from './pages/problem';
+import AcceptanceCriteria from './pages/acceptanceCriteria';
+import TechnicalRequirements from './pages/technicalRequirements';
+import Tasks from './pages/tasks';
+import TargetCustomer from './pages/targetCustomer';
+import MarketSize from './pages/marketSize';
+import DataElements from './pages/dataElements';
+import Hypothesis from './pages/hypothesis';
+import MarketingMaterial from './pages/marketingMaterial';
+import Summary from './pages/summary';
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/problem" element={<Problem />} />
-      <Route path="/decisionTrees" element={<DecisionTrees />} />
-      <Route path="/logicalRegression" element={<LogicalRegression />} />
-      <Route path="/dataSet" element={<DataSet />} />
+      <Route path="/acceptanceCriteria" element={<AcceptanceCriteria />} />
+      <Route path="/technicalRequirements" element={<TechnicalRequirements />} />
+      <Route path="/tasks" element={<Tasks />} />
+      <Route path="/targetCustomer" element={<TargetCustomer />} />
+      <Route path="/marketSize" element={<MarketSize />} />      
+      <Route path="/dataElements" element={<DataElements />} />      
+      <Route path='/marketingMaterial' element={<MarketingMaterial />} />
       <Route path="/hypothesis" element={<Hypothesis />} />
+      <Route path="/summary" element={<Summary />} />
     </Routes>
   );
 };

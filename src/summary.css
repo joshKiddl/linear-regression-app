@@ -1,0 +1,60 @@
+.summary-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 20px; /* horizontal gap */
+    row-gap: -50px; /* vertical gap */
+    align-items: start;
+    width: 100vw; /* Change from 100% to 100vw to span the entire viewport width */
+    max-height: 100vh;
+    margin: 0 auto 50px auto; /* Top and bottom margins are 0 and 50px, left and right margins are auto */
+    box-sizing: border-box; /* Ensures padding and border are included in total width/height */
+    background: #ffffff;
+}
+
+/* ...other CSS... */
+
+.share-button {
+    margin: 20px;
+    font-size: 12px;
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.button-group {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.button-group button {
+    margin-left: 10px;
+    /* Add your own button styles here */
+}
+
+
+.summary-container > div {
+    background: #fbfbfb;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+}
+
+.summary-container h1 {
+    grid-column: span 4;
+    margin-top: 50px;
+}
+
+.summary-container h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}

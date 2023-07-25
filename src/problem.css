@@ -1,7 +1,7 @@
 .container {
   text-align: left; /* Align elements to the left */
   margin: 20px; /* Add padding around the container */
-  max-width: 600px; /* Set a maximum width for the container */
+  width: 100%; /* Set the width to 100% */
   
 }
 

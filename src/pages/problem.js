@@ -63,7 +63,7 @@ function Problem() {
   };
 
   const handleNext = () => {
-    navigate('/hypothesis'); // Navigate to the next page (replace '/next-page' with the desired route)
+    navigate('/acceptanceCriteria'); // Navigate to the next page (replace '/next-page' with the desired route)
   };
 
   const handleReset = () => {
@@ -89,7 +89,7 @@ function Problem() {
 
   return (
     <div className="container">
-      <h1>What problem are you trying to solve?</h1>
+      <h1>What is your Problem Statement?</h1>
       {/* Problem Description field */}
       <div className="input-container">
         <input
