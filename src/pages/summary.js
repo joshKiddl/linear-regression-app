@@ -62,7 +62,8 @@ function Summary() {
       // Modify the following line:
       await setDoc(doc(db, "feedback", email), {
         name: name,
-        feedback: feedback
+        feedback: feedback,
+        email: email
       });
       console.log("Document written with ID: ", email);
       setFeedbackFormState({ name: '', email: '', feedback: '' });
@@ -78,7 +79,8 @@ function Summary() {
     const db = getFirestore();
     try {
       await setDoc(doc(db, "waitlist", email), {
-        name: name
+        name: name,
+        email: email
       });
       console.log("Document written with ID: ", email);
       setBetaFormState({ name: '', email: '' });
