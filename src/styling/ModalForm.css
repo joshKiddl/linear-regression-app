@@ -35,6 +35,10 @@
   width: 100%; /* Full width of parent (form) */
 }
 
+.modal-message {
+  align-self: flex-start; /* Center label contents horizontally in the label */
+}
+
 .modal-content input, .modal-content textarea {
   padding: 10px;
   border: 1px solid #ccc;
@@ -51,6 +55,7 @@
 
 .modal-submit {
   margin-top: 20px;
+  margin-bottom: 20px;
   width: 90%; /* 90% of form width */
   align-self: flex-start;
 }
