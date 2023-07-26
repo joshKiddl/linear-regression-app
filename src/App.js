@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import '../src/App.css';
 import PMAILogo from './images/PMAILogo.png';
 
 function App() {

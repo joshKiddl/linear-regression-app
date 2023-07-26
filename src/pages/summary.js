@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
-import '../summary.css';
-import '../ModalForm.css';
+import '../styling/summary.css';
+import '../styling/ModalForm.css';
 
 
 function Summary() {
@@ -43,17 +43,27 @@ function Summary() {
 
   const handleFeedbackSubmit = (event) => {
     event.preventDefault();
-    // Here, you would generally send the feedbackFormState to your server
-    console.log(feedbackFormState);
+    fetch('/feedback-submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(feedbackFormState),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
     closeFeedbackModal();
-  };
+};
 
   const handleBetaSubmit = (event) => {
     event.preventDefault();
-    // Here, you would generally send the betaFormState to your server
-    console.log(betaFormState);
+    fetch('/waitlist-submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(betaFormState),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data));
     closeBetaModal();
-  };
+};
 
   const handleFeedbackChange = (event) => {
     setFeedbackFormState({
