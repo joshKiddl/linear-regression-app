@@ -1,48 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import db from '../firebase';  // import your Firestore instance
 
 function AcceptanceCriteria() {
   const navigate = useNavigate();
-  const [inputText, setInputText] = useState('');
   const [problemStatement, setProblemStatement] = useState('');
   const [aiResponse, setAIResponse] = useState('');
   const [showProblemStatement, setShowProblemStatement] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null); // New state to keep track of the selected item
-  const [progress, setProgress] = useState(0); // New state for the progress
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [progress, setProgress] = useState(0);
 
+  const getProblemStatementFromSession = async () => {
+    const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
+    const querySnapshot = await getDocs(q);
+    let problemStatement = '';
+    querySnapshot.forEach((doc) => {
+      problemStatement = doc.data().finalProblemStatement;
+    });
+    return problemStatement;
+  }
+
+  useEffect(() => {
+    getProblemStatementFromSession().then(problemStatement => setProblemStatement(problemStatement));
+  }, []);
 
   const handleSubmit = () => {
-    // Replace 'YOUR_OPENAI_API_ENDPOINT' with the actual endpoint of the OpenAI API
     fetch('https://ml-linear-regression.onrender.com/openai-solution', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Add any other required headers for authentication or authorization
       },
       body: JSON.stringify({
-        inputText: inputText,
+        inputText: problemStatement, // use problemStatement instead of inputText
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // Assuming the API response directly contains the AI response
         if (data.error) {
-          setAIResponse({ error: data.error }); // Update the state with the API error response
+          setAIResponse({ error: data.error });
         } else {
-          setAIResponse(data.predicted_items); // Update the state with the AI response (assuming 'predicted_items' is the array of items in the API response)
+          setAIResponse(data.predicted_items);
         }
-        setShowProblemStatement(true); // Show the "Final Problem Statement" field after Check is clicked
+        setShowProblemStatement(true);
       })
       .catch((error) => {
-        // Handle error if the API request fails
         console.error('Error fetching data:', error);
-        // Optionally, set a default AI response or show an error message
         setAIResponse({ error: 'Failed to get AI response.' });
-        setShowProblemStatement(true); // Show the "Final Problem Statement" field even if the request fails
+        setShowProblemStatement(true);
       });
   };
 
@@ -89,17 +97,19 @@ function AcceptanceCriteria() {
 
   return (
     <div className="container">
-      <h1>Here are some Acceptance Criteria for your Problem Statement</h1>
+      <h1>Generate Acceptance Criteria</h1>
+      <p className='problem-statement'>{problemStatement}</p>
+      {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
       <div className="input-container">
-        <input
-          type="text"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Enter your solution here"
-        />
-        <button onClick={handleSubmit}>Check</button>
+      {/* <input
+    type="text"
+    value={problemStatement}
+    onChange={(e) => setProblemStatement(e.target.value)}
+    onKeyPress={handleKeyPress}
+    placeholder="Enter your solution here"
+  /> */}
+        <button onClick={handleSubmit}>Generate</button>
       </div>
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}

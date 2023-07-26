@@ -3,9 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-
+import 'firebase/firestore';
+import { collection, addDoc } from "firebase/firestore";
+import db from '../firebase';  // import your Firestore instance
 
 function Problem() {
+  
+  const sessionId = sessionStorage.getItem('sessionId');
+  if (!sessionId) {
+    const newSessionId = new Date().getTime(); // or any other method you prefer to generate a unique ID
+    sessionStorage.setItem('sessionId', newSessionId.toString());
+  }  
+
   const navigate = useNavigate();
   const [inputText, setInputText] = useState('');
   const [problemStatement, setProblemStatement] = useState('');
@@ -14,7 +23,18 @@ function Problem() {
   const [selectedItem, setSelectedItem] = useState(null); // New state to keep track of the selected item
   const [progress, setProgress] = useState(0); // New state for the progress
 
-
+  const saveToFirestore = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "features"), {
+        finalProblemStatement: problemStatement,
+        sessionId: sessionStorage.getItem('sessionId'),
+      });      
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+  };
+  
   const handleSubmit = () => {
     // Replace 'YOUR_OPENAI_API_ENDPOINT' with the actual endpoint of the OpenAI API
     fetch('https://ml-linear-regression.onrender.com/openai-predict', {
@@ -57,14 +77,14 @@ function Problem() {
     setProgress(progress);
   };
   
-
   const handleBack = () => {
     navigate(-1); // Go back to the previous page
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    await saveToFirestore(); // Save the 'finalProblemStatement' to Firestore
     navigate('/acceptanceCriteria'); // Navigate to the next page (replace '/next-page' with the desired route)
-  };
+};
 
   const handleReset = () => {
     window.location.reload(); // Refresh the page

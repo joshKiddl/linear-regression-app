@@ -4,9 +4,8 @@ import Modal from 'react-modal';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import '../styling/summary.css';
 import '../styling/ModalForm.css';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
-// import { getAnalytics } from "firebase/analytics";
+import db from '../firebase'; // adjust the import path as necessary
+import { setDoc, doc } from 'firebase/firestore';
 
 function Summary() {
   const navigate = useNavigate();
@@ -17,18 +16,18 @@ function Summary() {
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA9ze-yVFEIexpEfnaKBalQzYlg5fTufpI",
-    authDomain: "ai-project-3a313.firebaseapp.com",
-    projectId: "ai-project-3a313",
-    storageBucket: "ai-project-3a313.appspot.com",
-    messagingSenderId: "200446821035",
-    appId: "1:200446821035:web:6e021859c676464ebe6dee",
-    measurementId: "G-PTZM2EQBH0"
-  };
+//   const firebaseConfig = {
+//     apiKey: "AIzaSyA9ze-yVFEIexpEfnaKBalQzYlg5fTufpI",
+//     authDomain: "ai-project-3a313.firebaseapp.com",
+//     projectId: "ai-project-3a313",
+//     storageBucket: "ai-project-3a313.appspot.com",
+//     messagingSenderId: "200446821035",
+//     appId: "1:200446821035:web:6e021859c676464ebe6dee",
+//     measurementId: "G-PTZM2EQBH0"
+//   };
 
-// Initialize Firebase
-  initializeApp(firebaseConfig);
+// // Initialize Firebase
+//   initializeApp(firebaseConfig);
 
   const openShareModal = () => {
     setShareModalIsOpen(true);
@@ -57,9 +56,7 @@ function Summary() {
   const handleFeedbackSubmit = useCallback(async (event) => {
     event.preventDefault();
     const { name, email, feedback } = feedbackFormState;
-    const db = getFirestore();
     try {
-      // Modify the following line:
       await setDoc(doc(db, "feedback", email), {
         name: name,
         feedback: feedback,
@@ -76,7 +73,6 @@ function Summary() {
   const handleBetaSubmit = useCallback(async (event) => {
     event.preventDefault();
     const { name, email } = betaFormState;
-    const db = getFirestore();
     try {
       await setDoc(doc(db, "waitlist", email), {
         name: name,
