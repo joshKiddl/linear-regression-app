@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
 import db from '../firebase';  // import your Firestore instance
 
 function AcceptanceCriteria() {
@@ -11,8 +10,7 @@ function AcceptanceCriteria() {
   const [problemStatement, setProblemStatement] = useState('');
   const [aiResponse, setAIResponse] = useState('');
   const [showProblemStatement, setShowProblemStatement] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [progress, setProgress] = useState(0);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const getProblemStatementFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -55,45 +53,32 @@ function AcceptanceCriteria() {
   };
 
   const handleResponseItemClick = (item) => {
-    setSelectedItem(item); // Update the selected item state with the clicked item's text
-    setProblemStatement(item); // Automatically fill the Final Problem Statement box with the clicked item's text
-  
-    // Calculate progress as a percentage of the maximum allowed length
-    // You can adjust maxChars depending on your requirements
-    const maxChars = 100;
-    const progress = (item.length / maxChars) * 100;
-    setProgress(progress);
+    // If the item is already selected, remove it from the selected items
+    if (selectedItems.includes(item)) {
+      setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
+    } 
+    // If the item is not selected, add it to the selected items
+    else {
+      setSelectedItems([...selectedItems, item]);
+    }
   };
-  
 
   const handleBack = () => {
     navigate(-1); // Go back to the previous page
   };
 
-  const handleNext = () => {
-    navigate('/technicalRequirements'); // Navigate to the next page (replace '/next-page' with the desired route)
+  const handleNext = async () => {
+    const documentId = sessionStorage.getItem('documentId');
+    const docRef = doc(db, "features", documentId);
+  
+    // Update the existing document with the new acceptanceCriteria field
+    console.log(selectedItems); // Debugging line
+    await setDoc(docRef, {
+      acceptanceCriteria: selectedItems
+    }, { merge: true });
+    navigate('/technicalRequirements');
   };
 
-  const handleReset = () => {
-    window.location.reload(); // Refresh the page
-  };
-
-  // const handleKeyPress = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleSubmit(); // Trigger the handleSubmit function when Enter key is pressed
-  //   }
-  // };
-
-  const handleProblemStatementChange = (e) => {
-    const value = e.target.value;
-    setProblemStatement(value);
-
-    // Calculate progress as a percentage of the maximum allowed length
-    // You can adjust maxChars depending on your requirements
-    const maxChars = 100;
-    const progress = (value.length / maxChars) * 100;
-    setProgress(progress);
-  };
 
   return (
     <div className="container">
@@ -102,13 +87,6 @@ function AcceptanceCriteria() {
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
       <div className="input-container">
-      {/* <input
-    type="text"
-    value={problemStatement}
-    onChange={(e) => setProblemStatement(e.target.value)}
-    onKeyPress={handleKeyPress}
-    placeholder="Enter your solution here"
-  /> */}
         <button className='generate-button' onClick={handleSubmit}>Generate</button>
       </div>
       {/* End of Problem Description field */}
@@ -124,7 +102,7 @@ function AcceptanceCriteria() {
               return (
                 <div
                   key={index}
-                  className={`response-item ${selectedItem === item ? 'selected' : ''}`}
+                  className={`response-item ${selectedItems.includes(item) ? 'selected' : ''}`}
                   onClick={() => handleResponseItemClick(item)}
                 >
                   <span className="plus-icon">+</span> {itemText}
@@ -136,29 +114,9 @@ function AcceptanceCriteria() {
             <p>{aiResponse.error}</p>
             )}
         </div>
-        <label className="finalProblemStatementLabel" htmlFor="finalProblemStatement">Final Solution Hypothesis</label>
-        <input
-          type="text"
-          id="finalProblemStatement"
-          value={problemStatement.replace(/^\d+\.\s*/, '').replace(/-/g, '')} // Remove the number, period, and dashes from the start of the statement
-          onChange={handleProblemStatementChange}
-          placeholder="Enter final Problem Statement"
-          className="problem-statement-input" // Add a class to the input field
-        />
-        {/* Add the progress bar here, below the input field */}
-        <label className="finalProblemStatementLabel" htmlFor="progressBar">Solution Hypothesis strength</label>
-        <ProgressBar
-          now={progress}
-          id="progressBar"
-          label={`${Math.round(progress)}%`} // Show progress percentage as label
-           // Optional: adds striped animation
-          variant="success" // Optional: adds color
-        />
       </div>
-      {/* End of Final Problem Statement field */}
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="reset" onClick={handleReset}>Reset</button>
         <button className="next-button" onClick={handleNext}>Next</button>
       </div>
     </div>

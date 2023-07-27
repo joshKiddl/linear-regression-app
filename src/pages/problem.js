@@ -28,12 +28,15 @@ function Problem() {
       const docRef = await addDoc(collection(db, "features"), {
         finalProblemStatement: problemStatement,
         sessionId: sessionStorage.getItem('sessionId'),
-      });      
-        console.log("Document written with ID: ", docRef.id);
+      });
+      // Save the document ID to the session storage
+      sessionStorage.setItem('documentId', docRef.id);
+      console.log("Document written with ID: ", docRef.id);
     } catch (e) {
-        console.error("Error adding document: ", e);
+      console.error("Error adding document: ", e);
     }
   };
+  
   
   const handleSubmit = () => {
     // Replace 'YOUR_OPENAI_API_ENDPOINT' with the actual endpoint of the OpenAI API
