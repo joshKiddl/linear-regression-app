@@ -6,6 +6,7 @@ import '../styling/summary.css';
 import '../styling/ModalForm.css';
 import db from '../firebase'; // adjust the import path as necessary
 import { setDoc, doc } from 'firebase/firestore';
+import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
 
 function Summary() {
   const navigate = useNavigate();
@@ -108,14 +109,13 @@ function Summary() {
 
   return (
     <div className="container summary-container">
-      <div className="button-group">
+      <nav className="navbar">
+      <img src={logo} alt="Logo" className="navbar-logo" />
         <button onClick={() => handleClick('/problem')}>Start Again</button>
         <button onClick={openFeedbackModal}>Feedback</button>
         <button onClick={openShareModal}>Share</button>
         <button onClick={openBetaModal}>Sign Up for Beta</button>
-      </div>
-
-      
+      </nav>
 
   <Modal
     isOpen={feedbackModalIsOpen}
@@ -195,11 +195,11 @@ function Summary() {
   <button onClick={closeShareModal} className="modal-close">Close</button>
   {/* Add more share buttons as needed */}
 </div>
-
       </Modal>
    
-      <h1>Summary</h1>
+      {/* <h1>Summary</h1> */}
 
+      <div className='content-container'>
       <div className="problem-statement">
         <h2>Problem Statement</h2>
         <p className='content'>placeholder</p>
@@ -237,6 +237,7 @@ function Summary() {
       <div className="marketing-material">
         <h2>Marketing Material</h2>
         <p className='content'>placeholder</p>
+      </div>
       </div>
     </div>
   );

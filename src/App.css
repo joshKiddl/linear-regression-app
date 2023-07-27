@@ -10,19 +10,30 @@ body {
 }
 
 .container {
-  display: flex;
+  flex: auto;
   flex-direction: column;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;  /* Full width */
 
 }
-
-/* Rest of your CSS styles for the App component */
+/* Start of Media Query */
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 0 15px; 
+  }
+  .form-input, .btn {
+    width: 100%; 
+  }
+  .blurb {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+/* End of Media Query */
 
 .content-container {
   margin-bottom: 20px
+  
 }
 
 .email-form {
@@ -68,6 +79,7 @@ body {
   color: #000;
   margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
+  justify-self: center;
 }
 
 .h4 {
@@ -122,62 +134,8 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-
-.reset-btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: transparent; /* Set the background color to transparent */
-  color: #fff;
-  border: none; /* Remove the border */
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-
 .btn:hover {
   background-color: #45b9d3;
 }
 
-.prediction {
-  font-size: 20px;
-  color: #fff;
-  margin-top: 20px;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.error {
-  color: #ff0000;
-  font-size: 16px;
-  margin-top: 10px;
-  font-family: 'Montserrat', sans-serif;
-}
-.footer {
-  background-color: #f2f2f2;
-  padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #777;
-}
-.navbar-list {
-  display: flex;
-  list-style: none;
-  padding: 10;
-}
-
-.navbar-item {
-  margin-right: 10px;
-}
-
-.navbar-link {
-  text-decoration: none;
-  color: #fff;
-  padding: 5px 5px;
-  font-family: 'Montserrat', sans-serif;
-    /* Add other styling properties if needed */
-  }
-
-.navbar-link:hover {
-  color: #00BFFF;
-}
 

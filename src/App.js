@@ -7,9 +7,9 @@ import PMAILogo from './images/PMAILogo.png';
 function App() {
   return (
     <div className="container">
+      {/* <div className="content-container"> */}
       <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
       <h1 className="title">Product Manager AI</h1>
-      <div className="content-container">
         <h2 className="subtitle">Your Product Management Copilot</h2>
         <div className="btn-container">
           {/* Use Link component to navigate to the "/problem" route */}
@@ -18,7 +18,7 @@ function App() {
           </Link>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }
 

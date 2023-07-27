@@ -109,7 +109,7 @@ function AcceptanceCriteria() {
     onKeyPress={handleKeyPress}
     placeholder="Enter your solution here"
   /> */}
-        <button onClick={handleSubmit}>Generate</button>
+        <button className='generate-button' onClick={handleSubmit}>Generate</button>
       </div>
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}
