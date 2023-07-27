@@ -78,11 +78,11 @@ function AcceptanceCriteria() {
     window.location.reload(); // Refresh the page
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit(); // Trigger the handleSubmit function when Enter key is pressed
-    }
-  };
+  // const handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     handleSubmit(); // Trigger the handleSubmit function when Enter key is pressed
+  //   }
+  // };
 
   const handleProblemStatementChange = (e) => {
     const value = e.target.value;
