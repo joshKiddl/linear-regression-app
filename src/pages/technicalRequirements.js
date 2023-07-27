@@ -23,8 +23,12 @@ function TechnicalRequirements() {
   }
 
   useEffect(() => {
-    getAcceptanceCriteriaFromSession().then(acceptanceCriteria => setAcceptanceCriteria(acceptanceCriteria));
-  }, []);
+    getAcceptanceCriteriaFromSession().then(newAcceptanceCriteria => {
+      if (newAcceptanceCriteria !== acceptanceCriteria) {
+        setAcceptanceCriteria(newAcceptanceCriteria);
+      }
+    });
+  }, [acceptanceCriteria]);
 
   const getUserStoryFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -37,36 +41,34 @@ function TechnicalRequirements() {
   }  
 
   const handleSubmit = () => {
-    // Fetch both user story (finalProblemStatement) and acceptance criteria from Firestore
-    getAcceptanceCriteriaFromSession().then(acceptanceCriteria => {
-      getUserStoryFromSession().then(finalProblemStatement => {
-        // Concatenate the user story (finalProblemStatement) and the acceptance criteria, separated by a comma
-        const inputText = `${finalProblemStatement}, ${acceptanceCriteria}`;
-  
-        // Make a POST request to the API endpoint
-        fetch('https://ml-linear-regression.onrender.com/technical-requirements', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inputText: inputText,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.error) {
-              setAIResponse({ error: data.error });
-            } else {
-              setAIResponse(data.predicted_items);
-            }
-            setShowProblemStatement(true);
-          })
-          .catch((error) => {
-            console.error('Error fetching data:', error);
-            setAIResponse({ error: 'Failed to get AI response.' });
-            setShowProblemStatement(true);
-          });
+    // Fetch the user story (finalProblemStatement) from Firestore
+    getUserStoryFromSession().then(finalProblemStatement => {
+      // Concatenate the user story (finalProblemStatement) and the acceptance criteria, separated by a comma
+      const inputText = `${finalProblemStatement}, ${acceptanceCriteria}`;
+
+      // Make a POST request to the API endpoint
+      fetch('https://ml-linear-regression.onrender.com/technical-requirements', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          inputText: inputText,
+        }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setAIResponse({ error: data.error });
+        } else {
+          setAIResponse(data.predicted_items);
+        }
+        setShowProblemStatement(true);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setAIResponse({ error: 'Failed to get AI response.' });
+        setShowProblemStatement(true);
       });
     });
   };  
