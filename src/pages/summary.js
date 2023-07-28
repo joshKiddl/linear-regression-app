@@ -5,7 +5,7 @@ import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, Twitter
 import '../styling/summary.css';
 import '../styling/ModalForm.css';
 import db from '../firebase'; // adjust the import path as necessary
-import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { setDoc, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
 
 
@@ -26,6 +26,7 @@ function Summary() {
   const [dataElements, setDataElements] = useState('');
   const [hypothesis, setHypothesis] = useState('');
   const [marketingMaterial, setMarketingMaterial] = useState('');
+  const [copySuccess, setCopySuccess] = useState('');
 
   const openShareModal = () => {
     setShareModalIsOpen(true);
@@ -50,6 +51,40 @@ function Summary() {
   const closeBetaModal = () => {
     setBetaModalOpen(false);
   };
+
+  function convertToCSV(objArray) {
+    const array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    let str = `${Object.keys(array[0]).map(value => `"${value}"`).join(",")}\r\n`;
+
+    return array.reduce((str, next) => {
+        str += `${Object.values(next).map(value => `"${value}"`).join(",")}\r\n`;
+        return str;
+    }, str);
+}
+
+const downloadCSV = async () => {
+  // Fetch data from Firestore
+  const featureDocs = await getDocs(collection(db, 'features'));
+  const featureData = featureDocs.docs.map(doc => doc.data());
+
+  // Convert JSON to CSV
+  const csv = convertToCSV(featureData);
+
+  // Create a Blob object with CSV data
+  const blob = new Blob([csv], { type: 'text/csv' });
+
+  // Create a URL for the Blob object
+  const url = URL.createObjectURL(blob);
+
+  // Create a temporary 'a' element and trigger the download
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'features.csv';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 
   // Fetch Firestore data on component mount
   useEffect(() => {
@@ -96,14 +131,15 @@ function Summary() {
 
   const handleBetaSubmit = useCallback(async (event) => {
     event.preventDefault();
-    const { name, email } = betaFormState;
+    const { name, email, company } = betaFormState;
     try {
       await setDoc(doc(db, "waitlist", email), {
         name: name,
-        email: email
+        email: email,
+        company: company
       });
       console.log("Document written with ID: ", email);
-      setBetaFormState({ name: '', email: '' });
+      setBetaFormState({ name: '', email: '', company: '' });
       // if you want to show a message to the user after sign up, you can add similar line as in feedback submit
       // setBetaMessage('You have successfully signed up for the Beta!');
     } catch (e) {
@@ -189,6 +225,10 @@ function Summary() {
               Email:
               <input type="text" name="email" onChange={handleBetaChange} />
             </label>
+            <label>
+              Company:
+              <input type="text" name="company" onChange={handleBetaChange} />
+            </label>
             <button className="modal-submit" type="submit">Submit</button>
           </form>
           <button onClick={closeBetaModal} className="modal-close">Close</button>
@@ -226,41 +266,151 @@ function Summary() {
       <div className="problem-statement">
           <h2>Problem Statement</h2>
           <p className='content'>{problemStatement}</p> {/* replace placeholder */}
-        </div>
+          <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(problemStatement)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>      
+      </div>
         <div className="acceptance-criteria">
           <h2>Acceptance Criteria</h2>
           <p className='content'>{acceptanceCriteria}</p> {/* replace placeholder */}
+          <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(acceptanceCriteria)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
         </div>
       <div className="technical-requirements">
         <h2>Technical Requirements</h2>
         <p className='content'>{technicalRequirements}</p> {/* replace placeholder */}
-
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(technicalRequirements)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>   
       </div>
       <div className="tasks">
         <h2>Tasks</h2>
         <p className='content'>{tasks}</p> {/* replace placeholder */}
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(tasks)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
       </div>
       <div className="key-customer">
         <h2>Key Customer</h2>
         <p className='content'>{keyCustomer}</p> {/* replace placeholder */}
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(keyCustomer)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
       </div>
       <div className="market-size">
         <h2>Market Size</h2>
         <p className='content'>{marketSize}</p> {/* replace placeholder */}
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(marketSize)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
       </div>
       <div className="data-elements">
         <h2>Data Elements</h2>
         <p className='content'>{dataElements}</p> {/* replace placeholder */}
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(dataElements)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
       </div>
       <div className="hypothesis">
         <h2>Hypothesis</h2>
         <p className='content'>{hypothesis}</p> {/* replace placeholder */}
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(hypothesis)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
       </div>
       <div className="marketing-material">
         <h2>Marketing Material</h2>
         <p className='content'>{marketingMaterial}</p> {/* replace placeholder */}
+        <button 
+            className='copy-button' 
+            onClick={() => {
+            navigator.clipboard.writeText(marketingMaterial)
+              .then(() => {
+                setCopySuccess('Copied!');
+                setTimeout(() => setCopySuccess(''), 2000); // revert back after 2 seconds
+            })
+              .catch(console.error)
+            }}>
+              {copySuccess === 'Copied!' ? copySuccess : 'Copy'}
+            </button>  
       </div>
-      </div>
+      <button className='download-button' onClick={downloadCSV}>
+  <img src={logo} alt="logo" />
+  Download CSV
+</button>      </div>
     </div>
   );
 }

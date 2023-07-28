@@ -49,6 +49,29 @@ body {
     font-size: 12px;
 }
 
+.download-button {
+    color:cornflowerblue;
+    background-color: #fff;
+    border-color: cornflowerblue;
+    border-style: solid;
+}
+
+.download-button img {
+    width: 50px;   /* Adjust as needed */
+    height: 50px;  /* Adjust as needed */
+    margin-right: 10px; /* Adjust as needed */
+  }
+  
+  .copy-button {
+    background-color: #fbfbfbcb;
+    color: #000;
+    font-size: 10px;
+  }
+
+  .copy-success {
+    color: green;
+  }  
+
 .modal-close {
     position: absolute;
     right: 20px;
