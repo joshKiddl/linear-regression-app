@@ -34,8 +34,8 @@ function DataElements() {
       getDataFromSession('targetCustomer'),
     ])
     .then(([acceptanceCriteria, targetCustomer]) => {
-      setState(prevState => ({ ...prevState, acceptanceCriteria, targetCustomer }));
-    });
+        setState(prevState => ({ ...prevState, acceptanceCriteria, targetCustomer }));
+      });
   }, []);
 
   const handleSubmit = () => {
@@ -107,7 +107,7 @@ function DataElements() {
       role="status" 
       style={{ width: '1rem', height: '1rem' }} // Add this line
     >
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only"></span>
     </Spinner>
     ) : (
       'Check'
