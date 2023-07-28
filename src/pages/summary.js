@@ -1,12 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import '../styling/summary.css';
 import '../styling/ModalForm.css';
 import db from '../firebase'; // adjust the import path as necessary
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
+
 
 function Summary() {
   const navigate = useNavigate();
@@ -16,19 +17,15 @@ function Summary() {
   const [betaFormState, setBetaFormState] = useState({ name: '', email: '' });
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
-
-//   const firebaseConfig = {
-//     apiKey: "AIzaSyA9ze-yVFEIexpEfnaKBalQzYlg5fTufpI",
-//     authDomain: "ai-project-3a313.firebaseapp.com",
-//     projectId: "ai-project-3a313",
-//     storageBucket: "ai-project-3a313.appspot.com",
-//     messagingSenderId: "200446821035",
-//     appId: "1:200446821035:web:6e021859c676464ebe6dee",
-//     measurementId: "G-PTZM2EQBH0"
-//   };
-
-// // Initialize Firebase
-//   initializeApp(firebaseConfig);
+  const [problemStatement, setProblemStatement] = useState('');
+  const [acceptanceCriteria, setAcceptanceCriteria] = useState('');
+  const [technicalRequirements, setTechnicalRequirements] = useState('');
+  const [tasks, setTasks] = useState('');
+  const [keyCustomer, setKeyCustomer] = useState('');
+  const [marketSize, setMarketSize] = useState('');
+  const [dataElements, setDataElements] = useState('');
+  const [hypothesis, setHypothesis] = useState('');
+  const [marketingMaterial, setMarketingMaterial] = useState('');
 
   const openShareModal = () => {
     setShareModalIsOpen(true);
@@ -53,6 +50,32 @@ function Summary() {
   const closeBetaModal = () => {
     setBetaModalOpen(false);
   };
+
+  // Fetch Firestore data on component mount
+  useEffect(() => {
+    const fetchSessionData = async () => {
+      const documentId = sessionStorage.getItem('documentId');
+      const docRef = doc(db, "features", documentId); // replace "sessionId" with the actual ID
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setProblemStatement(data.finalProblemStatement);
+        setAcceptanceCriteria(data.acceptanceCriteria);
+        setTechnicalRequirements(data.technicalRequirements);
+        setTasks(data.tasks);
+        setKeyCustomer(data.targetCustomer);
+        setMarketSize(data.marketSize);
+        setDataElements(data.dataElements);
+        setHypothesis(data.hypotheses);
+        setMarketingMaterial(data.marketingMaterial);
+      } else {
+        console.log("No such document!");
+      }
+    };
+
+    fetchSessionData();
+  }, []);
 
   const handleFeedbackSubmit = useCallback(async (event) => {
     event.preventDefault();
@@ -201,42 +224,41 @@ function Summary() {
 
       <div className='content-container'>
       <div className="problem-statement">
-        <h2>Problem Statement</h2>
-        <p className='content'>placeholder</p>
-      </div>
-      <div className="acceptance-criteria">
-        <h2>Acceptance Criteria</h2>
-        <p className='content'>placeholder</p>
-
-      </div>
+          <h2>Problem Statement</h2>
+          <p className='content'>{problemStatement}</p> {/* replace placeholder */}
+        </div>
+        <div className="acceptance-criteria">
+          <h2>Acceptance Criteria</h2>
+          <p className='content'>{acceptanceCriteria}</p> {/* replace placeholder */}
+        </div>
       <div className="technical-requirements">
         <h2>Technical Requirements</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{technicalRequirements}</p> {/* replace placeholder */}
 
       </div>
       <div className="tasks">
         <h2>Tasks</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{tasks}</p> {/* replace placeholder */}
       </div>
       <div className="key-customer">
         <h2>Key Customer</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{keyCustomer}</p> {/* replace placeholder */}
       </div>
       <div className="market-size">
         <h2>Market Size</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{marketSize}</p> {/* replace placeholder */}
       </div>
       <div className="data-elements">
         <h2>Data Elements</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{dataElements}</p> {/* replace placeholder */}
       </div>
       <div className="hypothesis">
         <h2>Hypothesis</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{hypothesis}</p> {/* replace placeholder */}
       </div>
       <div className="marketing-material">
         <h2>Marketing Material</h2>
-        <p className='content'>placeholder</p>
+        <p className='content'>{marketingMaterial}</p> {/* replace placeholder */}
       </div>
       </div>
     </div>
