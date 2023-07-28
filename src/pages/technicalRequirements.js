@@ -117,15 +117,13 @@ function TechnicalRequirements() {
       role="status" 
       style={{ width: '1rem', height: '1rem' }} // Add this line
     >
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only"></span>
     </Spinner>
     ) : (
       'Generate'
     )}
   </button>
       </div>
-      {/* End of Problem Description field */}
-      {/* Final Problem Statement field */}
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
           <h2>Our AI suggestions</h2>
@@ -133,7 +131,7 @@ function TechnicalRequirements() {
             // If aiResponse is a list, map through the items and render each as a separate <div> box
             aiResponse.map((item, index) => {
               // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*-*\s*/, ''); // Removes numbering and dashes from the start of the item
+              const itemText = item.replace(/^\d+\.\s*/, '').replace(/-/g, ''); // Removes numbering from the start of the item and all dashes
               return (
                 <div
                   key={index}

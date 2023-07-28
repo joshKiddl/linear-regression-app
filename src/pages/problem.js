@@ -132,7 +132,7 @@ function Problem() {
       role="status" 
       style={{ width: '1rem', height: '1rem' }} // Add this line
     >
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only"></span>
     </Spinner>
     ) : (
       'Check'
@@ -164,7 +164,7 @@ function Problem() {
             <p>{aiResponse}</p>
           )}
         </div>
-        <label className="finalProblemStatementLabel" htmlFor="finalProblemStatement">Final Problem Statement</label>
+        <label className="finalProblemStatementLabel" htmlFor="finalProblemStatement">Select a Problem Statement, or add your own:</label>
         <input
           type="text"
           id="finalProblemStatement"

@@ -19,9 +19,9 @@ function App() {
         </div>
         <div className="login-btn-container">
           {/* Use Link component to navigate to the "/login" route */}
-          <Link to="/login" className="login-btn">
+          {/* <Link to="/login" className="login-btn">
             Log In
-          </Link>
+          </Link> */}
         </div>
       </div>
     // </div>
