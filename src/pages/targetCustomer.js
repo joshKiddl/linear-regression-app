@@ -3,83 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, doc, query, where, getDocs, setDoc } from '@firebase/firestore';
-import db from '../firebase';  // import your Firestore instance
+import db from '../firebase';
 
 function TargetCustomer() {
   const navigate = useNavigate();
   const [aiResponse, setAIResponse] = useState('');
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [acceptanceCriteria, setAcceptanceCriteria] = useState('');  
-  const [technicalRequirements, setTechnicalRequirements] = useState(''); 
-  const [tasks, setTasks] = useState('');
+  const [sessionData, setSessionData] = useState({
+    acceptanceCriteria: '',
+    technicalRequirements: '',
+    tasks: '',
+    finalProblemStatement: '',
+  });
 
-  const getAcceptanceCriteriaFromSession = async () => {
+  const fetchDataFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
     const querySnapshot = await getDocs(q);
-    let acceptanceCriteria = '';
     querySnapshot.forEach((doc) => {
-      acceptanceCriteria = doc.data().acceptanceCriteria;
+      const data = doc.data();
+      setSessionData(prevState => ({...prevState, ...data}));
     });
-    return acceptanceCriteria;
   }
-
-  // Use effect hook to fetch and set acceptance criteria and technical requirements
-  useEffect(() => {
-    const fetchDataFromSession = async () => {
-      const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        setAcceptanceCriteria(data.acceptanceCriteria);
-        setTechnicalRequirements(data.technicalRequirements);
-        setTasks(data.tasks);
-      });
-    }
   
+  useEffect(() => {
     fetchDataFromSession();
   }, []);
-  
 
-  const getUserStoryFromSession = async () => {
-    const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-    const querySnapshot = await getDocs(q);
-    let finalProblemStatement = '';
-    querySnapshot.forEach((doc) => {
-      finalProblemStatement = doc.data().finalProblemStatement;  // Uses the 'finalProblemStatement' field from Firestore
-    });
-    return finalProblemStatement;
-  }  
-
-  const getTasksFromSession = async () => {
-    const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-    const querySnapshot = await getDocs(q);
-    let tasks = '';
-    querySnapshot.forEach((doc) => {
-      tasks = doc.data().tasks;
-    });
-    return tasks;
-  };
-
-// Function to get Technical Requirements from session
-const getTechnicalRequirementsFromSession = async () => {
-  const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-  const querySnapshot = await getDocs(q);
-  let technicalRequirements = '';
-  querySnapshot.forEach((doc) => {
-    technicalRequirements = doc.data().technicalRequirements;
-  });
-  return technicalRequirements;
-};
-
-const handleSubmit = () => {
-  Promise.all([
-    getUserStoryFromSession(),
-    getTechnicalRequirementsFromSession(),
-    getTasksFromSession()
-  ]).then(([finalProblemStatement, technicalRequirements, tasks]) => {
+  const handleSubmit = () => {
     // Concatenate the user story (finalProblemStatement), the acceptance criteria, technical requirements and tasks, separated by commas
+    const { finalProblemStatement, acceptanceCriteria, technicalRequirements, tasks } = sessionData;
     const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${technicalRequirements}, ${tasks}`;
+
     // Make a POST request to the API endpoint
     fetch('https://ml-linear-regression.onrender.com/targetCustomer', {
       method: 'POST',
@@ -104,9 +59,7 @@ const handleSubmit = () => {
       setAIResponse({ error: 'Failed to get AI response.' });
       setShowProblemStatement(true);
     });
-  })
-};
-
+  };
 
   const handleResponseItemClick = (item) => {
     // If the item is already selected, remove it from the selected items
@@ -128,7 +81,6 @@ const handleSubmit = () => {
     const docRef = doc(db, "features", documentId);
   
     // Update the existing document with the new technicalRequirements field
-    console.log(selectedItems); // Debugging line
     await setDoc(docRef, {
       targetCustomer: selectedItems
     }, { merge: true });
