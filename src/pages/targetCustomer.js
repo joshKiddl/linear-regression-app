@@ -4,88 +4,61 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, doc, query, where, getDocs, setDoc } from '@firebase/firestore';
 import { db } from '../firebase';  // import your Firestore instance
+import Spinner from 'react-bootstrap/Spinner';
+
 
 function TargetCustomer() {
   const navigate = useNavigate();
   const [aiResponse, setAIResponse] = useState('');
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-
-  const getAcceptanceCriteriaFromSession = async () => {
-    const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-    const querySnapshot = await getDocs(q);
-    let acceptanceCriteria = '';
-    querySnapshot.forEach((doc) => {
-      acceptanceCriteria = doc.data().acceptanceCriteria;  // Assuming `acceptanceCriteria` field exists in your Firestore doc
-    });
-    return acceptanceCriteria;
-  }
+  const [fetchedData, setFetchedData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchDataFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
     const querySnapshot = await getDocs(q);
+    let data = {};
     querySnapshot.forEach((doc) => {
-      // Here, you fetched data but didn't use it.
-      // If you don't have to use this data, you can remove this line
+      data = doc.data();
     });
+    setFetchedData(data);
   }
 
-  const getTechnicalRequirementsFromSession = async () => {
-    const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-    const querySnapshot = await getDocs(q);
-    let technicalRequirements = '';
-    querySnapshot.forEach((doc) => {
-      technicalRequirements = doc.data().technicalRequirements;  // Assuming `technicalRequirements` field exists in your Firestore doc
-    });
-    return technicalRequirements;
-  }
-
-  // Use effect hook to fetch and set acceptance criteria and technical requirements
   useEffect(() => {
     fetchDataFromSession();
   }, []);
   
-  const getUserStoryFromSession = async () => {
-    const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
-    const querySnapshot = await getDocs(q);
-    let finalProblemStatement = '';
-    querySnapshot.forEach((doc) => {
-      finalProblemStatement = doc.data().finalProblemStatement;
-    });
-    return finalProblemStatement;
-  }
+  const handleSubmit = async () => {
+    setIsLoading(true); // start loading
 
-  const handleSubmit = () => {
-    Promise.all([
-      getUserStoryFromSession(),
-      getAcceptanceCriteriaFromSession(),
-      getTechnicalRequirementsFromSession()
-    ]).then(([finalProblemStatement, acceptanceCriteria, technicalRequirements]) => {
-      const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${technicalRequirements}`;
-      fetch('https://ml-linear-regression.onrender.com/targetCustomer', {
+    const { finalProblemStatement, acceptanceCriteria, technicalRequirements } = fetchedData;
+    const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${technicalRequirements}`;
+    
+    try {
+      const response = await fetch('https://ml-linear-regression.onrender.com/targetCustomer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          inputText: inputText,
-        }),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          setAIResponse({ error: data.error });
-        } else {
-          setAIResponse(data.predicted_items);
-        }
-        setShowProblemStatement(true);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-        setAIResponse({ error: 'Failed to get AI response.' });
-        setShowProblemStatement(true);
+        body: JSON.stringify({ inputText }),
       });
-    })
+
+      const { error, predicted_items: predictedItems } = await response.json();
+
+      if (error) {
+        setAIResponse({ error });
+      } else {
+        setAIResponse(predictedItems);
+      }
+      setIsLoading(false); // stop loading
+
+      setShowProblemStatement(true);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setAIResponse({ error: 'Failed to get AI response.' });
+      setShowProblemStatement(true);
+    }
   };
   
 
@@ -114,7 +87,19 @@ function TargetCustomer() {
     <div className="container">
       <h1>Generate the Target Customer for your feature</h1>
       <div className="input-container">
-        <button onClick={handleSubmit}>Generate</button>
+      <button onClick={handleSubmit}>
+    {isLoading ? (
+      <Spinner 
+      animation="border" 
+      role="status" 
+      style={{ width: '1rem', height: '1rem' }} // Add this line
+    >
+      <span className="sr-only"></span>
+    </Spinner>
+    ) : (
+      'Generate'
+    )}
+  </button>
       </div>
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">

@@ -6,6 +6,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../firebase';  // import your Firestore instance
+import Spinner from 'react-bootstrap/Spinner';
 
 function Problem() {
   
@@ -22,6 +23,7 @@ function Problem() {
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); // New state to keep track of the selected item
   const [progress, setProgress] = useState(0); // New state for the progress
+  const [isLoading, setIsLoading] = useState(false);
 
   const saveToFirestore = async () => {
     try {
@@ -39,12 +41,11 @@ function Problem() {
   
   
   const handleSubmit = () => {
-    // Replace 'YOUR_OPENAI_API_ENDPOINT' with the actual endpoint of the OpenAI API
+    setIsLoading(true); // start loading
     fetch('https://ml-linear-regression.onrender.com/openai-predict', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Add any other required headers for authentication or authorization
       },
       body: JSON.stringify({
         inputText: inputText,
@@ -52,7 +53,7 @@ function Problem() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Assuming the API response directly contains the AI response
+        setIsLoading(false); // stop loading
         if (data.error) {
           setAIResponse({ error: data.error }); // Update the state with the API error response
         } else {
@@ -61,6 +62,8 @@ function Problem() {
         setShowProblemStatement(true); // Show the "Final Problem Statement" field after Check is clicked
       })
       .catch((error) => {
+        setIsLoading(false); // stop loading
+
         // Handle error if the API request fails
         console.error('Error fetching data:', error);
         // Optionally, set a default AI response or show an error message
@@ -122,7 +125,19 @@ function Problem() {
           onKeyPress={handleKeyPress}
           placeholder="Enter your problem here"
         />
-        <button onClick={handleSubmit}>Check</button>
+        <button onClick={handleSubmit}>
+    {isLoading ? (
+      <Spinner 
+      animation="border" 
+      role="status" 
+      style={{ width: '1rem', height: '1rem' }} // Add this line
+    >
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+    ) : (
+      'Check'
+    )}
+  </button>
       </div>
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}

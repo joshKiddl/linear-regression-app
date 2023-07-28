@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, doc, query, where, getDocs, setDoc } from '@firebase/firestore';
 import { db } from '../firebase';  // import your Firestore instance
+import Spinner from 'react-bootstrap/Spinner';
 
 function MarketSize() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function MarketSize() {
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [targetCustomer, setTargetCustomer] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const getTargetCustomerFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -31,6 +33,8 @@ function MarketSize() {
   }, [targetCustomer]);
 
   const handleSubmit = () => {
+    setIsLoading(true); // start loading
+
     // Fetch the target customer from Firestore
     getTargetCustomerFromSession().then(targetCustomer => {
         const inputText = targetCustomer.join(', '); // Converts array to comma separated string
@@ -46,6 +50,8 @@ function MarketSize() {
         })
         .then((response) => response.json())
         .then((data) => {
+          setIsLoading(false); // stop loading
+
           if (data.error) {
             setAIResponse({ error: data.error });
           } else {
@@ -90,7 +96,19 @@ function MarketSize() {
     <div className="container">
       <h1>Generate the likely Market size options for your feature</h1>
       <div className="input-container">
-        <button onClick={handleSubmit}>Generate</button>
+      <button onClick={handleSubmit}>
+    {isLoading ? (
+      <Spinner 
+      animation="border" 
+      role="status" 
+      style={{ width: '1rem', height: '1rem' }} // Add this line
+    >
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+    ) : (
+      'Check'
+    )}
+  </button>
       </div>
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">

@@ -1,13 +1,33 @@
-/* listOfFeatures.css */
+listOfFeatures.css
 
 .lof-body {
-  background-color: #F8F8F8;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 
 .content {
-  margin: 20px;
+  margin: 40px;
+  width: 100%;
+}
+
+h2 {
+  margin-bottom: 16px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 14px;
+  background-color: #f1f1f1;
+  padding: 8px;
+  border-radius: 8px;
+  margin-left: 80px; /* To offset the width of the sidebar */
+  max-width: calc(100% - 80px); /* Adjust the width based on the sidebar width */
+  word-break: break-word; /* To prevent long text from overflowing */
 }

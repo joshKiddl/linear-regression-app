@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';  // import your Firestore instance
+import Spinner from 'react-bootstrap/Spinner';
 
 function AcceptanceCriteria() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function AcceptanceCriteria() {
   const [aiResponse, setAIResponse] = useState('');
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getProblemStatementFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -27,6 +29,8 @@ function AcceptanceCriteria() {
   }, []);
 
   const handleSubmit = () => {
+    setIsLoading(true); // start loading
+
     fetch('https://ml-linear-regression.onrender.com/openai-solution', {
       method: 'POST',
       headers: {
@@ -38,6 +42,8 @@ function AcceptanceCriteria() {
     })
       .then((response) => response.json())
       .then((data) => {
+        setIsLoading(false); // stop loading
+
         if (data.error) {
           setAIResponse({ error: data.error });
         } else {
@@ -87,7 +93,19 @@ function AcceptanceCriteria() {
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
       <div className="input-container">
-        <button className='generate-button' onClick={handleSubmit}>Generate</button>
+      <button onClick={handleSubmit}>
+    {isLoading ? (
+      <Spinner 
+      animation="border" 
+      role="status" 
+      style={{ width: '1rem', height: '1rem' }} // Add this line
+    >
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+    ) : (
+      'Generate'
+    )}
+  </button>
       </div>
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';  // import your Firestore instance
+import Spinner from 'react-bootstrap/Spinner';
 
 function TechnicalRequirements() {
   const navigate = useNavigate();
@@ -11,6 +12,7 @@ function TechnicalRequirements() {
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [acceptanceCriteria, setAcceptanceCriteria] = useState('');  // Add this line
+  const [isLoading, setIsLoading] = useState(false);
 
   const getAcceptanceCriteriaFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -41,6 +43,8 @@ function TechnicalRequirements() {
   }  
 
   const handleSubmit = () => {
+    setIsLoading(true); // start loading
+
     // Fetch the user story (finalProblemStatement) from Firestore
     getUserStoryFromSession().then(finalProblemStatement => {
       // Concatenate the user story (finalProblemStatement) and the acceptance criteria, separated by a comma
@@ -57,7 +61,8 @@ function TechnicalRequirements() {
         }),
       })
       .then((response) => response.json())
-      .then((data) => {
+      .then((data) => {    setIsLoading(false); // stop loading
+
         if (data.error) {
           setAIResponse({ error: data.error });
         } else {
@@ -105,7 +110,19 @@ function TechnicalRequirements() {
       <h1>Here are some Technical Requirements for your feature</h1>
       {/* Problem Description field */}
       <div className="input-container">
-        <button onClick={handleSubmit}>Generate</button>
+      <button onClick={handleSubmit}>
+    {isLoading ? (
+      <Spinner 
+      animation="border" 
+      role="status" 
+      style={{ width: '1rem', height: '1rem' }} // Add this line
+    >
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+    ) : (
+      'Generate'
+    )}
+  </button>
       </div>
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}

@@ -1,4 +1,4 @@
-.sidebar-content {
+/* .sidebar-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -30,6 +30,10 @@
   
 
   .spaced {
-    margin: 10px 0;
+    margin: 15px 0;
   }
-  
+
+  .sidebar-link:hover {
+    cursor: pointer;
+  }
+   */

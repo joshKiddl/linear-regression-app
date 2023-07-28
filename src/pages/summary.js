@@ -8,7 +8,7 @@ import { db } from '../firebase';  // import your Firestore instance
 import { setDoc, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCloudDownload } from "@fortawesome/free-solid-svg-icons";
+import { faCloudDownload } from "@fortawesome/free-solid-svg-icons";
 
 function Summary() {
   const navigate = useNavigate();
@@ -63,9 +63,12 @@ function Summary() {
     }, str);
 }
 
-const goToSignUp = () => {
-  navigate("/signup");
-}
+
+// const goToSignUp = () => {
+//   navigate("/signup", { state: { featureData: { problemStatement, acceptanceCriteria, technicalRequirements, tasks, keyCustomer, marketSize, dataElements, hypothesis, marketingMaterial } } });
+// };
+
+
 const downloadCSV = async () => {
   // Fetch data from Firestore
   const featureDocs = await getDocs(collection(db, 'features'));
@@ -285,7 +288,13 @@ const downloadCSV = async () => {
       </div>
         <div className="acceptance-criteria">
           <h2>Acceptance Criteria</h2>
-          <p className='content'>{acceptanceCriteria}</p> {/* replace placeholder */}
+          <p className='content'>
+  {Array.isArray(acceptanceCriteria) ? acceptanceCriteria.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
           <button 
             className='copy-button' 
             onClick={() => {
@@ -301,7 +310,13 @@ const downloadCSV = async () => {
         </div>
       <div className="technical-requirements">
         <h2>Technical Requirements</h2>
-        <p className='content'>{technicalRequirements}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(technicalRequirements) ? technicalRequirements.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -317,7 +332,13 @@ const downloadCSV = async () => {
       </div>
       <div className="tasks">
         <h2>Tasks</h2>
-        <p className='content'>{tasks}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(tasks) ? tasks.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -333,7 +354,13 @@ const downloadCSV = async () => {
       </div>
       <div className="key-customer">
         <h2>Key Customer</h2>
-        <p className='content'>{keyCustomer}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(keyCustomer) ? keyCustomer.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -349,7 +376,13 @@ const downloadCSV = async () => {
       </div>
       <div className="market-size">
         <h2>Market Size</h2>
-        <p className='content'>{marketSize}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(marketSize) ? marketSize.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -365,7 +398,13 @@ const downloadCSV = async () => {
       </div>
       <div className="data-elements">
         <h2>Data Elements</h2>
-        <p className='content'>{dataElements}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(dataElements) ? dataElements.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -381,7 +420,13 @@ const downloadCSV = async () => {
       </div>
       <div className="hypothesis">
         <h2>Hypothesis</h2>
-        <p className='content'>{hypothesis}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(hypothesis) ? hypothesis.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -397,7 +442,13 @@ const downloadCSV = async () => {
       </div>
       <div className="marketing-material">
         <h2>Marketing Material</h2>
-        <p className='content'>{marketingMaterial}</p> {/* replace placeholder */}
+        <p className='content'>
+  {Array.isArray(marketingMaterial) ? marketingMaterial.map((element, index) => (
+    <div key={index}>{element}</div>
+  )) : 'No data available'}
+</p>
+
+ {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -415,10 +466,10 @@ const downloadCSV = async () => {
       <FontAwesomeIcon icon={faCloudDownload} size="2x" color="cornflowerblue" />
  ` Download CSV
       </button>      
-      <button className='download-button' onClick={goToSignUp}>
+      {/* <button className='download-button' onClick={goToSignUp}>
         <FontAwesomeIcon icon={faUser} size="2x" color="cornflowerblue" />
           ` Create an Account
-      </button>   
+      </button>    */}
     </div>
   </div>
 );

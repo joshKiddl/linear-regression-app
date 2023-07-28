@@ -3,15 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, doc, query, where, getDocs, setDoc } from '@firebase/firestore';
-import { db } from '../firebase';  // import your Firestore instance
+import { db } from '../firebase';
+import Spinner from 'react-bootstrap/Spinner';
 
 function DataElements() {
   const navigate = useNavigate();
-  const [aiResponse, setAIResponse] = useState('');
-  const [showProblemStatement, setShowProblemStatement] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [acceptanceCriteria, setAcceptanceCriteria] = useState('');  
-  const [targetCustomer, setTargetCustomer] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [state, setState] = useState({
+    aiResponse: '',
+    showProblemStatement: false,
+    selectedItems: [],
+    acceptanceCriteria: '',
+    targetCustomer: '',
+  });
 
   const getDataFromSession = async (field) => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -21,84 +26,73 @@ function DataElements() {
       data = doc.data()[field];
     });
     return data;
-  }
+  };
 
-  // Use effect hook to fetch and set acceptance criteria and target customer
   useEffect(() => {
-    getDataFromSession('acceptanceCriteria').then(newAcceptanceCriteria => {
-      if (newAcceptanceCriteria !== acceptanceCriteria) {
-        setAcceptanceCriteria(newAcceptanceCriteria);
-      }
+    Promise.all([
+      getDataFromSession('acceptanceCriteria'),
+      getDataFromSession('targetCustomer'),
+    ])
+    .then(([acceptanceCriteria, targetCustomer]) => {
+      setState(prevState => ({ ...prevState, acceptanceCriteria, targetCustomer }));
     });
+  }, []);
 
-    getDataFromSession('targetCustomer').then(newTargetCustomer => {
-      if (newTargetCustomer !== targetCustomer) {
-        setTargetCustomer(newTargetCustomer);
-      }
-    });
-  }, [acceptanceCriteria, targetCustomer]);
+  const handleSubmit = () => {
+    setIsLoading(true); // start loading
 
-const handleSubmit = () => {
-  // Fetch the finalProblemStatement, acceptanceCriteria, and targetCustomer from Firestore
-  Promise.all([
-    getDataFromSession('finalProblemStatement'),
-    getDataFromSession('acceptanceCriteria'),
-    getDataFromSession('targetCustomer')
-  ])
-  .then(([finalProblemStatement, acceptanceCriteria, targetCustomer]) => {
-    // Concatenate the finalProblemStatement, acceptanceCriteria, and targetCustomer, separated by commas
-    const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}`;
-    // Make a POST request to the API endpoint
-    fetch('https://ml-linear-regression.onrender.com/dataElements', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputText: inputText,
-      }),
+    Promise.all([
+      getDataFromSession('finalProblemStatement'),
+      getDataFromSession('acceptanceCriteria'),
+      getDataFromSession('targetCustomer'),
+    ])
+    .then(([finalProblemStatement, acceptanceCriteria, targetCustomer]) => {
+      const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}`;
+      return fetch('https://ml-linear-regression.onrender.com/dataElements', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          inputText: inputText,
+        }),
+      });
     })
     .then((response) => response.json())
     .then((data) => {
+      setIsLoading(false); // stop loading
+
       if (data.error) {
-        setAIResponse({ error: data.error });
+        setState(prevState => ({ ...prevState, aiResponse: { error: data.error }, showProblemStatement: true }));
       } else {
-        setAIResponse(data.predicted_items);
+        setState(prevState => ({ ...prevState, aiResponse: data.predicted_items, showProblemStatement: true }));
       }
-      setShowProblemStatement(true);
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
-      setAIResponse({ error: 'Failed to get AI response.' });
-      setShowProblemStatement(true);
+      setState(prevState => ({ ...prevState, aiResponse: { error: 'Failed to get AI response.' }, showProblemStatement: true }));
     });
-  });
-};
+  };
 
   const handleResponseItemClick = (item) => {
-    // If the item is already selected, remove it from the selected items
-    if (selectedItems.includes(item)) {
-      setSelectedItems(selectedItems.filter(selectedItem => selectedItem !== item));
-    } 
-    // If the item is not selected, add it to the selected items
-    else {
-      setSelectedItems([...selectedItems, item]);
+    if (state.selectedItems.includes(item)) {
+      setState(prevState => ({
+        ...prevState,
+        selectedItems: prevState.selectedItems.filter(selectedItem => selectedItem !== item),
+      }));
+    } else {
+      setState(prevState => ({ ...prevState, selectedItems: [...prevState.selectedItems, item] }));
     }
   };
 
   const handleBack = () => {
-    navigate(-1); // Go back to the previous page
+    navigate(-1);
   };
 
   const handleNext = async () => {
     const documentId = sessionStorage.getItem('documentId');
     const docRef = doc(db, "features", documentId);
-  
-    // Update the existing document with the new technicalRequirements field
-    console.log(selectedItems); // Debugging line
-    await setDoc(docRef, {
-      dataElements: selectedItems
-    }, { merge: true });
+    await setDoc(docRef, { dataElements: state.selectedItems }, { merge: true });
     navigate('/hypothesis');
   };
 
@@ -106,20 +100,30 @@ const handleSubmit = () => {
     <div className="container">
       <h1>Generate the Data Elements that are important for understanding the success of this feature</h1>
       <div className="input-container">
-        <button onClick={handleSubmit}>Generate</button>
+      <button onClick={handleSubmit}>
+    {isLoading ? (
+      <Spinner 
+      animation="border" 
+      role="status" 
+      style={{ width: '1rem', height: '1rem' }} // Add this line
+    >
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+    ) : (
+      'Check'
+    )}
+  </button>
       </div>
-      <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
+      <div className={`input-container2 ${state.showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
           <h2>Our AI suggestions</h2>
-          {Array.isArray(aiResponse) ? (
-            // If aiResponse is a list, map through the items and render each as a separate <div> box
-            aiResponse.map((item, index) => {
-              // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*-*\s*/, ''); // Removes numbering and dashes from the start of the item
+          {Array.isArray(state.aiResponse) ? (
+            state.aiResponse.map((item, index) => {
+              const itemText = item.replace(/^\d+\.\s*-*\s*/, ''); 
               return (
                 <div
                   key={index}
-                  className={`response-item ${selectedItems.includes(item) ? 'selected' : ''}`}
+                  className={`response-item ${state.selectedItems.includes(item) ? 'selected' : ''}`}
                   onClick={() => handleResponseItemClick(item)}
                 >
                   <span className="plus-icon">+</span> {itemText}
@@ -127,8 +131,7 @@ const handleSubmit = () => {
               );
             })
           ) : (
-            // If aiResponse is not a list, render it as a single <p>
-            <p>{aiResponse.error}</p>
+            <p>{state.aiResponse.error}</p>
             )}
         </div>
       </div>

@@ -6,6 +6,15 @@ body {
     box-sizing: border-box;
 }
 
+.content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: auto;
+    box-sizing: border-box;
+  }
+  
+
 .summary-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
