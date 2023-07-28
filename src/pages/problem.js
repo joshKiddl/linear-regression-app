@@ -5,7 +5,7 @@ import '../styling/problem.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'firebase/firestore';
 import { collection, addDoc } from "firebase/firestore";
-import db from '../firebase';  // import your Firestore instance
+import { db } from '../firebase';  // import your Firestore instance
 
 function Problem() {
   

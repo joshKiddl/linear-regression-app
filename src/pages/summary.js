@@ -4,10 +4,11 @@ import Modal from 'react-modal';
 import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton } from 'react-share';
 import '../styling/summary.css';
 import '../styling/ModalForm.css';
-import db from '../firebase'; // adjust the import path as necessary
+import { db } from '../firebase';  // import your Firestore instance
 import { setDoc, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faCloudDownload } from "@fortawesome/free-solid-svg-icons";
 
 function Summary() {
   const navigate = useNavigate();
@@ -62,6 +63,9 @@ function Summary() {
     }, str);
 }
 
+const goToSignUp = () => {
+  navigate("/signup");
+}
 const downloadCSV = async () => {
   // Fetch data from Firestore
   const featureDocs = await getDocs(collection(db, 'features'));
@@ -408,11 +412,16 @@ const downloadCSV = async () => {
             </button>  
       </div>
       <button className='download-button' onClick={downloadCSV}>
-  <img src={logo} alt="logo" />
-  Download CSV
-</button>      </div>
+      <FontAwesomeIcon icon={faCloudDownload} size="2x" color="cornflowerblue" />
+ ` Download CSV
+      </button>      
+      <button className='download-button' onClick={goToSignUp}>
+        <FontAwesomeIcon icon={faUser} size="2x" color="cornflowerblue" />
+          ` Create an Account
+      </button>   
     </div>
-  );
+  </div>
+);
 }
 
 export default Summary;

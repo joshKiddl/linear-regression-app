@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
-import db from '../firebase';  // import your Firestore instance
+import { db } from '../firebase';  // import your Firestore instance
 
 function AcceptanceCriteria() {
   const navigate = useNavigate();

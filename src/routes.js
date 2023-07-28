@@ -11,6 +11,9 @@ import DataElements from './pages/dataElements';
 import Hypothesis from './pages/hypothesis';
 import MarketingMaterial from './pages/marketingMaterial';
 import Summary from './pages/summary';
+import SignUp from './pages/signUp';
+import ListOfFeatures from './pages/listOfFeatures';
+import Login from './pages/login';
 
 const AppRoutes = () => {
   return (
@@ -26,6 +29,9 @@ const AppRoutes = () => {
       <Route path='/marketingMaterial' element={<MarketingMaterial />} />
       <Route path="/hypothesis" element={<Hypothesis />} />
       <Route path="/summary" element={<Summary />} />
+      <Route path="/signUp" element={<SignUp />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/listOfFeatures" element={<ListOfFeatures />} />
     </Routes>
   );
 };

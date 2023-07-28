@@ -1,0 +1,35 @@
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    padding: 20px;
+}
+  
+  .sidebar-logo {
+    width: 80px;
+    height: auto;
+  }
+  
+  .sign-out {
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .top-links {
+    margin: 5px;
+  }
+
+  .sidebar-link {
+    text-decoration: none;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 10px;
+  }
+  
+
+  .spaced {
+    margin: 10px 0;
+  }
+  
