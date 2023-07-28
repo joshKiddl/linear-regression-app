@@ -83,7 +83,7 @@ function AcceptanceCriteria() {
   return (
     <div className="container">
       <h1>Generate Acceptance Criteria</h1>
-      <p className='problem-statement'>{problemStatement}</p>
+      {/* <p className='problem-statement'>{problemStatement}</p> */}
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
       <div className="input-container">
