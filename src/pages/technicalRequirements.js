@@ -13,6 +13,7 @@ function TechnicalRequirements() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [acceptanceCriteria, setAcceptanceCriteria] = useState('');  // Add this line
   const [isLoading, setIsLoading] = useState(false);
+  const [nextButtonLabel, setNextButtonLabel] = useState('Skip'); // New state
 
   const getAcceptanceCriteriaFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -30,7 +31,15 @@ function TechnicalRequirements() {
         setAcceptanceCriteria(newAcceptanceCriteria);
       }
     });
-  }, [acceptanceCriteria]);
+
+    // Add this effect to update nextButtonLabel when selectedItems changes
+    if (selectedItems.length > 0) {
+      setNextButtonLabel('Next');
+    } else {
+      setNextButtonLabel('Skip');
+    }
+  }, [selectedItems, acceptanceCriteria]); // Add selectedItems to the dependency array
+
 
   const getUserStoryFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -107,7 +116,7 @@ function TechnicalRequirements() {
 
   return (
     <div className="container">
-      <h1>Here are some Technical Requirements for your feature</h1>
+      <h1>Generate some Technical Requirements for your Solution</h1>
       {/* Problem Description field */}
       <div className="input-container">
       <button onClick={handleSubmit}>
@@ -150,7 +159,7 @@ function TechnicalRequirements() {
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
+        <button className="next-button" onClick={handleNext}>{nextButtonLabel}</button>
       </div>
     </div>
   );

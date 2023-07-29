@@ -6,23 +6,67 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0;
-
 }
-.lof-body {
+.arrow {
+  position: absolute;
+  bottom: 10px;
 }
 
-.container {
-  flex: auto;
-  flex-direction: column;
+.container1 {
+  height: 100vh; /* Sets the minimum height of the container to fill the viewport */
+  width: 100vw;
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack the children vertically */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
+.footer {
+  height: 100px;
+  background-color: #f8f9fa;
   display: flex;
+  justify-content: center;
   align-items: center;
-
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
+
+.container2 {
+  height: 100%; /* Sets the minimum height of the container to fill the viewport */
+  width: 100vw;
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack the children vertically */
+  justify-content:space-between; /* Center children vertically */
+  align-items:center; /* Center children horizontally */
+  padding: 0 50px;  /* 0 padding on the top and bottom, 10px padding on the left and right */
+}
+
+.container3 {
+  height: 100vh; /* Sets the minimum height of the container to fill the viewport */
+  width: 100vw;
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack the children vertically */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
+.problem-image {
+  width: 200px;
+  height: 200px;
+}
+
+.problem-section {
+  display: flex; /* Use Flexbox */
+  flex-direction: row;
+  justify-content:space-around; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
 /* Start of Media Query */
 @media screen and (max-width: 600px) {
   .container {
-    padding: 0 15px; 
+    /* padding: 0 15px;  */
   }
   .form-input, .btn {
     width: 100%; 
@@ -80,9 +124,35 @@ body {
 .subtitle {
   font-size: 20px;
   color: #000;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
+  justify-self: center;  
+}
+
+.header {
+  font-size: 30px;
+  color: #000;
+  padding-top: 100px;
   margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
   justify-self: center;
+  
+}
+
+h3 {
+  font-size: 26px;
+  color: #000000;
+  margin-bottom: 30px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+p {
+  font-size: 16px;
+  color: #000000;
+    width: 70%;
+  margin-bottom: 30px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .h4 {

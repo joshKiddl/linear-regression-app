@@ -110,7 +110,7 @@ function DataElements() {
       <span className="sr-only"></span>
     </Spinner>
     ) : (
-      'Check'
+      'Generate'
     )}
   </button>
       </div>
@@ -119,7 +119,7 @@ function DataElements() {
           <h2>Our AI suggestions</h2>
           {Array.isArray(state.aiResponse) ? (
             state.aiResponse.map((item, index) => {
-              const itemText = item.replace(/^\d+\.\s*-*\s*/, ''); 
+              const itemText = item.replace(/^\d+\.\s*/, '').replace(/-/g, ''); // Removes numbering from the start of the item and all dashes
               return (
                 <div
                   key={index}

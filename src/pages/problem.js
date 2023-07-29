@@ -115,7 +115,7 @@ function Problem() {
 
   return (
     <div className="container">
-      <h1>What is your Problem Statement?</h1>
+      <h1>What Problem are you trying to solve?</h1>
       {/* Problem Description field */}
       <div className="input-container">
         <input
@@ -135,7 +135,7 @@ function Problem() {
       <span className="sr-only"></span>
     </Spinner>
     ) : (
-      'Check'
+      'Generate'
     )}
   </button>
       </div>
@@ -187,7 +187,10 @@ function Problem() {
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
         <button className="reset" onClick={handleReset}>Reset</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
+        <button className="next-button" onClick={handleNext}>
+    {problemStatement.trim() === '' ? 'Skip' : 'Next'}
+</button>
+
       </div>
     </div>
   );

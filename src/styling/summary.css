@@ -20,7 +20,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     grid-template-rows: 2;
     gap: 10px;
-    align-items: start;
+    align-items: flex-start;
     width: 100%;
     /* margin: 0 20px 20px 20px; */
     box-sizing: border-box;
@@ -31,7 +31,6 @@ body {
 .navbar {
     display: flex;
     justify-content: space-around;
-    padding: 12px 0;
 }
 
 .navbar-logo {

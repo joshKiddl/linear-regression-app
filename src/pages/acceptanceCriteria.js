@@ -13,6 +13,7 @@ function AcceptanceCriteria() {
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [nextButtonLabel, setNextButtonLabel] = useState('Skip'); // New state
 
   const getProblemStatementFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -26,7 +27,14 @@ function AcceptanceCriteria() {
 
   useEffect(() => {
     getProblemStatementFromSession().then(problemStatement => setProblemStatement(problemStatement));
-  }, []);
+
+    // Add this effect to update nextButtonLabel when selectedItems changes
+    if (selectedItems.length > 0) {
+      setNextButtonLabel('Next');
+    } else {
+      setNextButtonLabel('Skip');
+    }
+  }, [selectedItems]); // Add selectedItems to the dependency array
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
@@ -88,7 +96,7 @@ function AcceptanceCriteria() {
 
   return (
     <div className="container">
-      <h1>Generate Acceptance Criteria</h1>
+      <h1>Generate Acceptance Criteria that will solve the Problem</h1>
       {/* <p className='problem-statement'>{problemStatement}</p> */}
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
@@ -133,7 +141,7 @@ function AcceptanceCriteria() {
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
+        <button className="next-button" onClick={handleNext}>{nextButtonLabel}</button>
       </div>
     </div>
   );

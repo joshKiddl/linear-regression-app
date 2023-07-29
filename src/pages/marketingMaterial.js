@@ -104,7 +104,7 @@ function MarketingMaterial() {
       <span className="sr-only">Loading...</span>
     </Spinner>
     ) : (
-      'Check'
+      'Generate'
     )}
   </button>
       </div>
@@ -115,7 +115,7 @@ function MarketingMaterial() {
             // If aiResponse is a list, map through the items and render each as a separate <div> box
             aiResponse.map((item, index) => {
               // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*-*\s*/, ''); // Removes numbering and dashes from the start of the item
+              const itemText = item.replace(/^\d+\.\s*/, '').replace(/-/g, ''); // Removes numbering from the start of the item and all dashes
               return (
                 <div
                   key={index}

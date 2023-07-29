@@ -9,6 +9,7 @@ import { setDoc, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudDownload } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 
 function Summary() {
   const navigate = useNavigate();
@@ -63,6 +64,14 @@ function Summary() {
     }, str);
 }
 
+useEffect(() => {
+  const timer = setTimeout(() => {
+    openFeedbackModal();
+  }, 5000); // 5000ms = 5s
+
+  // Clear timeout if the component is unmounted
+  return () => clearTimeout(timer);
+}, []); 
 
 // const goToSignUp = () => {
 //   navigate("/signup", { state: { featureData: { problemStatement, acceptanceCriteria, technicalRequirements, tasks, keyCustomer, marketSize, dataElements, hypothesis, marketingMaterial } } });
@@ -176,8 +185,9 @@ const downloadCSV = async () => {
   return (
     <div className="container summary-container">
       <nav className="navbar">
-      <img src={logo} alt="Logo" className="navbar-logo" />
-        <button onClick={() => handleClick('/problem')}>Start Again</button>
+      <Link to="/">
+  <img src={logo} alt="Logo" className="navbar-logo" />
+</Link>        <button onClick={() => handleClick('/problem')}>Start Again</button>
         <button onClick={openFeedbackModal}>Feedback</button>
         <button onClick={openShareModal}>Share</button>
         <button onClick={openBetaModal}>Sign Up for Beta</button>
@@ -193,6 +203,9 @@ const downloadCSV = async () => {
     className="modal"
   >
     <div className="modal-content">
+      <h3>How did you like this tool?</h3>
+      <p>Was it helpful? Do you want to use AI more to help your product management practice?</p>
+      <p>Let us know your thoughts</p>
       <form id="feedback-form" onSubmit={handleFeedbackSubmit}>
         <label>
           Name:

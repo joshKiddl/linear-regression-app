@@ -106,7 +106,7 @@ function MarketSize() {
       <span className="sr-only"></span>
     </Spinner>
     ) : (
-      'Check'
+      'Generate'
     )}
   </button>
       </div>

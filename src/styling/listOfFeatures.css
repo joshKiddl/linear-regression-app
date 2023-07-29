@@ -1,33 +1,77 @@
-listOfFeatures.css
-
 .lof-body {
+  min-height: 100vh; /* Set body height to at least 100% of the viewport height */
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f8f8f8;
+  height: 100vh;  /* Make it occupy full viewport height */
+
 }
 
-.content {
-  margin: 40px;
+.lof-content {
+  width: 100vw;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start;  /* Align the content at the start */
+  align-items: flex-start; 
+  padding-left: 200px;
+  background-color: #f8f8f8;
+}
+
+.feature-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
-h2 {
-  margin-bottom: 16px;
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 900px;
+  max-width: 900px;
+  padding: 10px;
+}
+
+.lof-h2 {
+  margin-bottom: 12px;
 }
 
 ul {
   list-style: none;
-  padding: 0;
+  padding: 10px;
 }
 
 li {
-  margin-bottom: 10px;
+  margin-bottom: -20px;
 }
 
-h3 {
-  font-size: 14px;
-  background-color: #f1f1f1;
+.lof-h3 {
+  font-size: 16px;
+  flex: 1;
+  background-color: #fff;
   padding: 8px;
   border-radius: 8px;
   margin-left: 80px; /* To offset the width of the sidebar */
   max-width: calc(100% - 80px); /* Adjust the width based on the sidebar width */
   word-break: break-word; /* To prevent long text from overflowing */
 }
+
+.arrow {
+  flex: none;
+  /* other styles */
+}
+
+.lof-h2 {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0px 8px;
+  border-radius: 8px;
+  margin-left: 80px; /* To offset the width of the sidebar */
+  max-width: calc(100% - 80px); /* Adjust the width based on the sidebar width */
+  word-break: break-word; /* To prevent long text from overflowing */
+}
+

@@ -79,7 +79,7 @@ function Tasks() {
 
   return (
     <div className="container">
-      <h1>Generate some Tasks for your feature</h1>
+      <h1>Generate some Tasks to create your Solution</h1>
       <div className="input-container">
       <button onClick={handleSubmit}>
     {isLoading ? (
