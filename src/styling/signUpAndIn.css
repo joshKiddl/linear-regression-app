@@ -12,6 +12,16 @@
   align-content: center;
 }
 
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100vw;
+  background-color: #fff;
+}
+
 .login-h2 {
   font-size: 26px;
   color: #000000;

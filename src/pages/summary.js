@@ -8,7 +8,7 @@ import { db } from '../firebase';  // import your Firestore instance
 import { setDoc, doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudDownload } from "@fortawesome/free-solid-svg-icons";
+import { faCloudDownload, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
 
 function Summary() {
@@ -73,9 +73,9 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, []); 
 
-// const goToSignUp = () => {
-//   navigate("/signup", { state: { featureData: { problemStatement, acceptanceCriteria, technicalRequirements, tasks, keyCustomer, marketSize, dataElements, hypothesis, marketingMaterial } } });
-// };
+const goToSignUp = () => {
+  navigate("/signup", { state: { featureData: { problemStatement, acceptanceCriteria, technicalRequirements, tasks, keyCustomer, marketSize, dataElements, hypothesis, marketingMaterial } } });
+};
 
 
 const downloadCSV = async () => {
@@ -329,7 +329,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -351,7 +350,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -373,7 +371,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -395,7 +392,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -417,7 +413,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -439,7 +434,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -461,7 +455,6 @@ const downloadCSV = async () => {
   )) : 'No data available'}
 </p>
 
- {/* replace placeholder */}
         <button 
             className='copy-button' 
             onClick={() => {
@@ -479,10 +472,10 @@ const downloadCSV = async () => {
       <FontAwesomeIcon icon={faCloudDownload} size="2x" color="cornflowerblue" />
  ` Download CSV
       </button>      
-      {/* <button className='download-button' onClick={goToSignUp}>
+      <button className='download-button' onClick={goToSignUp}>
         <FontAwesomeIcon icon={faUser} size="2x" color="cornflowerblue" />
           ` Create an Account
-      </button>    */}
+      </button>   
     </div>
   </div>
 );
