@@ -39,16 +39,33 @@
   padding: 10px;
 }
 
+.data-row {
+  background-color: #fff;
+  margin-bottom: 30px; /* This adds 20px of space below each row. Adjust this number to fit your needs */
+}
+
+.table-rounded {
+  border-radius: 20px;
+  overflow: hidden;  /* This is necessary to apply border radius for inner elements */
+}
+
+.edit-button {
+  background-color: transparent;
+  color: cornflowerblue;
+  cursor: pointer;
+}
 
 .feature-list {
   width: 80%;
   border-collapse: collapse;
   margin-left: 90px;
+  border-radius: 10px;
+    overflow: hidden; 
 }
 
 .feature-list th, .feature-list td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #fff;
+  padding: 16px 8px; /* Add top and bottom padding to space out rows. Adjust this to fit your needs */
 }
 
 .feature-list th {

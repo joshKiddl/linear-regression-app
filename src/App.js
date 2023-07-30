@@ -49,15 +49,20 @@ function App() {
           Let's Get Started
         </Link>
       </div>
-     <div className="login-btn-container">
+      <div className="login-btn-container">
   {loggedIn ? (
     <Link to="/listOfFeatures" className="user-info">
       {email}
     </Link>
   ) : (
-    <Link to="/login" className="login-btn">
-      Log In
-    </Link> 
+    <>
+      <Link to="/login" className="login-btn">
+        Log In
+      </Link>
+      <Link to="/signUp" className="create-account-btn">
+        Create Account
+      </Link>
+    </>
   )}
 </div>
 

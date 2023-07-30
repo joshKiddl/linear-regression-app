@@ -12,6 +12,12 @@ body {
   bottom: 10px;
 }
 
+.create-account-btn {
+  /* Your CSS here, e.g.: */
+  margin-left: 10px;
+  /* other styles to make it look like a button */
+}
+
 .container1 {
   height: 100vh; /* Sets the minimum height of the container to fill the viewport */
   width: 100vw;
