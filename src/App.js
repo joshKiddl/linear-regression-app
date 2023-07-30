@@ -7,10 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../src/firebase';  // import your Firebase auth instance
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
 
   useEffect(() => {
     const auth = getAuth();
@@ -18,10 +19,10 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setLoggedIn(true);
-        setEmail(user.email);
+        // setEmail(user.email);
       } else {
         setLoggedIn(false);
-        setEmail('');
+        // setEmail('');
       }
     });
   }, []);
@@ -52,11 +53,11 @@ function App() {
       <div className="login-btn-container">
   {loggedIn ? (
     <Link to="/listOfFeatures" className="user-info">
-      {email}
+      <FontAwesomeIcon size={'2x'} color='cornflowerblue' icon={faUser} />
     </Link>
   ) : (
     <>
-      <Link to="/login" className="login-btn">
+      <Link to="/login" className="create-account-btn">
         Log In
       </Link>
       <Link to="/signUp" className="create-account-btn">

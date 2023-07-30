@@ -29,10 +29,57 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.reset-password-btn {
+  background-color: transparent;
+  color: #000000;
+  font-size: small;
+  font-weight: 300;
+}
+
+.google-btn {
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.google-btn:hover {
+  background-color: #357ae8;
+}
+
+.google-btn:before {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.reset-msg {
+  text-align: center;
+  color: green;
+}
+
+.to-other-auth {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 300;
+}
+
+.error-msg {
+  text-align: center;
+  color: red;
+}
+
 .sign-in form {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 0 0;
   width: 200px;
 }
 
@@ -41,7 +88,7 @@
 }
 
 .sign-in form input {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;

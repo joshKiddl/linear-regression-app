@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"; // import GoogleAuthProvider and signInWithPopup
 import '../styling/signUpAndIn.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState(''); 
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -22,19 +23,35 @@ function SignUp() {
     
     const auth = getAuth();
     
-    // Create the user account with email and password
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       console.log('User:', user);
-      sessionStorage.setItem('userId', user.uid);  // Store user ID in session storage
+      sessionStorage.setItem('userId', user.uid);
       navigate('/listOfFeatures'); 
     })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('Error:', errorCode, errorMessage);
-      });
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error('Error:', errorCode, errorMessage);
+      setErrorMsg('Account already exists with this email address.');
+    });
+  }
+
+  const handleGoogleSignUp = () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      console.log('User:', user);
+      sessionStorage.setItem('userId', user.uid);
+      navigate('/listOfFeatures');
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
   }
 
   return (
@@ -49,8 +66,11 @@ function SignUp() {
           Password:
           <input type="password" name="password" onChange={handleInputChange} />
         </label>
-        <input type="submit" value="Submit" />
+        <input type="submit" className='btn' value="Sign Up with Email" />
       </form>
+      <button onClick={handleGoogleSignUp} className='google-btn'>Sign Up with Google</button>
+      <Link className='to-other-auth' to="/login">or log in</Link>
+      {errorMsg && <p className="error-msg">{errorMsg}</p>}
     </div>
   );
 }

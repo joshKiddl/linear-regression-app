@@ -1,6 +1,4 @@
-/* sidebar.css */
 .sidebar-content {
-  /* Existing styles */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,44 +13,49 @@
 }
 
 .sidebar-logo {
-  /* Existing styles */
   width: 80px;
   height: auto;
 }
 
 .sign-out {
-  /* Existing styles */
   bottom: 0;
   width: 100%;
 }
 
 .top-links {
-  /* Existing styles */
   margin: 5px;
 }
 
 .sidebar-link {
-  /* Existing styles */
   text-decoration: none;
-  color: #999; /* Set the initial color to a lighter grey */
-  font-family: 'Montserrat', sans-serif;
+  color: #000; /* Set the initial color to a lighter grey */
+  font-family: 'Montserrat-semibold', sans-serif;
   padding-left: 10px;
+  font-weight: 600;
 }
 
 .spaced {
-  /* Existing styles */
-  margin: 20px 0;
+  margin: 0px 0;
 }
 
-/* Add this new rule to set the color to full black when the link is selected */
+.link-content {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
 .sidebar-link.selected {
   color: black;
 }
 
-/* Add this new rule to change the link color to full black on hover */
 .sidebar-link:hover {
   cursor: pointer;
+  color: cornflowerblue;
+}
+
+.active {
   color: black;
 }
+
 
 

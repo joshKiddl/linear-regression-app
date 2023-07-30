@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'; 
 import Sidebar from "react-sidebar";
@@ -14,6 +14,7 @@ function AppSidebar({ children }) { // Add the 'children' prop here
   const [sidebarDocked, setSidebarDocked] = React.useState(mql.matches);
   const [sidebarOpen] = React.useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     mql.addListener(mediaQueryChanged);
@@ -43,21 +44,32 @@ function AppSidebar({ children }) { // Add the 'children' prop here
                 <img src={logo} alt="Logo" className="navbar-logo" />
               </Link>
             </div>
-            <div className="spaced">
-              <Link className="sidebar-link" to="/ListOfFeatures">
-                <FontAwesomeIcon icon={faList} size="lg" /> List
-              </Link>
-            </div>
-            <div className="spaced">
-              <Link className="sidebar-link" to="/board">
-                <FontAwesomeIcon icon={faPause} size="lg" /> Board
-              </Link>
-            </div>
-            <div className="spaced">
-              <Link className="sidebar-link" to="/createFeature">
-                <FontAwesomeIcon icon={faPlus} size="lg" /> Create Feature
-              </Link>
-            </div>
+            <div className={`spaced ${location.pathname === "/ListOfFeatures" ? "active" : ""}`}>
+  <Link className="sidebar-link" to="/ListOfFeatures">
+    <div className="link-content">
+      <FontAwesomeIcon icon={faList} size="lg" />
+      <span>List</span>
+    </div>
+  </Link>
+</div>
+<div className={`spaced ${location.pathname === "/board" ? "active" : ""}`}>
+  <Link className="sidebar-link" to="/board">
+    <div className="link-content">
+      <FontAwesomeIcon icon={faPause} size="lg" />
+      <span>Board</span>
+    </div>
+  </Link>
+</div>
+<div className={`spaced ${location.pathname === "/createFeature" ? "active" : ""}`}>
+  <Link className="sidebar-link" to="/createFeature">
+    <div className="link-content">
+      <FontAwesomeIcon icon={faPlus} size="lg" />
+      <span>Create Feature</span>
+    </div>
+  </Link>
+</div>
+
+
           </div>
           <div className="sidebar-link" onClick={handleSignOut}>
             <FontAwesomeIcon icon={faSignOutAlt} size="lg" /> Sign Out
