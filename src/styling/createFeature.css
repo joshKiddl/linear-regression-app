@@ -1,10 +1,12 @@
 .create-feature {
-    height: 100%; /* Sets the minimum height of the container to fill the viewport */
-  width: 100vw;
-  display: flex; /* Use Flexbox */
-  flex-direction: column; /* Stack the children vertically */
-  justify-content: center; /* Center children vertically */
-  align-items: center; /* Center children horizontally */
+  min-height: 100vh; /* Set body height to at least 100% of the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #f8f8f8;
+  height: 100vh;  
+  padding-left: 80px;
+
   }
   
   .create-feature h1 {
@@ -48,4 +50,21 @@
   .create-feature form button:hover {
     background-color: #0056b3;
   }
+
+  .form-buttons {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 600px; 
+    margin-top: 15px; 
+  }
   
+  .create-h1 {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0px 8px;
+    border-radius: 8px;
+    max-width: calc(100% - 80px);
+    word-break: break-word;
+  }

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../firebase'; 
-import { useNavigate } from 'react-router-dom';
 import '../styling/viewFeature.css';
 import { doc, getDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import AppSidebar from '../components/sidebar'
+import { updateDoc } from 'firebase/firestore';
+
 
 function ViewFeature() {
   const [feature, setFeature] = useState({});
-  const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false);
   const { featureId } = useParams(); // get the feature ID from the URL
 
   useEffect(() => {
@@ -28,23 +30,55 @@ function ViewFeature() {
     loadFeatureData();
   }, [featureId]);
 
-  const handleEdit = (field) => {
-    navigate(`/editFeature/${featureId}/${field}`);
-  }
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  useEffect(() => {
+    const loadFeatureData = async () => {
+      if (auth.currentUser) {
+        const uid = auth.currentUser.uid;
+        const docRef = doc(db, 'users', uid, 'feature', featureId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setFeature(docSnap.data());
+        }
+      }
+    };
+
+    loadFeatureData();
+  }, [featureId]);
+
+const handleInlineEdit = async (newFeatureName) => {
+    if (auth.currentUser) {
+      const uid = auth.currentUser.uid;
+      const docRef = doc(db, 'users', uid, 'feature', featureId);
+      await updateDoc(docRef, { featureName: newFeatureName });
+      setFeature({...feature, featureName: newFeatureName});
+      setIsEditing(false);
+    }
+}
 
   return (
-    <div className="view-feature">
-      <h1>View Feature</h1>
+    <AppSidebar>
+        <div className="view-feature">
       <div className="form-row">
-          <div className="form-column">
-            <label>
-                Feature Name:
-                <p>{feature.featureName} <FontAwesomeIcon icon={faPencilAlt} onClick={() => handleEdit('featureName')} /></p>
-            </label>
-            <label>
-          Problem Statement:
-                <p>{feature.problemStatement} <FontAwesomeIcon icon={faPencilAlt} onClick={() => handleEdit('problemStatement')} /></p>
-            </label>
+        <div className="form-column">
+        {isEditing ? 
+  <input 
+  className="feature-name"  
+  type="text"
+    value={feature.featureName}
+    onChange={(e) => handleInlineEdit(e.target.value)}
+  /> :
+  <p className="feature-name">{feature.featureName} <FontAwesomeIcon icon={faPencilAlt} size="sm" onClick={handleEdit} /></p>
+}
+<div className="problem-statement">
+  {feature.problemStatement}
+  <FontAwesomeIcon icon={faPencilAlt} onClick={() => handleEdit('problemStatement')} />
+</div>
+
         
         {/* <label>
           Acceptance Criteria:
@@ -85,6 +119,7 @@ function ViewFeature() {
 </div>
 </div>
 </div>
+</AppSidebar>
   );
 }
 

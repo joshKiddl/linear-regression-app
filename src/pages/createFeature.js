@@ -4,6 +4,7 @@ import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import '../styling/createFeature.css';
 import { Timestamp } from 'firebase/firestore'; // import the Timestamp method
+import AppSidebar from '../components/sidebar';
 
 function CreateFeature() {
   const [featureName, setFeatureName] = useState('');
@@ -45,8 +46,9 @@ function CreateFeature() {
   
 
   return (
+    <AppSidebar>
     <div className="create-feature">
-      <h1>New Feature</h1>
+      <h1 className='create-h1'>New Feature</h1>
       <form onSubmit={handleSubmit}>
       <div className="form-row">
           <div className="form-column">
@@ -94,12 +96,15 @@ function CreateFeature() {
           <input type="text" value={marketingMaterial} onChange={e => setMarketingMaterial(e.target.value)} />
         </label>
         </div>
-
-        <button className='btn' type="submit">Save</button>
-        <button className='btn' type="button" onClick={handleCancel}>Cancel</button>
 </div>
-      </form>
-    </div>
+
+      <div className="form-buttons">
+                    <button className='btn' type="submit">Save</button>
+                    <button className='btn' style={{backgroundColor:'cornflowerblue'}} type="button" onClick={handleCancel}>Cancel</button>
+                </div>
+            </form>
+        </div>
+    </AppSidebar>
   );
 }
 
