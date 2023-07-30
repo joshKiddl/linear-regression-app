@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { auth, db } from '../firebase'; 
 import { useNavigate } from 'react-router-dom';
-import '../styling/createFeature.css';
-import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
+import '../styling/viewFeature.css';
+import { doc, getDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
-function EditFeature() {
-  const [featureName, setFeatureName] = useState('');
-  const [problemStatement, setProblemStatement] = useState('');
-  const [acceptanceCriteria, setAcceptanceCriteria] = useState('');
-  const [technicalRequirements, setTechnicalRequirements] = useState('');
-  const [tasks, setTasks] = useState('');
-  const [targetCustomer, setTargetCustomer] = useState('');
-  const [marketSize, setMarketSize] = useState('');
-  const [dataElements, setDataElements] = useState('');
-  const [hypothesis, setHypothesis] = useState('');
-  const [marketingMaterial, setMarketingMaterial] = useState('');
+function ViewFeature() {
+  const [feature, setFeature] = useState({});
   const navigate = useNavigate();
   const { featureId } = useParams(); // get the feature ID from the URL
 
@@ -27,52 +20,33 @@ function EditFeature() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        // Populate the form fields with the existing data
-        const data = docSnap.data();
-        setFeatureName(data.featureName);
-        // ... repeat for the rest of your state variables
+        // Populate the feature with the existing data
+        setFeature(docSnap.data());
       }
     };
 
     loadFeatureData();
   }, [featureId]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const uid = auth.currentUser.uid; 
-
-    const featureData = {
-      featureName,
-      // ... repeat for the rest of your state variables
-      updatedAt: Timestamp.now(),
-    };
-
-    // Update the existing document
-    const docRef = doc(db, 'users', uid, 'feature', featureId);
-    await setDoc(docRef, featureData, { merge: true });
-
-    navigate('/listOfFeatures');
-  };
-
-  const handleCancel = () => {
-    navigate('/listOfFeatures'); // navigate back to list of features
+  const handleEdit = (field) => {
+    navigate(`/editFeature/${featureId}/${field}`);
   }
 
   return (
-    <div className="create-feature">
-      <h1>New Feature</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="view-feature">
+      <h1>View Feature</h1>
       <div className="form-row">
           <div className="form-column">
-      <label>
-          Feature Name:
-          <input type="text" value={featureName} onChange={e => setFeatureName(e.target.value)} />
-        </label>
-        <label>
+            <label>
+                Feature Name:
+                <p>{feature.featureName} <FontAwesomeIcon icon={faPencilAlt} onClick={() => handleEdit('featureName')} /></p>
+            </label>
+            <label>
           Problem Statement:
-          <input type="text" value={problemStatement} onChange={e => setProblemStatement(e.target.value)} />
-        </label>
-        <label>
+                <p>{feature.problemStatement} <FontAwesomeIcon icon={faPencilAlt} onClick={() => handleEdit('problemStatement')} /></p>
+            </label>
+        
+        {/* <label>
           Acceptance Criteria:
           <input type="text" value={acceptanceCriteria} onChange={e => setAcceptanceCriteria(e.target.value)} />
         </label>
@@ -107,14 +81,11 @@ function EditFeature() {
           Marketing Material:
           <input type="text" value={marketingMaterial} onChange={e => setMarketingMaterial(e.target.value)} />
         </label>
-        </div>
-
-        <button className='btn' type="submit">Save</button>
-        <button className='btn' type="button" onClick={handleCancel}>Cancel</button>
+        </div> */}
 </div>
-      </form>
-    </div>
+</div>
+</div>
   );
 }
 
-export default EditFeature;
+export default ViewFeature;

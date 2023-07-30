@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { auth } from './firebase'; // Ensure to import from your firebase config file
+import { auth } from './firebase';
+import { perf } from "./firebase";
+import { hotjar } from 'react-hotjar';
+import { useHistory } from 'react-router-dom';
 import App from './App';
 import Problem from './pages/problem';
 import AcceptanceCriteria from './pages/acceptanceCriteria';
@@ -16,10 +19,25 @@ import SignUp from './pages/signUp';
 import ListOfFeatures from './pages/listOfFeatures';
 import Login from './pages/login';
 import CreateFeature from './pages/createFeature';
-import EditFeature from './pages/editFeature';
 import Board from './pages/board';
+import ViewFeature from './pages/viewFeature';
+
+// Initialize Performance Monitoring here
+perf.dataCollectionEnabled = true;
+perf.isPerformanceCollectionEnabled = true;
 
 const AppRoutes = () => {
+  const history = useHistory();
+  useEffect(() => {
+    hotjar.initialize(3593529, 6);
+  }, []);
+
+  useEffect(() => {
+    return history.listen(() => { 
+      hotjar.initialize(3593529, 6);
+    }); 
+  },[history]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -52,7 +70,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/listOfFeatures" element={<ListOfFeatures />} />
       <Route path="/createFeature" element={<CreateFeature />} />
-      <Route path="/editFeature" element={<EditFeature />} />
+      <Route path="/viewFeature/:featureId" element={<ViewFeature />} />
       <Route path="/board" element={<Board />} />
     </Routes>
   );

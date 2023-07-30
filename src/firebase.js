@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 import { collection, getDocs, query } from "firebase/firestore";
+import { getPerformance } from "firebase/performance";
 
 const firebaseApp = initializeApp({
     apiKey: "AIzaSyA9ze-yVFEIexpEfnaKBalQzYlg5fTufpI",
@@ -19,14 +20,12 @@ const db = getFirestore(firebaseApp);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(firebaseApp);
 
-// Export the Firestore instance
-export { db, auth };
-
+// Data fetching
 export async function fetchFeatureData(userId) {
   try {
     const q = query(collection(db, "users", userId, "feature"));
     const querySnapshot = await getDocs(q);
-
+    
     const featureData = querySnapshot.docs.map((doc) => doc.data().featureName);
     return featureData;
   } catch (error) {
@@ -34,3 +33,9 @@ export async function fetchFeatureData(userId) {
     return [];
   }
 }
+
+//Performance Monitoring
+const perf = getPerformance(firebaseApp);
+
+// Export the Firestore instance
+export { db, auth, perf };

@@ -68,6 +68,12 @@
   padding: 16px 8px; /* Add top and bottom padding to space out rows. Adjust this to fit your needs */
 }
 
+.create-new-feature-btn {
+  background-color: transparent;
+  color: black;
+  font-weight: bold;
+}
+
 .feature-list th {
   padding-top: 12px;
   padding-bottom: 12px;

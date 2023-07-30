@@ -21,11 +21,21 @@ const transformFeatureDataToBoardData = (featureData) => {
       },
       {
         id: 3,
-        title: 'Building',
+        title: 'Ready',
         cards: [],
       },
       {
         id: 4,
+        title: 'Implementing',
+        cards: [],
+      },
+      {
+        id: 5,
+        title: 'Validating',
+        cards: [],
+      },
+      {
+        id: 6,
         title: 'Done',
         cards: [],
       },
@@ -61,10 +71,11 @@ function Board() {
   console.log('Board data:', boardData);
 
   return (
+    <div className='board-body'>
     <DndProvider backend={HTML5Backend}>
       <AppSidebar>
         <h2 className="lof-h2">Kanban Board</h2>
-        <div className="board-body">
+        <div className="board-container">
           <div className="board-content">
             {/* Render lists using the List component */}
             {boardData.map((list, index) => (
@@ -74,6 +85,7 @@ function Board() {
         </div>
       </AppSidebar>
     </DndProvider>
+    </div>
   );
 }
 

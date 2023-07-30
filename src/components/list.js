@@ -62,7 +62,7 @@ const List = ({ list, boardData, setBoardData }) => {
         style={{ marginTop: '8px', cursor: 'pointer', backgroundColor: 'transparent', color: 'black', fontWeight: '200', fontSize: '14px' }}
         onClick={() => navigate('/createFeature')} // Navigate to the 'createFeature' screen
       >
-      <FontAwesomeIcon icon={faPlus} size="lg" />
+      <FontAwesomeIcon style={{marginRight: '5px'}} icon={faPlus} size="lg" />
         Add a card
       </button>
     )}

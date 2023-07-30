@@ -5,6 +5,8 @@ import AppSidebar from '../components/sidebar';
 import '../styling/listOfFeatures.css';
 import { auth } from '../firebase'; 
 import { useNavigate } from 'react-router-dom'; 
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const STORAGE_KEY = 'featuresData'; // Define a key for storing the data in localStorage
 
@@ -40,7 +42,11 @@ function ListOfFeatures() {
   }, []);
 
   const handleEdit = (id) => {
-    navigate(`/editFeature/${id}`);
+    navigate(`/viewFeature/${id}`);
+  };
+
+  const handleCreateNewFeature = () => {
+    navigate('/createFeature'); // Replace '/createFeature' with your route to create a new feature
   };
 
   return (
@@ -69,7 +75,6 @@ function ListOfFeatures() {
                   <td style={{fontWeight: '600'}}>{feature.featureName}</td>
                   <td style={{fontWeight: '200'}}>{dateString}</td>
                   <td>
-                    <button className='edit-button' onClick={() => handleEdit(feature.id)}>Edit</button>
                     <button className='edit-button' onClick={() => handleEdit(feature.id)}>View</button>
 
                   </td>
@@ -81,8 +86,7 @@ function ListOfFeatures() {
                   <td>{feature.featureName}</td>
                   <td>Data not available</td>
                   <td>
-                    <button className='edit-button' onClick={() => handleEdit('')}>Edit</button>
-                    <button className='edit-button' onClick={() => handleEdit(feature.id)}>View</button>
+                    <button className='edit-button' onClick={() => handleEdit('')}>View</button>
 
                   </td>
                 </tr>
@@ -90,6 +94,9 @@ function ListOfFeatures() {
             }
           })}
           </tbody>
+          <button className='create-new-feature-btn' onClick={handleCreateNewFeature}>
+  <FontAwesomeIcon icon={faPlus} /> Create a new feature
+</button>
         </table>
       </AppSidebar>
       </div>

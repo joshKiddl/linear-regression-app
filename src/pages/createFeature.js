@@ -39,8 +39,10 @@ function CreateFeature() {
   }
 
   const handleCancel = () => {
-    navigate('/listOfFeatures'); // navigate back to list of features
+    // Go back to the previous page
+    window.history.back();
   }
+  
 
   return (
     <div className="create-feature">
