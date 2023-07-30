@@ -1,0 +1,51 @@
+.create-feature {
+    height: 100%; /* Sets the minimum height of the container to fill the viewport */
+  width: 100vw;
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack the children vertically */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+  }
+  
+  .create-feature h1 {
+    color: #333;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .create-feature form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .create-feature form label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .create-feature form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .create-feature form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    align-self: center;
+  }
+  
+  .create-feature form button:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,42 +1,58 @@
+/* sidebar.css */
 .sidebar-content {
-    display: flex;
-    flex-direction: column;
-    position:relative;
-    justify-content: space-between;
-    align-items: flex-start;
-    height: 100%;
-    padding: 20px;
-    top: 0;
+  /* Existing styles */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100%;
+  padding: 20px;
+  position: fixed;
+  top: 0;
   left: 0;
+  height: 100%;
+  overflow-y: auto;
 }
-  
-  .sidebar-logo {
-    width: 80px;
-    height: auto;
-  }
-  
-  .sign-out {
-    bottom: 0;
-    width: 100%;
-  }
-  
-  .top-links {
-    margin: 5px;
-  }
 
-  .sidebar-link {
-    text-decoration: none;
-    color: black;
-    font-family: 'Montserrat', sans-serif;
-    padding-left: 10px;
-  }
-  
+.sidebar-logo {
+  /* Existing styles */
+  width: 80px;
+  height: auto;
+}
 
-  .spaced {
-    margin: 15px 0;
-  }
+.sign-out {
+  /* Existing styles */
+  bottom: 0;
+  width: 100%;
+}
 
-  .sidebar-link:hover {
-    cursor: pointer;
-  }
-  
+.top-links {
+  /* Existing styles */
+  margin: 5px;
+}
+
+.sidebar-link {
+  /* Existing styles */
+  text-decoration: none;
+  color: #999; /* Set the initial color to a lighter grey */
+  font-family: 'Montserrat', sans-serif;
+  padding-left: 10px;
+}
+
+.spaced {
+  /* Existing styles */
+  margin: 20px 0;
+}
+
+/* Add this new rule to set the color to full black when the link is selected */
+.sidebar-link.selected {
+  color: black;
+}
+
+/* Add this new rule to change the link color to full black on hover */
+.sidebar-link:hover {
+  cursor: pointer;
+  color: black;
+}
+
+

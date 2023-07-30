@@ -13,12 +13,12 @@ function Login() {
     event.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log('User:', user);
-        navigate('/listOfFeatures');  // navigate to ListOfFeatures page after successful login
-      })
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log('User:', user);
+      sessionStorage.setItem('userId', user.uid);  // Store user ID in session storage
+      navigate('/listOfFeatures');  
+    })  
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;

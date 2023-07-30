@@ -2,7 +2,7 @@
   min-height: 100vh; /* Set body height to at least 100% of the viewport height */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #f8f8f8;
   height: 100vh;  /* Make it occupy full viewport height */
 
@@ -16,6 +16,7 @@
   align-items: flex-start; 
   padding-left: 200px;
   background-color: #f8f8f8;
+  gap: 20px;
 }
 
 .feature-container {
@@ -25,18 +26,42 @@
   width: 100%;
 }
 
+.btn {
+  margin: 10px
+}
 
-.feature-list {
+.form-row {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 900px;
-  max-width: 900px;
+}
+
+.form-column {
+  flex: 1;
   padding: 10px;
 }
 
+
+.feature-list {
+  width: 80%;
+  border-collapse: collapse;
+  margin-left: 90px;
+}
+
+.feature-list th, .feature-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.feature-list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #fff;
+  color: black;
+}
+
 .lof-h2 {
-  margin-bottom: 12px;
+  margin: 20px 0px;
+  color: black;
 }
 
 ul {

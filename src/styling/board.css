@@ -1,0 +1,23 @@
+.board-body {
+    display: flex;
+    width: 80%;
+  }
+  
+  .board-content {
+    display: flex;
+    flex: 1;
+    margin-top: 50px;
+  }
+  
+  .column {
+    flex: 1;
+    min-width: 200px;
+    height: 100%;
+    padding: 16px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin: 0 10px;
+  }
+
+  
+  

@@ -105,6 +105,13 @@ button {
   width: 20px;
 }
 
+.account {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+}
+
 .show-problem-statement {
   opacity: 1;
   max-height: 500px;

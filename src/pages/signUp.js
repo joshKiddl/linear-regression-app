@@ -24,13 +24,12 @@ function SignUp() {
     
     // Create the user account with email and password
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log('User:', user);
-
-        // navigate to ListOfFeatures after successful sign-up
-        navigate('/listOfFeatures'); 
-      })
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log('User:', user);
+      sessionStorage.setItem('userId', user.uid);  // Store user ID in session storage
+      navigate('/listOfFeatures'); 
+    })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;

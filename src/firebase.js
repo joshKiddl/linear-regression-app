@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
+import { collection, getDocs, query } from "firebase/firestore";
 
 const firebaseApp = initializeApp({
     apiKey: "AIzaSyA9ze-yVFEIexpEfnaKBalQzYlg5fTufpI",
@@ -20,3 +21,16 @@ const auth = getAuth(firebaseApp);
 
 // Export the Firestore instance
 export { db, auth };
+
+export async function fetchFeatureData(userId) {
+  try {
+    const q = query(collection(db, "users", userId, "feature"));
+    const querySnapshot = await getDocs(q);
+
+    const featureData = querySnapshot.docs.map((doc) => doc.data().featureName);
+    return featureData;
+  } catch (error) {
+    console.error("Error fetching feature data:", error);
+    return [];
+  }
+}
