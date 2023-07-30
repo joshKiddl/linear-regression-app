@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { auth } from './firebase';
 import { perf } from "./firebase";
 import { hotjar } from 'react-hotjar';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import App from './App';
 import Problem from './pages/problem';
 import AcceptanceCriteria from './pages/acceptanceCriteria';
@@ -27,16 +27,15 @@ perf.dataCollectionEnabled = true;
 perf.isPerformanceCollectionEnabled = true;
 
 const AppRoutes = () => {
-  const history = useHistory();
+  const location = useLocation();
+
   useEffect(() => {
     hotjar.initialize(3593529, 6);
   }, []);
 
   useEffect(() => {
-    return history.listen(() => { 
-      hotjar.initialize(3593529, 6);
-    }); 
-  },[history]);
+    hotjar.initialize(3593529, 6);
+  }, [location]); // re-initialize hotjar when location changes
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
