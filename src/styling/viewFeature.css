@@ -1,11 +1,12 @@
 .view-feature {
-    min-height: 100vh; /* Set body height to at least 100% of the viewport height */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: #f8f8f8;
-    height: 100vh;  
-    padding-left: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #f8f8f8;
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;  
+  width: 100vw;
+  padding-left: 250px;
 }
 
 .feature-name {
@@ -26,6 +27,37 @@
     margin: 15px;
     font-family: 'Montserrat', sans-serif;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-    
   }
   
+  .feature-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* If you want to vertically center the text and the icon */
+    width: 90%; /* If you want the container to take up the full width available */
+    background-color: white;
+  }
+  
+  .editable-field {
+    font-size: 1em; /* adjust as needed */
+    padding: 0;
+    margin: 0;
+    border: none; /* removes the default border on inputs */
+    outline: none; /* removes the highlight outline on inputs */
+    background: transparent; /* makes the input's background transparent */
+    width: 100%; /* makes sure the input takes the full width of its container */
+  }
+
+  .custom-icon svg {
+    width: 10px; /* Adjust this to desired size */
+    height: auto; 
+  }
+
+  .acceptance-criteria {
+    background-color: white;
+    color: black;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  }

@@ -21,6 +21,7 @@ const Card = ({ id, text, listId }) => {
     borderRadius: '4px',
     marginBottom: '8px',
     cursor: 'grab',
+    minHeight: '60px',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.3)', // Add the box shadow here
   }}
 >

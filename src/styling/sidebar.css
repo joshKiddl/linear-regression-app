@@ -3,7 +3,7 @@
 .sidebar-logo {
   max-width: 70px;
   max-height: 70px;
-  margin: auto;
+  margin: 25px;
 }
 
 .top-links, .bottom-links {
@@ -29,6 +29,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 20px; /* adjust this value as needed */
 }
 
 .sidebar-item-icon-text-wrapper {

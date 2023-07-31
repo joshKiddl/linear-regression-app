@@ -1,19 +1,25 @@
 .create-feature {
-  min-height: 100vh; /* Set body height to at least 100% of the viewport height */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background-color: #f8f8f8;
   height: 100vh;  
-  padding-left: 80px;
-
+  width: 100vw;
+  padding-left: 250px;
+  align-items: flex-start; 
   }
-  
-  .create-feature h1 {
-    color: #333;
-    text-align: center;
-    margin-top: 20px;
-    text-align: left;
+
+.form-column {
+  flex: 1;
+  padding: 10px;
+}
+
+  .create-btn {
+    margin: 10px
+  }
+
+  .form-row {
+    display: flex;
   }
   
   .create-feature form {
@@ -60,12 +66,3 @@
     margin-top: 15px; 
   }
   
-  .create-h1 {
-    font-size: 40px;
-    /* font-weight: bold; */
-    font-family: 'Montserrat', sans-serif;
-    padding: 0px 8px;
-    border-radius: 8px;
-    max-width: calc(100% - 80px);
-    word-break: break-word;
-  }

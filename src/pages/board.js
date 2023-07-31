@@ -75,14 +75,12 @@ function Board() {
     <DndProvider backend={HTML5Backend}>
       <AppSidebar>
         <h2 className="lof-h2">Kanban Board</h2>
-        <div className="board-container">
           <div className="board-content">
             {/* Render lists using the List component */}
             {boardData.map((list, index) => (
               <List key={index} list={list} boardData={boardData} setBoardData={setBoardData} />
             ))}
           </div>
-        </div>
       </AppSidebar>
     </DndProvider>
     </div>

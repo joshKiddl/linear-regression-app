@@ -46,9 +46,9 @@ function CreateFeature() {
   
 
   return (
-    <AppSidebar>
     <div className="create-feature">
-      <h1 className='create-h1'>Create Feature</h1>
+      <AppSidebar>
+      <h2 className='lof-h2'>Create Feature</h2>
       <form style={{fontFamily: 'montserrat'}} onSubmit={handleSubmit}>
       <div className="form-row">
           <div className="form-column">
@@ -99,12 +99,12 @@ function CreateFeature() {
 </div>
 
       <div className="form-buttons">
-                    <button className='btn' type="submit">Save</button>
-                    <button className='btn' style={{backgroundColor:'cornflowerblue'}} type="button" onClick={handleCancel}>Cancel</button>
+                    <button className='create-btn' type="submit">Save</button>
+                    <button className='create-btn' style={{backgroundColor:'cornflowerblue'}} type="button" onClick={handleCancel}>Cancel</button>
                 </div>
             </form>
-        </div>
     </AppSidebar>
+        </div>
   );
 }
 

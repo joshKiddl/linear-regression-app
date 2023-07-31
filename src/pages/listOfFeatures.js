@@ -51,15 +51,11 @@ function ListOfFeatures() {
 
   return (
     <div className="lof-body">
-      <div className="lof-content">
       <AppSidebar>
         <h2 className='lof-h2'>Feature List</h2>
         <table className='feature-list'>
           <thead>
             <tr>
-              {/* <th>Features</th>
-              <th></th>
-              <th></th> */}
             </tr>
           </thead>
           <tbody>
@@ -72,7 +68,7 @@ function ListOfFeatures() {
               const dateString = dateCreated.toLocaleDateString("en-US");
               return (
                 <tr className='data-row' key={feature.id}>
-                  <td style={{fontWeight: '600'}}>{feature.featureName}</td>
+                  <td style={{fontWeight: '400'}}>{feature.featureName}</td>
                   <td style={{fontWeight: '200'}}>{dateString}</td>
                   <td>
                     <button className='edit-button' onClick={() => handleEdit(feature.id)}>View</button>
@@ -101,7 +97,6 @@ function ListOfFeatures() {
       </AppSidebar>
       </div>
 
-    </div>
   );
 }
 

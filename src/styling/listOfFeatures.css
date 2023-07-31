@@ -1,55 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .lof-body {
-  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background-color: #f8f8f8;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;  
-
-}
-
-.lof-content {
   width: 100vw;
-  display: flex; 
-  flex-direction: column; 
-  justify-content: flex-start;  /* Align the content at the start */
-  align-items: flex-start; 
-  padding-left: 200px;
-  background-color: #f8f8f8;
-  gap: 20px;
+  padding-left: 250px;
 }
 
-.feature-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.btn {
-  margin: 10px
-}
-
-.form-row {
-  display: flex;
-}
-
-.form-column {
-  flex: 1;
-  padding: 10px;
+.table-rounded {
+  border-radius: 20px;
 }
 
 .data-row {
   background-color: #fff;
   margin-bottom: 30px; /* This adds 20px of space below each row. Adjust this number to fit your needs */
-}
-
-.table-rounded {
-  border-radius: 20px;
-  overflow: hidden;  /* This is necessary to apply border radius for inner elements */
 }
 
 .edit-button {
@@ -59,71 +27,27 @@
 }
 
 .feature-list {
-  width: 80%;
-  border-collapse: collapse;
-  margin-left: 90px;
+  width: 90%;
   border-radius: 10px;
-    overflow: hidden; 
+  overflow: hidden; 
 }
 
 .feature-list th, .feature-list td {
-  border: 1px solid #fff;
-  padding: 16px 8px; /* Add top and bottom padding to space out rows. Adjust this to fit your needs */
+  padding: 10px 16px; /* Add top and bottom padding to space out rows. Adjust this to fit your needs */
 }
 
 .create-new-feature-btn {
   background-color: transparent;
   color: black;
-  /* font-weight: bold; */
   width: 300px;
-}
-
-.feature-list th {
-  padding-top: 12px;
-  padding-bottom: 12px;
   text-align: left;
-  background-color: #fff;
-  color: black;
-}
-
-.lof-h2 {
-  margin: 20px 0px;
-  color: black;
-}
-
-ul {
-  list-style: none;
-  padding: 10px;
-}
-
-li {
-  margin-bottom: -20px;
-}
-
-.lof-h3 {
-  font-size: 16px;
-  flex: 1;
-  background-color: #fff;
-  padding: 8px;
-  border-radius: 8px;
-  margin-left: 80px; /* To offset the width of the sidebar */
-  max-width: calc(100% - 80px); /* Adjust the width based on the sidebar width */
-  word-break: break-word; /* To prevent long text from overflowing */
-}
-
-.arrow {
-  flex: none;
-  /* other styles */
 }
 
 .lof-h2 {
   font-size: 40px;
-  /* font-weight: bold; */
   font-family: 'Montserrat', sans-serif;
-  padding: 0px 8px;
-  border-radius: 8px;
-  margin-left: 80px; /* To offset the width of the sidebar */
-  max-width: calc(100% - 80px); /* Adjust the width based on the sidebar width */
   word-break: break-word; /* To prevent long text from overflowing */
+  margin: 20px 20px;
+  color: black;
 }
 
