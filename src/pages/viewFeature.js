@@ -100,11 +100,11 @@ function ViewFeature() {
               ) : (
                 <div className="feature-text">
                   <ul>
-                  {feature.acceptanceCriteria?.map((criteria, index) => (
+{Array.isArray(feature.acceptanceCriteria) && feature.acceptanceCriteria.map((criteria, index) => (
   <li key={index} className="editable-field">{criteria}</li>
 ))}
+</ul>
 
-                  </ul>
                   <FontAwesomeIcon icon={faPencilAlt} className="custom-icon" onClick={() => handleEdit('acceptanceCriteria')} />
                 </div>
               )}
