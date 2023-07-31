@@ -21,7 +21,7 @@ function CreateFeature() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const uid = auth.currentUser.uid; 
+    const uid = auth.currentUser.uid;
     const featureCollection = collection(db, 'users', uid, 'feature');
     await addDoc(featureCollection, {
       featureName,
@@ -34,10 +34,19 @@ function CreateFeature() {
       dataElements,
       hypothesis,
       marketingMaterial,
-      createdAt: Timestamp.now(), // add this line to save the current timestamp
+      createdAt: Timestamp.now(),
+      status: 'Ideas', // Set the 'status' field to 'ideas'
     });
-    navigate('/listOfFeatures');
-  }
+  
+    // Check if the previous page is available in the history stack
+    if (window.history.length > 1) {
+      window.history.back(); // Navigate back to the previous page
+    } else {
+      navigate('/listOfFeatures'); // Navigate to '/listOfFeatures' if there's no previous page
+    }
+  };
+  
+  
 
   const handleCancel = () => {
     // Go back to the previous page

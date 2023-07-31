@@ -5,11 +5,15 @@ import { ItemTypes } from './Constants';
 const Card = ({ id, text, listId }) => {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CARD,
-    item: { id, listId, text }, // Include the listId in the item
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
+    item: { id, listId, text },
+    collect: (monitor) => {
+      if(monitor.isDragging()){
+        console.log('Dragging started');
+      }
+      return { isDragging: !!monitor.isDragging() };
+    },
   }));
+  
 
   return (
     <div
@@ -21,6 +25,7 @@ const Card = ({ id, text, listId }) => {
     borderRadius: '4px',
     marginBottom: '8px',
     cursor: 'grab',
+    fontSize: '14px',
     minHeight: '60px',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.3)', // Add the box shadow here
   }}
