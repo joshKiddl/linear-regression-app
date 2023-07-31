@@ -48,8 +48,8 @@ function CreateFeature() {
   return (
     <AppSidebar>
     <div className="create-feature">
-      <h1 className='create-h1'>New Feature</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className='create-h1'>Create Feature</h1>
+      <form style={{fontFamily: 'montserrat'}} onSubmit={handleSubmit}>
       <div className="form-row">
           <div className="form-column">
       <label>

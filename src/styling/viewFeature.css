@@ -10,7 +10,7 @@
 
 .feature-name {
     font-size: 40px;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-family: 'Montserrat', sans-serif;
     padding: 0px 8px;
     border-radius: 8px;

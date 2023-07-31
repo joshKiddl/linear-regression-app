@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 .lof-body {
-  min-height: 100vh; /* Set body height to at least 100% of the viewport height */
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   background-color: #f8f8f8;
-  height: 100vh;  /* Make it occupy full viewport height */
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;  
 
 }
 
@@ -71,7 +74,8 @@
 .create-new-feature-btn {
   background-color: transparent;
   color: black;
-  font-weight: bold;
+  /* font-weight: bold; */
+  width: 300px;
 }
 
 .feature-list th {
@@ -114,7 +118,7 @@ li {
 
 .lof-h2 {
   font-size: 40px;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-family: 'Montserrat', sans-serif;
   padding: 0px 8px;
   border-radius: 8px;

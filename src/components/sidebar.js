@@ -1,30 +1,31 @@
 import React from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faPause, faList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import logo from '../images/PMAILogo.png'; 
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'; 
-import Sidebar from "react-sidebar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList, faSignOutAlt, faPlus, faPause } from '@fortawesome/free-solid-svg-icons'
-import logo from '../images/PMAILogo.png';
+import { styled } from '@mui/system';
 import '../styling/sidebar.css';
 
-const mql = window.matchMedia(`(min-width: 800px)`);
 
-function AppSidebar({ children }) { // Add the 'children' prop here
-  const [sidebarDocked, setSidebarDocked] = React.useState(mql.matches);
-  const [sidebarOpen] = React.useState(true);
+const DrawerStyled = styled(Drawer)({
+  width: 175,
+  backgroundColor: '#182a4d',
+  alignItems: 'center',
+  '& .MuiDrawer-paper': {
+    width: 175,
+    backgroundColor: '#182a4d',
+    alignItems: 'center',
+  },
+});
+
+function AppSidebar({ children }) {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  React.useEffect(() => {
-    mql.addListener(mediaQueryChanged);
-    return () => mql.removeListener(mediaQueryChanged);
-  });
-
-  const mediaQueryChanged = () => {
-    setSidebarDocked(mql.matches);
-  };
-
+  
   const handleSignOut = () => {
     signOut(auth).then(() => {
       console.log("User Signed Out");
@@ -33,56 +34,58 @@ function AppSidebar({ children }) { // Add the 'children' prop here
       console.log("Error Signing Out: ", error);
     });
   };
+  
+  const drawer = (
+    <div className='sidebar-content'>
+      <List className='top-links'>
+      <img src={logo} alt="Logo" style={{width: "50px", height: "50px"}} className="sidebar-logo" />
+        <ListItem button component={Link} to="/ListOfFeatures" className="sidebar-item-icon-text-wrapper">
+          <div className="sidebar-item-icon">
+            <FontAwesomeIcon icon={faList} size="2x" color="white" />
+          </div>
+          <div className="sidebar-item-text">
+            Features
+          </div>
+        </ListItem>
+        <ListItem button component={Link} to="/board" className="sidebar-item-icon-text-wrapper">
+          <div className="sidebar-item-icon">
+            <FontAwesomeIcon icon={faPause} size="2x" color="white" />
+          </div>
+          <div className="sidebar-item-text">
+            Board
+          </div>
+        </ListItem>
+        <ListItem button component={Link} to="/createFeature" className="sidebar-item-icon-text-wrapper">
+          <div className="sidebar-item-icon">
+            <FontAwesomeIcon icon={faPlus} size="2x" color="white" />
+          </div>
+          <div className="sidebar-item-text">
+            New
+          </div>
+        </ListItem>
+      </List>
+      <List className='bottom-links'>
+        <ListItem button onClick={handleSignOut} className="sidebar-item-icon-text-wrapper">
+          <div className="sidebar-item-icon">
+            <FontAwesomeIcon icon={faSignOutAlt} size="2x" color="white" />
+          </div>
+          <div className="sidebar-item-text">
+            Sign Out
+          </div>
+        </ListItem>
+      </List>
+    </div>
+  );
 
   return (
-    <Sidebar
-      sidebar={
-        <div className="sidebar-content">
-          <div className="top-links">
-            <div className="spaced">
-              <Link to="/">
-                <img src={logo} alt="Logo" className="navbar-logo" />
-              </Link>
-            </div>
-            <div className={`spaced ${location.pathname === "/ListOfFeatures" ? "active" : ""}`}>
-  <Link className="sidebar-link" to="/ListOfFeatures">
-    <div className="link-content">
-      <FontAwesomeIcon icon={faList} size="lg" />
-      <span>List</span>
+    <div className="App">
+      <DrawerStyled variant="permanent">
+        {drawer}
+      </DrawerStyled>
+      <main>
+        {children}
+      </main>
     </div>
-  </Link>
-</div>
-<div className={`spaced ${location.pathname === "/board" ? "active" : ""}`}>
-  <Link className="sidebar-link" to="/board">
-    <div className="link-content">
-      <FontAwesomeIcon icon={faPause} size="lg" />
-      <span>Board</span>
-    </div>
-  </Link>
-</div>
-<div className={`spaced ${location.pathname === "/createFeature" ? "active" : ""}`}>
-  <Link className="sidebar-link" to="/createFeature">
-    <div className="link-content">
-      <FontAwesomeIcon icon={faPlus} size="lg" />
-      <span>Create Feature</span>
-    </div>
-  </Link>
-</div>
-
-
-          </div>
-          <div className="sidebar-link" onClick={handleSignOut}>
-            <FontAwesomeIcon icon={faSignOutAlt} size="lg" /> Sign Out
-          </div>
-        </div>
-      }
-      open={sidebarOpen}
-      docked={sidebarDocked}
-      onSetOpen={setSidebarDocked}
-      styles={{ sidebar: { background: "white", width: "250px", borderRadius: "0 20px 20px 0" } }}
-    >
-      {children} {/* Render children components here */}
-    </Sidebar>
   );
 }
 
