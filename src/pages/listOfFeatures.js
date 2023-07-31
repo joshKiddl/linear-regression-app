@@ -56,6 +56,10 @@ function ListOfFeatures() {
         <table className='feature-list'>
           <thead>
             <tr>
+              {/* <th>Feature Name</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th> */}
             </tr>
           </thead>
           <tbody>
@@ -69,10 +73,10 @@ function ListOfFeatures() {
               return (
                 <tr className='data-row' key={feature.id}>
                   <td style={{fontWeight: '400'}}>{feature.featureName}</td>
+                  <td>{feature.status}</td>
                   <td style={{fontWeight: '200'}}>{dateString}</td>
                   <td>
                     <button className='edit-button' onClick={() => handleEdit(feature.id)}>View</button>
-
                   </td>
                 </tr>
               );
@@ -81,23 +85,23 @@ function ListOfFeatures() {
                 <tr className='data-row' key={feature.id}>
                   <td>{feature.featureName}</td>
                   <td>Data not available</td>
+                  <td>{feature.status}</td>
                   <td>
                     <button className='edit-button' onClick={() => handleEdit('')}>View</button>
-
                   </td>
                 </tr>
               );
             }
           })}
           </tbody>
-          <button className='create-new-feature-btn' onClick={handleCreateNewFeature}>
-  <FontAwesomeIcon icon={faPlus} /> Create a new feature
-</button>
         </table>
+        <button className='create-new-feature-btn' onClick={handleCreateNewFeature}>
+          <FontAwesomeIcon icon={faPlus} /> Create a new feature
+        </button>
       </AppSidebar>
-      </div>
+    </div>
+);
 
-  );
 }
 
 export default ListOfFeatures;
