@@ -54,15 +54,47 @@ function Summary() {
     setBetaModalOpen(false);
   };
 
+  function isObject(item) {
+    return (typeof item === 'object' && !Array.isArray(item) && item !== null);
+  }
+  
+  function flattenObject(ob) {
+    var toReturn = {};
+  
+    for (var i in ob) {
+      if (!ob.hasOwnProperty(i)) continue;
+  
+      if (isObject(ob[i])) {
+          var flatObject = flattenObject(ob[i]);
+          for (var x in flatObject) {
+              if (!flatObject.hasOwnProperty(x)) continue;
+  
+              toReturn[i + '.' + x] = flatObject[x];
+          }
+      } else {
+          toReturn[i] = ob[i];
+      }
+    }
+    return toReturn;
+  }
+  
   function convertToCSV(objArray) {
-    const array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    const array = objArray.map(obj => flattenObject(obj));
     let str = `${Object.keys(array[0]).map(value => `"${value}"`).join(",")}\r\n`;
 
     return array.reduce((str, next) => {
-        str += `${Object.values(next).map(value => `"${value}"`).join(",")}\r\n`;
+        str += `${Object.values(next).map(value => {
+            // Check if the value is an array or string, else convert it to a string
+            if (typeof value === "string" || Array.isArray(value)) {
+              return `"${value}"`;
+            } else {
+              return `"${String(value)}"`;
+            }
+          }).join(",")}\r\n`;
         return str;
     }, str);
 }
+ 
 
 useEffect(() => {
   const timer = setTimeout(() => {
@@ -79,12 +111,21 @@ const goToSignUp = () => {
 
 
 const downloadCSV = async () => {
-  // Fetch data from Firestore
-  const featureDocs = await getDocs(collection(db, 'features'));
-  const featureData = featureDocs.docs.map(doc => doc.data());
+  // Create an object from the state variables
+  const featureData = {
+    problemStatement,
+    acceptanceCriteria: Array.isArray(acceptanceCriteria) ? acceptanceCriteria.join(",") : acceptanceCriteria,
+    technicalRequirements: Array.isArray(technicalRequirements) ? technicalRequirements.join(",") : technicalRequirements,
+    tasks: Array.isArray(tasks) ? tasks.join(",") : tasks,
+    keyCustomer: Array.isArray(keyCustomer) ? keyCustomer.join(",") : keyCustomer,
+    marketSize: Array.isArray(marketSize) ? marketSize.join(",") : marketSize,
+    dataElements: Array.isArray(dataElements) ? dataElements.join(",") : dataElements,
+    hypothesis: Array.isArray(hypothesis) ? hypothesis.join(",") : hypothesis,
+    marketingMaterial: Array.isArray(marketingMaterial) ? marketingMaterial.join(",") : marketingMaterial,
+  };
 
   // Convert JSON to CSV
-  const csv = convertToCSV(featureData);
+  const csv = convertToCSV([featureData]); // Wrap featureData in an array
 
   // Create a Blob object with CSV data
   const blob = new Blob([csv], { type: 'text/csv' });
@@ -95,7 +136,7 @@ const downloadCSV = async () => {
   // Create a temporary 'a' element and trigger the download
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'features.csv';
+  link.download = `feature_data.csv`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
