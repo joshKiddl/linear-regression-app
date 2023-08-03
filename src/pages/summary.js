@@ -15,7 +15,7 @@ function Summary() {
   const navigate = useNavigate();
   const [feedbackModalIsOpen, setFeedbackModalOpen] = useState(false);
   const [betaModalIsOpen, setBetaModalOpen] = useState(false);
-  const [feedbackFormState, setFeedbackFormState] = useState({ name: '', email: '', feedback: '' });
+  const [feedbackFormState, setFeedbackFormState] = useState({ name: '', email: '', feedback: '', role: '', company: '' });
   const [betaFormState, setBetaFormState] = useState({ name: '', email: '' });
   const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState('');
@@ -130,20 +130,23 @@ const downloadCSV = async () => {
 
   const handleFeedbackSubmit = useCallback(async (event) => {
     event.preventDefault();
-    const { name, email, feedback } = feedbackFormState;
+    const { name, email, role, company, feedback } = feedbackFormState;
     try {
       await setDoc(doc(db, "feedback", email), {
         name: name,
-        feedback: feedback,
-        email: email
+        email: email,
+        role: role,
+        company: company,
+        feedback: feedback
       });
       console.log("Document written with ID: ", email);
-      setFeedbackFormState({ name: '', email: '', feedback: '' });
+      setFeedbackFormState({ name: '', email: '', role: '', company: '', feedback: '' });
       setFeedbackMessage('We have received your feedback and will consider it in our decision making process');
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }, [feedbackFormState]);
+  
 
   const handleBetaSubmit = useCallback(async (event) => {
     event.preventDefault();
@@ -214,6 +217,14 @@ const downloadCSV = async () => {
         <label>
           Email:
           <input type="text" name="email" value={feedbackFormState.email} onChange={handleFeedbackChange} />
+        </label>
+        <label>
+          Role:
+          <input type="text" name="role" value={feedbackFormState.role} onChange={handleFeedbackChange} />
+        </label>
+        <label>
+          Company:
+          <input type="text" name="company" value={feedbackFormState.company} onChange={handleFeedbackChange} />
         </label>
         <label>
           Feedback:

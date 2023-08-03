@@ -90,7 +90,7 @@ function AcceptanceCriteria() {
     await setDoc(docRef, {
       acceptanceCriteria: selectedItems
     }, { merge: true });
-    navigate('/technicalRequirements');
+    navigate('/tasks');
   };
 
 

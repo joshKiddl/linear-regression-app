@@ -18,6 +18,9 @@
   border-radius: 12px;
   width: 800px;
   max-width: 90%;
+  overflow-y: auto;  /* Enable vertical scrolling if the content overflows */
+  max-height: 90vh;  /* Or any height that fits your design */
+
 }
 
 .modal-content form {
