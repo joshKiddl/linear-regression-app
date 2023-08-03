@@ -126,7 +126,7 @@ function DataElements() {
       </div>
       <div className={`input-container2 ${state.showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
-          <h2>Our AI suggestions</h2>
+        <h2>Select one or more options below</h2>
           {Array.isArray(state.aiResponse) ? (
             state.aiResponse.map((item, index) => {
               const itemText = item.replace(/^\d+\.\s*/, '').replace(/-/g, ''); // Removes numbering from the start of the item and all dashes

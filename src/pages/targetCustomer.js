@@ -113,7 +113,7 @@ function TargetCustomer() {
       </div>
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
-          <h2>Our AI suggestions</h2>
+        <h2>Select one or more options below</h2>
           {Array.isArray(aiResponse) ? (
             // If aiResponse is a list, map through the items and render each as a separate <div> box
             aiResponse.map((item, index) => {

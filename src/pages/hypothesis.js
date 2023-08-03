@@ -111,7 +111,7 @@ function Hypothesis() {
               role="status" 
               style={{ width: '1rem', height: '1rem' }} // Add this line
             >
-              <span className="sr-only">Loading...</span>
+              <span className="sr-only"></span>
             </Spinner>
           ) : (
             'Generate'
@@ -120,7 +120,7 @@ function Hypothesis() {
       </div>
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
-          <h2>Our AI suggestions</h2>
+        <h2>Select one or more options below</h2>
           {Array.isArray(aiResponse) ? (
             aiResponse.map((item, index) => {
               const itemText = item.replace(/^\d+\.\s*/, '').replace(/-/g, '');
