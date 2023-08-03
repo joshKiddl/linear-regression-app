@@ -9,6 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 function DataElements() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [nextButtonLabel, setNextButtonLabel] = useState('Skip'); // New state
 
   const [state, setState] = useState({
     aiResponse: '',
@@ -74,6 +75,15 @@ function DataElements() {
     });
   };
 
+   // Add this effect to update nextButtonLabel when selectedItems changes
+   useEffect(() => {
+    if (state.selectedItems.length > 0) {
+      setNextButtonLabel('Next');
+    } else {
+      setNextButtonLabel('Skip');
+    }
+  }, [state.selectedItems]); // Add selectedItems to the dependency array
+
   const handleResponseItemClick = (item) => {
     if (state.selectedItems.includes(item)) {
       setState(prevState => ({
@@ -100,19 +110,19 @@ function DataElements() {
     <div className="container">
       <h1>Generate the Data Elements that are important for understanding the success of this feature</h1>
       <div className="input-container">
-      <button onClick={handleSubmit}>
-    {isLoading ? (
-      <Spinner 
-      animation="border" 
-      role="status" 
-      style={{ width: '1rem', height: '1rem' }} // Add this line
-    >
-      <span className="sr-only"></span>
-    </Spinner>
-    ) : (
-      'Generate'
-    )}
-  </button>
+        <button onClick={handleSubmit}>
+          {isLoading ? (
+            <Spinner 
+              animation="border" 
+              role="status" 
+              style={{ width: '1rem', height: '1rem' }}
+            >
+              <span className="sr-only"></span>
+            </Spinner>
+          ) : (
+            'Generate'
+          )}
+        </button>
       </div>
       <div className={`input-container2 ${state.showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
@@ -137,7 +147,7 @@ function DataElements() {
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
+        <button className="next-button" onClick={handleNext}>{nextButtonLabel}</button>  
       </div>
     </div>
   );

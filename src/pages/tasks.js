@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
@@ -12,6 +12,7 @@ function Tasks() {
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [nextButtonLabel, setNextButtonLabel] = useState('Skip'); // New state
 
   // Single function to get data from Firestore
   const getDataFromSession = async (field) => {
@@ -23,6 +24,15 @@ function Tasks() {
     });
     return data;
   }
+
+  useEffect(() => {
+    // Add this effect to update nextButtonLabel when selectedItems changes
+    if (selectedItems.length > 0) {
+      setNextButtonLabel('Next');
+    } else {
+      setNextButtonLabel('Skip');
+    }
+  }, [selectedItems]); // Add selectedItems to the dependency array
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
@@ -121,8 +131,8 @@ function Tasks() {
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
-      </div>
+        <button className="next-button" onClick={handleNext}>{nextButtonLabel}</button>  
+        </div>
     </div>
   );
 }

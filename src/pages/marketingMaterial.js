@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Import useEffect
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
@@ -12,6 +12,8 @@ function MarketingMaterial() {
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [nextButtonLabel, setNextButtonLabel] = useState('Skip'); // New state
+
 
   const getDataFromSession = async (field) => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -75,6 +77,14 @@ function MarketingMaterial() {
     }
   };
 
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      setNextButtonLabel('Next');
+    } else {
+      setNextButtonLabel('Skip');
+    }
+  }, [selectedItems]); // Add selectedItems to the dependency array
+
   const handleBack = () => {
     navigate(-1); // Go back to the previous page
   };
@@ -101,7 +111,7 @@ function MarketingMaterial() {
       role="status" 
       style={{ width: '1rem', height: '1rem' }} // Add this line
     >
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only"></span>
     </Spinner>
     ) : (
       'Generate'
@@ -134,7 +144,7 @@ function MarketingMaterial() {
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
+        <button className="next-button" onClick={handleNext}>{nextButtonLabel}</button>  {/* Use nextButtonLabel */}
       </div>
     </div>
   );

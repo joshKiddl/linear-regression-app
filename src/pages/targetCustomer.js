@@ -14,6 +14,7 @@ function TargetCustomer() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [fetchedData, setFetchedData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [nextButtonLabel, setNextButtonLabel] = useState('Skip'); // New state
 
   const fetchDataFromSession = async () => {
     const q = query(collection(db, "features"), where("sessionId", "==", sessionStorage.getItem('sessionId')));
@@ -74,6 +75,15 @@ function TargetCustomer() {
     navigate(-1);
   };
 
+  // Add this effect to update nextButtonLabel when selectedItems changes
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      setNextButtonLabel('Next');
+    } else {
+      setNextButtonLabel('Skip');
+    }
+  }, [selectedItems]); // Add selectedItems to the dependency array
+
   const handleNext = async () => {
     const documentId = sessionStorage.getItem('documentId');
     const docRef = doc(db, "features", documentId);
@@ -127,7 +137,7 @@ function TargetCustomer() {
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>
-        <button className="next-button" onClick={handleNext}>Next</button>
+        <button className="next-button" onClick={handleNext}>{nextButtonLabel}</button>  
       </div>
     </div>
   );
