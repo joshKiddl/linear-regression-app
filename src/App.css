@@ -21,7 +21,16 @@ body {
 }
 
 .container1 {
-  height: 100vh; /* Sets the minimum height of the container to fill the viewport */
+  height: 80vh; /* Sets the minimum height of the container to fill the viewport */
+  width: 100vw;
+  display: flex; /* Use Flexbox */
+  flex-direction: column; /* Stack the children vertically */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+}
+
+.container1b {
+  height: 60; /* Sets the minimum height of the container to fill the viewport */
   width: 100vw;
   display: flex; /* Use Flexbox */
   flex-direction: column; /* Stack the children vertically */
@@ -69,13 +78,11 @@ body {
   flex-direction: row;
   justify-content:space-around; /* Center children vertically */
   align-items: center; /* Center children horizontally */
+  margin-bottom: 100px;
 }
 
 /* Start of Media Query */
 @media screen and (max-width: 600px) {
-  .container {
-    /* padding: 0 15px;  */
-  }
   .form-input, .btn {
     width: 100%; 
   }
@@ -128,7 +135,6 @@ body {
   /* font-weight: bold; */
 }
 
-
 .subtitle {
   font-size: 20px;
   color: #000;
@@ -142,10 +148,19 @@ body {
   font-size: 30px;
   color: #000;
   padding-top: 100px;
-  margin-bottom: 30px;
+  margin-bottom: 70px;
   font-family: 'Montserrat', sans-serif;
   justify-self: center;
   
+}
+
+.right-icon {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.right-icon:hover {
+  color: black;
 }
 
 h3 {
