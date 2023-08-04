@@ -63,19 +63,23 @@ function Board() {
   const [boardData, setBoardData] = useState([]);
 
   useEffect(() => {
-    const userId = auth.currentUser?.uid;
-
-    if (userId) {
-      fetchFeatureData(userId)
-        .then((featureData) => {
-          const transformedData = transformFeatureDataToBoardData(featureData);
-          setBoardData(transformedData);
-        })
-        .catch((error) => {
-          console.log('Error fetching feature data:', error);
-        });
-    }
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        fetchFeatureData(user.uid)
+          .then((featureData) => {
+            const transformedData = transformFeatureDataToBoardData(featureData);
+            setBoardData(transformedData);
+          })
+          .catch((error) => {
+            console.log('Error fetching feature data:', error);
+          });
+      }
+    });
+  
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
+  
 
   const onDragEnd = async (item, targetListId) => {
     console.log('onDragEnd called:', item, targetListId);
