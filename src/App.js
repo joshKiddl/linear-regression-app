@@ -84,7 +84,7 @@ function App() {
           muted
           playsInline
           style={{
-            width: "70%",
+            width: "75%",
             height: "auto",
             borderWidth: "1px",
             borderColor: "gray",
@@ -142,6 +142,7 @@ function App() {
           <img
             width={"auto"}
             height={"250px"}
+            className="lp-image"
             style={{
               borderWidth: "1px",
               borderColor: "gray",

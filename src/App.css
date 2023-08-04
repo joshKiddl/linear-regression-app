@@ -87,8 +87,9 @@ body {
   .container1b,
   .container2,
   .container3 {
-    width: 100%;
+    width: 100vw;
     padding: 20px;
+    align-content: center;
   }
   
   .problem-section {
@@ -96,30 +97,39 @@ body {
   }
 
   .problem-image {
-    width: 100%;
+    width: 90%;
     height: auto;
   }
 
   .title {
-    font-size: 28px;
+    font-size: 20px;
   }
 
   .subtitle, .h4 {
     font-size: 18px;
+    
   }
 
   .header {
     font-size: 24px;
+    overflow-wrap: break-word; /* Add this line */
+    padding-left: 10px; /* Add this line */
+    padding-right: 10px; /* Add this line */
   }
 
   h3 {
-    font-size: 22px;
+    font-size: 18px;
+    overflow-wrap: break-word; /* Add this line */
+    padding-left: 10px; /* Add this line */
+    padding-right: 10px; /* Add this line */
   }
 
   p {
     font-size: 14px;
     width: 100%;
-  }
+    overflow-wrap: break-word; /* Add this line */
+    padding-left: 10px; /* Add this line */
+    padding-right: 10px; /* Add this line */  }
 
   .blurb {
     padding-left: 20px;
