@@ -12,6 +12,8 @@ import {
 } from "@firebase/firestore";
 import { db, auth } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Tasks() {
   const navigate = useNavigate();
@@ -160,7 +162,9 @@ function Tasks() {
                   }`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                  {item}
+                  {item}<FontAwesomeIcon
+                    icon={faPlusCircle}
+                  />
                 </div>
               ))
           ) : (
@@ -174,7 +178,8 @@ function Tasks() {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
               <div key={index} className="selected-item">
-                <span className="minus-icon">-</span> {itemText}
+                 {itemText}
+                 
               </div>
             );
           })}

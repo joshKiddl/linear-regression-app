@@ -5,6 +5,8 @@ import '../styling/problem.css';
 import { collection, doc, query, where, getDocs, setDoc } from '@firebase/firestore';
 import { db, auth } from '../firebase';  // import your Firestore instance
 import Spinner from 'react-bootstrap/Spinner';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Hypothesis() {
   const navigate = useNavigate();
@@ -141,7 +143,9 @@ function Hypothesis() {
                   className={`response-item ${selectedItems.includes(item) ? 'selected' : ''}`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                  <span className="plus-icon">+</span> {itemText}
+                   {itemText}<FontAwesomeIcon
+                    icon={faPlusCircle}
+                  />
                 </div>
               );
             })

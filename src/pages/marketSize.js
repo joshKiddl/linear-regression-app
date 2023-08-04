@@ -12,6 +12,8 @@ import {
 } from "@firebase/firestore";
 import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function MarketSize() {
   const navigate = useNavigate();
@@ -172,6 +174,9 @@ function MarketSize() {
                   onClick={() => handleResponseItemClick(item)}
                 >
                   {item}
+                  <FontAwesomeIcon
+                    icon={faPlusCircle}
+                  />
                 </div>
               ))
           ) : (

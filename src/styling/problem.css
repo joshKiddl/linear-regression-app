@@ -45,7 +45,11 @@ h1 {
   margin-bottom: 5px;
   transition: background-color 0.3s;
   font-size: 14px;
+  display: flex; /* Add this */
+  justify-content: space-between; /* Add this */
+  align-items: center;
 }
+
 
 .ai-response .response-item:hover {
   background-color: lightblue;

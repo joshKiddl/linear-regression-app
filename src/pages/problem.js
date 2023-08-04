@@ -9,6 +9,8 @@ import { db } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Problem() {
   const navigate = useNavigate();
@@ -190,7 +192,10 @@ function Problem() {
         className={`response-item ${selectedItem === item ? "selected" : ""}`}
         onClick={() => handleResponseItemClick(item)}
       >
-        <span className="plus-icon">+</span> {item}
+         {item}
+         <FontAwesomeIcon
+                    icon={faPlusCircle}
+                  />
       </div>
     ))
 ) : (

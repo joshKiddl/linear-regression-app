@@ -12,6 +12,8 @@ import {
 } from "@firebase/firestore";
 import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function MarketingMaterial() {
   const navigate = useNavigate();
@@ -170,7 +172,9 @@ function MarketingMaterial() {
                   }`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                  <span className="plus-icon">+</span> {itemText}
+                   {itemText}<FontAwesomeIcon
+                    icon={faPlusCircle}
+                  />
                 </div>
               );
             })
@@ -187,7 +191,10 @@ function MarketingMaterial() {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
               <div key={index} className="selected-item">
-                <span className="minus-icon">-</span> {itemText}
+                {itemText}
+                <FontAwesomeIcon
+                    icon={faPlusCircle}
+                  />
               </div>
             );
           })}
