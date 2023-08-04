@@ -106,8 +106,9 @@ function Tasks() {
   </button>
       </div>
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
+  <div className='hint'>Hint: You can add items then click generate again to add more!</div>
         <div className="ai-response">
-        <h2>Select one or more options below</h2>
+        <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
             // If aiResponse is a list, map through the items and render each as a separate <div> box
             aiResponse.map((item, index) => {
@@ -128,6 +129,18 @@ function Tasks() {
             <p>{aiResponse.error}</p>
             )}
         </div>
+        {/* New block for displaying selected items */}
+    <div className="selected-items">
+        <h2>Selected items</h2>
+        {selectedItems.map((item, index) => {
+            const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
+            return (
+            <div key={index} className="selected-item">
+                <span className="minus-icon">-</span> {itemText}
+            </div>
+            );
+        })}
+    </div>
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>Back</button>

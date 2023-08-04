@@ -120,7 +120,7 @@ function Hypothesis() {
       </div>
       <div className={`input-container2 ${showProblemStatement ? 'show-problem-statement' : ''}`}>
         <div className="ai-response">
-        <h2>Select one or more options below</h2>
+        <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
             aiResponse.map((item, index) => {
               const itemText = item.replace(/^\d+\.\s*/, '').replace(/-/g, '');

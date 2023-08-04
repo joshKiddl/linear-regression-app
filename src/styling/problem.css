@@ -89,6 +89,13 @@ button {
   font-family: 'Montserrat', sans-serif;
 }
 
+.hint {
+  text-align: center;
+  font-size: 14px;
+  color:brown;
+  margin-bottom: 5px;
+}
+
 .ai-response {
   margin-bottom: 10px;
   font-family: 'Montserrat', sans-serif;
@@ -97,8 +104,32 @@ button {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 0 8px #1c4bba;
-  max-height: 250px; /* Maximum height for the container */
+  max-height: 200px; /* Maximum height for the container */
   overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+}
+
+.selected-items {
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border: 2px solid #1c4bba;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 8px #1c4bba;
+  max-height: 150px; /* Maximum height for the container */
+  overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+}
+
+.selected-items .selected-item {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+  font-size: 14px;
 }
 
 .sr-only {

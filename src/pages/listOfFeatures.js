@@ -85,14 +85,18 @@ function ListOfFeatures() {
               const dateString = dateCreated.toLocaleDateString("en-US");
               return (
                 <tr className='data-row' key={feature.id}>
-                  <td style={{fontWeight: '400'}}>{feature.featureName}</td>
+                  <td style={{fontWeight: '400'}}>
+                    <button 
+                      className='feature-name-button' 
+                      onClick={() => handleEdit(feature.id)}>
+                      {feature.featureName}
+                    </button>
+                  </td>
                   <td>{feature.status}</td>
                   <td style={{fontWeight: '200'}}>{dateString}</td>
-                  <td>
-                    <button className='edit-button' onClick={() => handleEdit(feature.id)}>View</button>
-                  </td>
                 </tr>
               );
+              
             } else {
               return (
                 <tr className='data-row' key={feature.id}>

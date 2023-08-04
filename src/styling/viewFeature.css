@@ -10,54 +10,70 @@
 }
 
 .feature-name {
-    font-size: 40px;
-    /* font-weight: bold; */
-    font-family: 'Montserrat', sans-serif;
-    padding: 0px 8px;
-    border-radius: 8px;
-    max-width: calc(100% - 80px);
-    word-break: break-word;
-  }
-  
-  .problem-statement {
-    background-color: white;
-    color: black;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px;
-    font-family: 'Montserrat', sans-serif;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  }
-  
-  .feature-text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* If you want to vertically center the text and the icon */
-    width: 90%; /* If you want the container to take up the full width available */
-    background-color: white;
-  }
-  
-  .editable-field {
-    font-size: 1em; /* adjust as needed */
-    padding: 0;
-    margin: 0;
-    border: none; /* removes the default border on inputs */
-    outline: none; /* removes the highlight outline on inputs */
-    background: transparent; /* makes the input's background transparent */
-    width: 100%; /* makes sure the input takes the full width of its container */
-  }
+  font-size: 40px;
+  font-family: 'Montserrat', sans-serif;
+  word-break: break-word; /* To prevent long text from overflowing */
+  margin: 20px 20px;
+  color: black;
+}
 
-  .custom-icon svg {
-    width: 10px; /* Adjust this to desired size */
-    height: auto; 
-  }
+.problem-statement {
+  background-color: white;
+  color: black;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
 
-  .acceptance-criteria {
-    background-color: white;
-    color: black;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px;
-    font-family: 'Montserrat', sans-serif;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+.feature-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* If you want to vertically center the text and the icon */
+  width: 100%; /* If you want the container to take up the full width available */
+  background-color: white;
+}
+
+.editable-field {
+  font-size: 1em; /* adjust as needed */
+  padding: 0;
+  margin: 0;
+  border: none; /* removes the default border on inputs */
+  outline: none; /* removes the highlight outline on inputs */
+  background: transparent; /* makes the input's background transparent */
+  width: 90%; /* reduced width to accommodate the icon */
+}
+
+/* .custom-icon svg {
+  width: 5px; 
+  height: auto; 
+} */
+
+.feature-input-field {
+  background-color: white;
+  color: black;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+}
+
+.form-columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-column {
+  width: 45%; /* You can adjust this value based on your needs */
+}
+
+@media screen and (max-width: 768px) {
+  .form-columns {
+    flex-direction: column;
   }
+  .form-column {
+    width: 100%;
+  }
+}
