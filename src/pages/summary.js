@@ -17,6 +17,7 @@ import logo from "../images/PMAILogo.png"; // adjust the import path as necessar
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudDownload, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import NPS from "../components/nps";
 
 function Summary() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function Summary() {
   const [dataElements, setDataElements] = useState("");
   const [hypothesis, setHypothesis] = useState("");
   const [marketingMaterial, setMarketingMaterial] = useState("");
-  const [copySuccess, setCopySuccess] = useState("");
+  const [lastCopiedId, setLastCopiedId] = useState(null);
 
   const openShareModal = () => {
     setShareModalIsOpen(true);
@@ -437,14 +438,15 @@ function Summary() {
       </Modal>
 
       <div className="header-container">
-      <h1>{featureName}</h1>
-      <button className="download-button" onClick={goToSignUp}>
+        <h1>{featureName}</h1>
+        <button className="download-button" onClick={goToSignUp}>
           <FontAwesomeIcon icon={faUser} size="2x" color="cornflowerblue" />`
           Save Feature & Create Account
         </button>
-        </div>
+        <NPS />
+      </div>
       <div className="content-container">
-        <div >
+        <div>
           <h2>Problem Statement</h2>
           <p className="content">{problemStatement}</p>{" "}
           {/* replace placeholder */}
@@ -454,13 +456,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(problemStatement)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("problemStatement"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "problemStatement" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="acceptance-criteria">
@@ -480,13 +482,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(acceptanceCriteria)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("acceptanceCriteria"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "acceptanceCriteria" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="tasks">
@@ -503,13 +505,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(tasks)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("tasks"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "tasks" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="key-customer">
@@ -528,13 +530,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(keyCustomer)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("keyCustomer"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "keyCustomer" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="market-size">
@@ -553,13 +555,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(marketSize)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("marketSize"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "marketSize" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="data-elements">
@@ -578,13 +580,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(dataElements)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("dataElements"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "dataElements" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="hypothesis">
@@ -603,13 +605,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(hypothesis)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("hypothesis"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "hypothesis" ? "Copied!" : "Copy"}
           </button>
         </div>
         <div className="marketing-material">
@@ -628,13 +630,13 @@ function Summary() {
               navigator.clipboard
                 .writeText(marketingMaterial)
                 .then(() => {
-                  setCopySuccess("Copied!");
-                  setTimeout(() => setCopySuccess(""), 2000); // revert back after 2 seconds
+                  setLastCopiedId("marketingMaterial"); // set the id of the clicked button
+                  setTimeout(() => setLastCopiedId(null), 2000); // revert back after 2 seconds
                 })
                 .catch(console.error);
             }}
           >
-            {copySuccess === "Copied!" ? copySuccess : "Copy"}
+            {lastCopiedId === "marketingMaterial" ? "Copied!" : "Copy"}
           </button>
         </div>
         <button className="download-button" onClick={downloadCSV}>
@@ -645,7 +647,6 @@ function Summary() {
           />
           ` Download CSV
         </button>
-        
       </div>
     </div>
   );

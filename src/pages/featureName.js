@@ -67,7 +67,8 @@ function FeatureName() {
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
-          setAIResponse({ error: "Failed to get AI response." });
+          setIsLoading(false); // stop loading
+          setAIResponse({ error: "Please generate responses again" });
           setShowProblemStatement(true);
         });
     });

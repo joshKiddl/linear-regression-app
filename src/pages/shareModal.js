@@ -10,6 +10,7 @@
 // } from 'react-share';
 
 // const ShareModal = ({ isOpen, onRequestClose }) => (
+  
 //   <Modal
 //     isOpen={isOpen}
 //     onRequestClose={onRequestClose}
