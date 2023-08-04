@@ -8,7 +8,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { Timestamp } from "firebase/firestore"; 
+import { Timestamp } from "firebase/firestore";
 
 function Problem() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Problem() {
   const [selectedItem, setSelectedItem] = useState(null); // New state to keep track of the selected item
   const [progress, setProgress] = useState(0); // New state for the progress
   const [isLoading, setIsLoading] = useState(false);
-  const [oldAIResponse, setOldAIResponse] = useState([]); // New state to store old responses
+  // const [oldAIResponse, setOldAIResponse] = useState([]); // New state to store old responses
   const [user, setUser] = useState(null); // New state for tracking the current user
 
   const auth = getAuth(); // Initialize the Firebase Auth instance
@@ -57,10 +57,10 @@ function Problem() {
           finalProblemStatement: problemStatement,
           sessionId: sessionStorage.getItem("sessionId"),
           createdAt: Timestamp.now(),
-          status: 'Ideas',  // Add the 'status' field here
+          status: "Ideas", // Add the 'status' field here
         }
       );
-  
+
       // Save the document ID to the session storage
       sessionStorage.setItem("documentId", docRef.id);
       console.log("Document written with ID: ", docRef.id);
@@ -68,14 +68,13 @@ function Problem() {
       console.error("Error adding document: ", e);
     }
   };
-  
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-    fetch("https://ml-linear-regression.onrender.com/openai-predict", {
-      method: "POST",
+    fetch('https://ml-linear-regression.onrender.com/openai-predict', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         inputText: inputText,
@@ -85,20 +84,20 @@ function Problem() {
       .then((data) => {
         setIsLoading(false); // stop loading
         if (data.error) {
-          setAIResponse({ error: data.error });
+          setAIResponse({ error: data.error }); // Update the state with the API error response
         } else {
-          // When a new response comes, prepend it to the old responses and update the state
-          const newResponses = data.predicted_items;
-          setAIResponse([...newResponses, ...oldAIResponse]);
-          setOldAIResponse([...newResponses, ...oldAIResponse]);
+          setAIResponse(data.predicted_items); // Update the state with the AI response (assuming 'predicted_items' is the array of items in the API response)
         }
-        setShowProblemStatement(true);
+        setShowProblemStatement(true); // Show the "Final Problem Statement" field after Check is clicked
       })
       .catch((error) => {
         setIsLoading(false); // stop loading
-        console.error("Error fetching data:", error);
-        setAIResponse({ error: "Please generate responses again" });
-        setShowProblemStatement(true);
+
+        // Handle error if the API request fails
+        console.error('Error fetching data:', error);
+        // Optionally, set a default AI response or show an error message
+        setAIResponse({ error: 'Failed to get AI response.' });
+        setShowProblemStatement(true); // Show the "Final Problem Statement" field even if the request fails
       });
   };
 
@@ -110,7 +109,7 @@ function Problem() {
     // You can adjust maxChars depending on your requirements
     const maxChars = 100;
     const progress = (item.length / maxChars) * 100;
-    setProgress(progress);
+    setProgress(Math.min(progress, 100)); // Here we use Math.min() to make sure the progress doesn't exceed 100%
   };
 
   const handleBack = () => {
@@ -162,7 +161,7 @@ function Problem() {
               role="status"
               style={{ width: "1rem", height: "1rem" }} // Add this line
             >
-              <span className="sr-only"></span>
+              
             </Spinner>
           ) : (
             "Generate"
@@ -179,31 +178,25 @@ function Problem() {
         <div className="ai-response">
           <h2>Select an option below</h2>
           {Array.isArray(aiResponse) ? (
-            // If aiResponse is a list, map through the items and render each as a separate <div> box
-            aiResponse.map((item, index) => {
-              // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*-*\s*/, ""); // Removes numbering and dashes from the start of the item
-              return (
-                <div
-                  key={index}
-                  className={`response-item ${
-                    selectedItem === item ? "selected" : ""
-                  }`}
-                  onClick={() => handleResponseItemClick(item)}
-                >
-                  <span className="plus-icon">+</span> {itemText}
-                </div>
-              );
-            })
-          ) : (
-            // If aiResponse is not a list, render it as a single <p>
-            // Check if the AI response is an error object
-            <p>
-              {typeof aiResponse === "object" && aiResponse.error
-                ? aiResponse.error
-                : aiResponse}
-            </p>
-          )}
+  aiResponse
+    .map((item) => {
+      const itemText = item.replace(/^\d+\.\s*-*\s*/, "").trim();
+      return itemText ? item : null; // Return null if itemText is blank
+    })
+    .filter(Boolean) // Remove null (or blank) items
+    .map((item, index) => (
+      <div
+        key={index}
+        className={`response-item ${selectedItem === item ? "selected" : ""}`}
+        onClick={() => handleResponseItemClick(item)}
+      >
+        <span className="plus-icon">+</span> {item}
+      </div>
+    ))
+) : (
+  <p>{aiResponse.error}</p>
+)}
+
         </div>
         <label
           className="finalProblemStatementLabel"

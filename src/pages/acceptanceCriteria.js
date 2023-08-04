@@ -10,7 +10,7 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { auth, db } from '../firebase'; 
+import { auth, db } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
 
 function AcceptanceCriteria() {
@@ -51,18 +51,22 @@ function AcceptanceCriteria() {
   const handleSubmit = () => {
     setIsLoading(true); // start loading
 
+    console.log("Sending problem statement:", problemStatement); // Log the problem statement being sent
+
     fetch("https://ml-linear-regression.onrender.com/openai-solution", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        inputText: problemStatement, // use problemStatement instead of inputText
+        inputText: problemStatement,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
         setIsLoading(false); // stop loading
+
+        console.log("Received data:", data); // Log the data received
 
         if (data.error) {
           setAIResponse({ error: data.error });
@@ -102,20 +106,20 @@ function AcceptanceCriteria() {
     const docRef = doc(db, "users", userId, "feature", documentId);
 
     try {
-        // Update the existing document with the acceptanceCriteria field
-        await setDoc(
-            docRef,
-            {
-                acceptanceCriteria: selectedItems,
-            },
-            { merge: true }
-        );
-        console.log('Successfully updated document:', documentId);
-        navigate("/tasks");
+      // Update the existing document with the acceptanceCriteria field
+      await setDoc(
+        docRef,
+        {
+          acceptanceCriteria: selectedItems,
+        },
+        { merge: true }
+      );
+      console.log("Successfully updated document:", documentId);
+      navigate("/tasks");
     } catch (error) {
-        console.error('Error updating document:', error);
+      console.error("Error updating document:", error);
     }
-};
+  };
 
   return (
     <div className="container">
@@ -130,9 +134,7 @@ function AcceptanceCriteria() {
               animation="border"
               role="status"
               style={{ width: "1rem", height: "1rem" }} // Add this line
-            >
-              <span className="sr-only"></span>
-            </Spinner>
+            ></Spinner>
           ) : (
             "Generate"
           )}
@@ -143,16 +145,23 @@ function AcceptanceCriteria() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-          <div className='hint'>Hint: You can add items then click generate again to add more!</div>
+        <div className="hint">
+          Hint: You can add items then click generate again to add more!
+        </div>
 
         <div className="ai-response">
           <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
-            // If aiResponse is a list, map through the items and render each as a separate <div> box
-            aiResponse.map((item, index) => {
-              // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
-              return (
+            aiResponse
+              .map((item) => {
+                const itemText = item
+                  .replace(/^\d+\.\s*/, "")
+                  .replace(/-/g, "")
+                  .trim();
+                return itemText ? item : null; // Return null if itemText is blank
+              })
+              .filter(Boolean) // Remove null (or blank) items
+              .map((item, index) => (
                 <div
                   key={index}
                   className={`response-item ${
@@ -160,29 +169,26 @@ function AcceptanceCriteria() {
                   }`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                  <span className="plus-icon">+</span> {itemText}
+                  {item}
                 </div>
-              );
-            })
+              ))
           ) : (
-            // If aiResponse is not a list, render it as a single <p>
             <p>{aiResponse.error}</p>
           )}
         </div>
 
-{/* New block for displaying selected items */}
-<div className="selected-items">
-        <h2>Selected items</h2>
-        {selectedItems.map((item, index) => {
+        {/* New block for displaying selected items */}
+        <div className="selected-items">
+          <h2>Selected items</h2>
+          {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
-            <div key={index} className="selected-item">
-                <span className="minus-icon">-</span> {itemText}
-            </div>
+              <div key={index} className="selected-item">
+                {itemText}
+              </div>
             );
-        })}
-    </div>
-
+          })}
+        </div>
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>

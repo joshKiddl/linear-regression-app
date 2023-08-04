@@ -178,9 +178,16 @@ function DataElements() {
         <div className="ai-response">
           <h2>Select one or more items below</h2>
           {Array.isArray(state.aiResponse) ? (
-            state.aiResponse.map((item, index) => {
-              const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
-              return (
+            state.aiResponse
+              .map((item) => {
+                const itemText = item
+                  .replace(/^\d+\.\s*/, "")
+                  .replace(/-/g, "")
+                  .trim(); // Removes numbering from the start of the item and all dashes
+                return itemText ? item : null; // Return null if itemText is blank
+              })
+              .filter(Boolean) // Remove null (or blank) items
+              .map((item, index) => (
                 <div
                   key={index}
                   className={`response-item ${
@@ -188,10 +195,9 @@ function DataElements() {
                   }`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                  <span className="plus-icon">+</span> {itemText}
+                  {item}
                 </div>
-              );
-            })
+              ))
           ) : (
             <p>{state.aiResponse.error}</p>
           )}

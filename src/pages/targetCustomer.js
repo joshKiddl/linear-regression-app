@@ -145,11 +145,13 @@ function TargetCustomer() {
         <div className="ai-response">
           <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
-            // If aiResponse is a list, map through the items and render each as a separate <div> box
-            aiResponse.map((item, index) => {
-              // Extract only the text part of each item by removing the number and period
-              const itemText = item.replace(/^\d+\.\s*-*\s*/, ""); // Removes numbering and dashes from the start of the item
-              return (
+            aiResponse
+              .map((item) => {
+                const itemText = item.replace(/^\d+\.\s*-*\s*/, "").trim(); // Removes numbering and dashes from the start of the item
+                return itemText ? item : null; // Return null if itemText is blank
+              })
+              .filter(Boolean) // Remove null (or blank) items
+              .map((item, index) => (
                 <div
                   key={index}
                   className={`response-item ${
@@ -157,12 +159,10 @@ function TargetCustomer() {
                   }`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                  <span className="plus-icon">+</span> {itemText}
+                  {item}
                 </div>
-              );
-            })
+              ))
           ) : (
-            // If aiResponse is not a list, render it as a single <p>
             <p>{aiResponse.error}</p>
           )}
         </div>
