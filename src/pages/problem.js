@@ -7,27 +7,10 @@ import "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import { Timestamp } from "firebase/firestore"; 
 
 function Problem() {
-  const sessionId = sessionStorage.getItem("sessionId");
-  if (!sessionId) {
-    const newSessionId = new Date().getTime(); // or any other method you prefer to generate a unique ID
-    sessionStorage.setItem("sessionId", newSessionId.toString());
-  }
-
-  const auth = getAuth(); // Initialize the Firebase Auth instance
-  const [user, setUser] = useState(null); // New state for tracking the current user
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-
-    // Detach the listener when the component unmounts
-    return () => unsubscribe();
-  }, []);
-
   const navigate = useNavigate();
   const [inputText, setInputText] = useState("");
   const [problemStatement, setProblemStatement] = useState("");
@@ -37,13 +20,47 @@ function Problem() {
   const [progress, setProgress] = useState(0); // New state for the progress
   const [isLoading, setIsLoading] = useState(false);
   const [oldAIResponse, setOldAIResponse] = useState([]); // New state to store old responses
+  const [user, setUser] = useState(null); // New state for tracking the current user
+
+  const auth = getAuth(); // Initialize the Firebase Auth instance
+  const sessionId = sessionStorage.getItem("sessionId");
+  if (!sessionId) {
+    const newSessionId = new Date().getTime(); // or any other method you prefer to generate a unique ID
+    sessionStorage.setItem("sessionId", newSessionId.toString());
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+      } else {
+        signInAnonymously(auth)
+          .then((response) => {
+            // The user is now signed in anonymously, and we have their uid
+            setUser(response.user);
+          })
+          .catch((error) => {
+            console.error("Error signing in anonymously: ", error);
+          });
+      }
+    });
+
+    // Cleanup function to detach the listener when the component unmounts
+    return () => unsubscribe();
+  }, [auth]); // here
 
   const saveToFirestore = async () => {
     try {
-      const docRef = await addDoc(collection(db, "features"), {
-        finalProblemStatement: problemStatement,
-        sessionId: sessionStorage.getItem("sessionId"),
-      });
+      const docRef = await addDoc(
+        collection(db, "users", user.uid, "feature"),
+        {
+          finalProblemStatement: problemStatement,
+          sessionId: sessionStorage.getItem("sessionId"),
+          createdAt: Timestamp.now(),
+          status: 'Ideas',  // Add the 'status' field here
+        }
+      );
+  
       // Save the document ID to the session storage
       sessionStorage.setItem("documentId", docRef.id);
       console.log("Document written with ID: ", docRef.id);
@@ -51,6 +68,7 @@ function Problem() {
       console.error("Error adding document: ", e);
     }
   };
+  
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
@@ -179,7 +197,12 @@ function Problem() {
             })
           ) : (
             // If aiResponse is not a list, render it as a single <p>
-            <p>{aiResponse}</p>
+            // Check if the AI response is an error object
+            <p>
+              {typeof aiResponse === "object" && aiResponse.error
+                ? aiResponse.error
+                : aiResponse}
+            </p>
           )}
         </div>
         <label

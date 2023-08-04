@@ -71,7 +71,7 @@ function AppSidebar({ children }) {
             Board
           </div>
         </ListItem>
-        <ListItem button component={NavLinkStyled} to="/createFeature" className="sidebar-item-icon-text-wrapper">
+        <ListItem button component={NavLinkStyled} to="/problem" className="sidebar-item-icon-text-wrapper">
           <div className="sidebar-item-icon">
             <FontAwesomeIcon icon={faPlus} size="2x" color="white" />
           </div>

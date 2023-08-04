@@ -59,7 +59,7 @@ function ListOfFeatures() {
   };
 
   const handleCreateNewFeature = () => {
-    navigate('/createFeature'); // Replace '/createFeature' with your route to create a new feature
+    navigate('/problem'); // Replace '/createFeature' with your route to create a new feature
   };
 
   return (
@@ -92,7 +92,7 @@ function ListOfFeatures() {
                       {feature.featureName}
                     </button>
                   </td>
-                  <td>{feature.status}</td>
+                  <td>Stage: {feature.status}</td>
                   <td style={{fontWeight: '200'}}>{dateString}</td>
                 </tr>
               );

@@ -10,7 +10,7 @@ import {
   getDocs,
   setDoc,
 } from "@firebase/firestore";
-import { db } from "../firebase"; // import your Firestore instance
+import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 
 function MarketingMaterial() {
@@ -109,17 +109,23 @@ function MarketingMaterial() {
 
   const handleNext = async () => {
     const documentId = sessionStorage.getItem("documentId");
-    const docRef = doc(db, "features", documentId);
+    const userId = auth.currentUser.uid; // Use auth to get current user's ID
+    const docRef = doc(db, "users", userId, "feature", documentId);
 
-    // Update the existing document with the new hypotheses field
-    await setDoc(
-      docRef,
-      {
-        marketingMaterial: selectedItems,
-      },
-      { merge: true }
-    );
-    navigate("/summary");
+    try {
+      // Update the existing document with the marketingMaterial field
+      await setDoc(
+        docRef,
+        {
+          marketingMaterial: selectedItems,
+        },
+        { merge: true }
+      );
+      console.log("Successfully updated document:", documentId);
+      navigate("/featureName");
+    } catch (error) {
+      console.error("Error updating document:", error);
+    }
   };
 
   return (

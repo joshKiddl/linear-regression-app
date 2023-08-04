@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import App from './App';
 import Problem from './pages/problem';
 import AcceptanceCriteria from './pages/acceptanceCriteria';
-import TechnicalRequirements from './pages/technicalRequirements';
+// import TechnicalRequirements from './pages/technicalRequirements';
 import Tasks from './pages/tasks';
 import TargetCustomer from './pages/targetCustomer';
 import MarketSize from './pages/marketSize';
@@ -18,9 +18,10 @@ import Summary from './pages/summary';
 import SignUp from './pages/signUp';
 import ListOfFeatures from './pages/listOfFeatures';
 import Login from './pages/login';
-import CreateFeature from './pages/createFeature';
+// import CreateFeature from './pages/createFeature';
 import Board from './pages/board';
 import ViewFeature from './pages/viewFeature';
+import FeatureName from './pages/featureName';
 
 // Initialize Performance Monitoring here
 perf.dataCollectionEnabled = true;
@@ -57,7 +58,7 @@ const AppRoutes = () => {
       <Route path="/" element={<App />} />
       <Route path="/problem" element={<Problem />} />
       <Route path="/acceptanceCriteria" element={<AcceptanceCriteria />} />
-      <Route path="/technicalRequirements" element={<TechnicalRequirements />} />
+      {/* <Route path="/technicalRequirements" element={<TechnicalRequirements />} /> */}
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/targetCustomer" element={<TargetCustomer />} />
       <Route path="/marketSize" element={<MarketSize />} />      
@@ -68,9 +69,10 @@ const AppRoutes = () => {
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
       <Route path="/listOfFeatures" element={<ListOfFeatures />} />
-      <Route path="/createFeature" element={<CreateFeature />} />
+      {/* <Route path="/createFeature" element={<CreateFeature />} /> */}
       <Route path="/viewFeature/:featureId" element={<ViewFeature />} />
       <Route path="/board" element={<Board />} />
+      <Route path="/featureName" element={<FeatureName />} />
     </Routes>
   );
 };

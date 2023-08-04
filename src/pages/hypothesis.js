@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/problem.css';
 import { collection, doc, query, where, getDocs, setDoc } from '@firebase/firestore';
-import { db } from '../firebase';  // import your Firestore instance
+import { db, auth } from '../firebase';  // import your Firestore instance
 import Spinner from 'react-bootstrap/Spinner';
 
 function Hypothesis() {
@@ -90,15 +90,26 @@ function Hypothesis() {
   };
 
   const handleNext = async () => {
-    const documentId = sessionStorage.getItem('documentId');
-    const docRef = doc(db, "features", documentId);
+    const documentId = sessionStorage.getItem("documentId");
+    const userId = auth.currentUser.uid; // Use auth to get current user's ID
+    const docRef = doc(db, "users", userId, "feature", documentId);
 
-    // Update the existing document with the new hypotheses field
-    await setDoc(docRef, {
-      hypotheses: selectedItems
-    }, { merge: true });
-    navigate('/marketingMaterial');
+    try {
+      // Update the existing document with the hypotheses field
+      await setDoc(
+        docRef,
+        {
+          hypotheses: selectedItems,
+        },
+        { merge: true }
+      );
+      console.log("Successfully updated document:", documentId);
+      navigate("/marketingMaterial");
+    } catch (error) {
+      console.error("Error updating document:", error);
+    }
   };
+
 
   return (
     <div className="container">

@@ -1,81 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; // Import useEffect
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import {
   collection,
-  getDocs,
+  doc,
   query,
   where,
-  doc,
+  getDocs,
   setDoc,
-} from "firebase/firestore";
-import { auth, db } from '../firebase'; 
+} from "@firebase/firestore";
+import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 
-function AcceptanceCriteria() {
+function FeatureName() {
   const navigate = useNavigate();
-  const [problemStatement, setProblemStatement] = useState("");
   const [aiResponse, setAIResponse] = useState("");
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
 
-  const getProblemStatementFromSession = async () => {
+  const getDataFromSession = async (field) => {
     const q = query(
       collection(db, "features"),
       where("sessionId", "==", sessionStorage.getItem("sessionId"))
     );
     const querySnapshot = await getDocs(q);
-    let problemStatement = "";
+    let data = "";
     querySnapshot.forEach((doc) => {
-      problemStatement = doc.data().finalProblemStatement;
+      data = doc.data()[field];
     });
-    return problemStatement;
+    return data;
   };
-
-  useEffect(() => {
-    getProblemStatementFromSession().then((problemStatement) =>
-      setProblemStatement(problemStatement)
-    );
-
-    // Add this effect to update nextButtonLabel when selectedItems changes
-    if (selectedItems.length > 0) {
-      setNextButtonLabel("Next");
-    } else {
-      setNextButtonLabel("Skip");
-    }
-  }, [selectedItems]); // Add selectedItems to the dependency array
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-
-    fetch("https://ml-linear-regression.onrender.com/openai-solution", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        inputText: problemStatement, // use problemStatement instead of inputText
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setIsLoading(false); // stop loading
-
-        if (data.error) {
-          setAIResponse({ error: data.error });
-        } else {
-          setAIResponse(data.predicted_items);
-        }
-        setShowProblemStatement(true);
+    // Fetch the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize and hypothesis from Firestore
+    Promise.all([
+      getDataFromSession("finalProblemStatement"),
+      getDataFromSession("targetCustomer"),
+      getDataFromSession("hypothesis"),
+    ]).then(([finalProblemStatement, targetCustomer, hypothesis]) => {
+      // Concatenate the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize, and hypothesis, separated by commas
+      const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypothesis}`;
+      // Make a POST request to the API endpoint
+      fetch("https://ml-linear-regression.onrender.com/feature-name", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputText: inputText,
+        }),
       })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setAIResponse({ error: "Failed to get AI response." });
-        setShowProblemStatement(true);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setIsLoading(false); // stop loading
+
+          if (data.error) {
+            setAIResponse({ error: data.error });
+          } else {
+            setAIResponse(data.predicted_items);
+          }
+          setShowProblemStatement(true);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setAIResponse({ error: "Failed to get AI response." });
+          setShowProblemStatement(true);
+        });
+    });
   };
 
   const handleResponseItemClick = (item) => {
@@ -91,38 +86,55 @@ function AcceptanceCriteria() {
     }
   };
 
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      setNextButtonLabel("Next");
+    } else {
+      setNextButtonLabel("Skip");
+    }
+  }, [selectedItems]); // Add selectedItems to the dependency array
+
   const handleBack = () => {
     navigate(-1); // Go back to the previous page
   };
 
   const handleNext = async () => {
-    // Get the document ID from the session storage
     const documentId = sessionStorage.getItem("documentId");
-    const userId = auth.currentUser.uid; // Assuming you have auth imported and configured correctly
+    const user = auth.currentUser;
+    const isAnonymousUser = user ? user.isAnonymous : false;
+    const userId = user ? user.uid : null;
     const docRef = doc(db, "users", userId, "feature", documentId);
 
     try {
-        // Update the existing document with the acceptanceCriteria field
+      // Regardless of whether the user is anonymous, update the document if selectedItems is not null
+      if (selectedItems !== null) {
         await setDoc(
-            docRef,
-            {
-                acceptanceCriteria: selectedItems,
-            },
-            { merge: true }
+          docRef,
+          {
+            featureName: selectedItems,
+          },
+          { merge: true }
         );
-        console.log('Successfully updated document:', documentId);
-        navigate("/tasks");
+        console.log("Successfully updated document:", documentId);
+        if (!isAnonymousUser) {
+          // If the user is not anonymous, redirect to /listOfFeatures
+          navigate("/listOfFeatures");
+        } else {
+          // If the user is anonymous, redirect to /summary
+          navigate("/summary");
+        }
+      } else {
+        // If selectedItems is null, skip updating the document
+        console.error("selectedItems is null");
+      }
     } catch (error) {
-        console.error('Error updating document:', error);
+      console.error("Error updating document:", error);
     }
-};
+  };
 
   return (
     <div className="container">
-      <h1>Generate Acceptance Criteria that will solve the Problem</h1>
-      {/* <p className='problem-statement'>{problemStatement}</p> */}
-      {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
-      {/* Problem Description field */}
+      <h1>Finally, generate a Feature Name</h1>
       <div className="input-container">
         <button onClick={handleSubmit}>
           {isLoading ? (
@@ -143,7 +155,6 @@ function AcceptanceCriteria() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-          <div className='hint'>Hint: You can add items then click generate again to add more!</div>
 
         <div className="ai-response">
           <h2>Select one or more items below</h2>
@@ -170,19 +181,18 @@ function AcceptanceCriteria() {
           )}
         </div>
 
-{/* New block for displaying selected items */}
-<div className="selected-items">
-        <h2>Selected items</h2>
-        {selectedItems.map((item, index) => {
+        {/* New block for displaying selected items */}
+        <div className="selected-items">
+          <h2>Selected Feature Name</h2>
+          {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
-            <div key={index} className="selected-item">
-                <span className="minus-icon">-</span> {itemText}
-            </div>
+              <div key={index} className="selected-item">
+                <span className="minus-icon"></span> {itemText}
+              </div>
             );
-        })}
-    </div>
-
+          })}
+        </div>
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>
@@ -190,10 +200,11 @@ function AcceptanceCriteria() {
         </button>
         <button className="next-button" onClick={handleNext}>
           {nextButtonLabel}
-        </button>
+        </button>{" "}
+        {/* Use nextButtonLabel */}
       </div>
     </div>
   );
 }
 
-export default AcceptanceCriteria;
+export default FeatureName;

@@ -51,7 +51,7 @@ const List = ({ list, boardData, setBoardData, onDragEnd }) => {
       {list.id === 1 && (
         <button
           style={{ marginTop: '8px', cursor: 'pointer', backgroundColor: 'transparent', color: 'black', fontWeight: '200', fontSize: '14px' }}
-          onClick={() => navigate('/createFeature')}
+          onClick={() => navigate('/problem')}
         >
           <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faPlus} size="lg" />
           Add Feature
