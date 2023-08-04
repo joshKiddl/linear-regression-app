@@ -73,7 +73,7 @@ function AcceptanceCriteria() {
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-        setAIResponse({ error: "Failed to get AI response." });
+        setAIResponse({ error: "Please generate responses again" });
         setShowProblemStatement(true);
       });
   };

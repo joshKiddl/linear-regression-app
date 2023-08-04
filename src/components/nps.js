@@ -44,8 +44,8 @@ function NPS() {
   };
 
   return (
-    <div style={{ width: "33vw" }}>
-      <p style={{ width: "100%" }}>
+    <div style={{ width: "100%", maxWidth: '600px', margin: '0 auto' }}>
+      <p style={{ width: "100%", textAlign: 'center' }}>
         { submitted 
           ? <span style={{ color: "cornflowerblue" }}>Thank you for your feedback!</span>
           : "On a scale of 0 to 10, how likely are you to recommend this tool to a friend or colleague?" 
@@ -53,7 +53,7 @@ function NPS() {
       </p>
       {!submitted && (
         <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", gap: "2px", width: '100%' }}>
+          <div style={{ display: "flex", flexWrap: 'wrap', justifyContent: 'center', gap: '2px', width: '100%' }}>
             {[...Array(11)].map((e, i) => (
               <button 
                 style={{ 
@@ -61,8 +61,8 @@ function NPS() {
                   display: 'flex', 
                   justifyContent: 'center', 
                   alignItems: 'center', 
-                  width: '20px', 
-                  height: 'auto', 
+                  width: '40px', // Increased width
+                  height: '40px', // Adjusted height to maintain aspect ratio
                   fontSize: '12px', 
                   borderRadius: '24px'
                 }} 

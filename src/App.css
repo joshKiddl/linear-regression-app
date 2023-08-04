@@ -88,7 +88,7 @@ body {
   .container2,
   .container3 {
     width: 100vw;
-    padding: 20px;
+    padding: 5px;
     align-content: center;
   }
   
@@ -96,8 +96,8 @@ body {
     flex-direction: column;
   }
 
-  .problem-image {
-    width: 90%;
+  .lpimage {    
+    width: 95%;
     height: auto;
   }
 
@@ -115,6 +115,7 @@ body {
     overflow-wrap: break-word; /* Add this line */
     padding-left: 10px; /* Add this line */
     padding-right: 10px; /* Add this line */
+    text-align: center;
   }
 
   h3 {
@@ -122,6 +123,8 @@ body {
     overflow-wrap: break-word; /* Add this line */
     padding-left: 10px; /* Add this line */
     padding-right: 10px; /* Add this line */
+    text-align: center;
+
   }
 
   p {
@@ -129,16 +132,31 @@ body {
     width: 100%;
     overflow-wrap: break-word; /* Add this line */
     padding-left: 10px; /* Add this line */
-    padding-right: 10px; /* Add this line */  }
+    padding-right: 10px; /* Add this line */ 
+    text-align: center;
+  }
 
   .blurb {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   
   .form-input,
   .btn {
     width: 100%; 
+  }
+
+  .lpVid {
+    width: 110%;
+  }
+
+  .h3AndP p {
+    font-size: 14px;
+    width: 100%;
+    overflow-wrap: break-word; /* Add this line */
+    padding-left: 10px; /* Add this line */
+    padding-right: 10px; /* Add this line */ 
+    text-align: center;
   }
 }
 /* End of Media Query */

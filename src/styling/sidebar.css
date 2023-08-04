@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 240px; /* Set a width for the sidebar */
 }
 
 .MuiListItem-root {
@@ -52,4 +53,21 @@
   color: white;
   font-family: 'Montserrat', sans-serif;
   padding-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .MuiDrawer-paper {
+    width: 20px; /* Reduce the width of the sidebar on mobile screens */
+  }
+  .draw-styled {
+    width: 300px;
+  }
+  
+  .sidebar-item-text {
+    display: none; /* Hide the text of the sidebar items on mobile screens */
+  }
+  
+  .sidebar-logo {
+    margin: 10px;
+  }
 }

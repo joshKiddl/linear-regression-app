@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import IconButton from '@mui/material/IconButton';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPause, faList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPause, faList, faSignOutAlt, faBars } from '@fortawesome/free-solid-svg-icons';
 import logo from '../images/PMAILogo.png'; 
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'; 
@@ -12,16 +14,19 @@ import { styled } from '@mui/system';
 import '../styling/sidebar.css';
 import { NavLink } from 'react-router-dom';
 
-const DrawerStyled = styled(Drawer)({
-  width: 175,
+const DrawerStyled = styled(Drawer)(({ theme }) => ({
+  width: '0px',
   backgroundColor: '#182a4d',
   alignItems: 'center',
   '& .MuiDrawer-paper': {
     width: 175,
     backgroundColor: '#182a4d',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: 70,
+    },
   },
-});
+}));
 
 const NavLinkStyled = styled(NavLink)({
   textDecoration: 'none',
@@ -38,10 +43,15 @@ const NavLinkStyled = styled(NavLink)({
   }
 });
 
-
 function AppSidebar({ children }) {
   const navigate = useNavigate();
-  
+  const matches = useMediaQuery('(max-width:768px)');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!matches);
+
+  const handleDrawerToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   const handleSignOut = () => {
     signOut(auth).then(() => {
       console.log("User Signed Out");
@@ -95,7 +105,17 @@ function AppSidebar({ children }) {
 
   return (
     <div className="App">
-      <DrawerStyled variant="permanent">
+      {matches && 
+        <IconButton onClick={handleDrawerToggle} color="inherit" aria-label="open drawer">
+          <FontAwesomeIcon icon={faBars} size="2x" color="black" />
+        </IconButton>
+      }
+      <DrawerStyled 
+        variant={matches ? "temporary" : "permanent"}
+        open={isSidebarOpen}
+        onClose={handleDrawerToggle}
+        className='draw-styled'
+      >
         {drawer}
       </DrawerStyled>
       <main>

@@ -20,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  margin-bottom: 10px; 
+  margin-bottom: 1rem;
   border-radius: 10px;
   border-style: solid;
   border-color: #dadee3;
@@ -28,44 +28,61 @@
   box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.1);
 }
 
-
-.edit-button {
-  background-color: transparent;
-  color: cornflowerblue;
-  cursor: pointer;
-}
-
+.edit-button,
 .feature-name-button {
   background-color: transparent;
   color: cornflowerblue;
+  cursor: pointer;
 }
 
 .feature-list {
   width: 90%;
   border-radius: 10px;
   overflow: hidden; 
-  border-style:'solid';
-  border-color:'#000';
-  border-width:'1px';
-  box-shadow: '0px 1px 1px rgba(0, 0, 0, 0.3)';
+  border-style: solid;
+  border-color: #000;
+  border-width: 1px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-.feature-list th, .feature-list td {
-  padding: 10px 16px; /* Add top and bottom padding to space out rows. Adjust this to fit your needs */
+.feature-list th,
+.feature-list td {
+  padding: 1rem; /* Add top and bottom padding to space out rows. Adjust this to fit your needs */
 }
 
 .create-new-feature-btn {
   background-color: transparent;
   color: black;
-  width: 300px;
+  width: 18rem;
   text-align: left;
 }
 
 .lof-h2 {
-  font-size: 40px;
+  font-size: 2.5rem;
   font-family: 'Montserrat', sans-serif;
   word-break: break-word; /* To prevent long text from overflowing */
-  margin: 20px 20px;
+  margin: 1.25rem;
   color: black;
 }
 
+@media screen and (max-width: 768px) {
+  .lof-body {
+    padding: 1rem;
+  }
+
+  .data-row {
+    flex-direction: column;
+  }
+
+  .create-new-feature-btn {
+    width: 100%;
+  }
+
+  .lof-h2 {
+    font-size: 2rem;
+  }
+
+  .feature-list {
+    width: 100%;
+  }
+}

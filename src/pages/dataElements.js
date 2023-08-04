@@ -94,7 +94,7 @@ function DataElements() {
         console.error("Error fetching data:", error);
         setState((prevState) => ({
           ...prevState,
-          aiResponse: { error: "Failed to get AI response." },
+          aiResponse: { error: "Please generate responses again" },
           showProblemStatement: true,
         }));
       });

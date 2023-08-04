@@ -80,6 +80,7 @@ function App() {
         <video
           src="/ScreenRecording1.mp4"
           autoPlay
+          className="lpVid"
           loop
           muted
           playsInline
@@ -97,7 +98,7 @@ function App() {
       <div className="container2">
         <h2 className="header">Made for Product Managers</h2>
         <div className="problem-section">
-          <div>
+        <div className="h3AndP">
             <h3>Streamlining Product Management</h3>
             <p>
               As product managers, we often struggle to take the time to really
@@ -116,6 +117,7 @@ function App() {
           <img
             width={"auto"}
             height={"250px"}
+            className={"lpimage"}
             style={{
               borderWidth: "1px",
               borderColor: "gray",
@@ -128,7 +130,7 @@ function App() {
         </div>
 
         <div className="problem-section">
-          <div>
+        <div className="h3AndP">
             <h3>AI-driven Strategic Advantage</h3>
             <p>
               As a product manager, sometimes it’s hard to figure out the next
@@ -142,7 +144,8 @@ function App() {
           <img
             width={"auto"}
             height={"250px"}
-            className="lp-image"
+            
+            className={"lpimage"}
             style={{
               borderWidth: "1px",
               borderColor: "gray",
@@ -155,7 +158,7 @@ function App() {
         </div>
 
         <div className="problem-section">
-          <div>
+        <div className="h3AndP">
             <h3>Comprehensive Feature Development</h3>
             <p>
               Tech team want X in a feature, design team need Y, marketing team
@@ -173,6 +176,7 @@ function App() {
           <img
             width={"auto"}
             height={"250px"}
+            className={"lpimage"}
             style={{
               borderWidth: "1px",
               borderColor: "gray",
@@ -185,7 +189,7 @@ function App() {
         </div>
 
         <div className="problem-section">
-          <div>
+          <div className="h3AndP">
             <h3>Efficient Hypothesis Tracking</h3>
             <p>
               As product managers, we sometimes struggle in defining our
@@ -206,6 +210,7 @@ function App() {
             src={Screenshot2}
             alt="PMAI Logo"
             width={"auto"}
+            className={"lpimage"}
             height={"250px"}
             style={{
               borderWidth: "1px",

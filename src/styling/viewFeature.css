@@ -17,7 +17,7 @@
   color: black;
 }
 
-.problem-statement {
+.problem-statement, .feature-input-field {
   background-color: white;
   color: black;
   padding: 15px;
@@ -45,21 +45,6 @@
   width: 90%; /* reduced width to accommodate the icon */
 }
 
-/* .custom-icon svg {
-  width: 5px; 
-  height: auto; 
-} */
-
-.feature-input-field {
-  background-color: white;
-  color: black;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 15px;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-}
-
 .form-columns {
   display: flex;
   justify-content: space-between;
@@ -69,11 +54,32 @@
   width: 45%; /* You can adjust this value based on your needs */
 }
 
+@media screen and (max-width: 1200px) {
+  .view-feature {
+    padding-left: 1rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
+  .view-feature {
+    padding-left: 1rem;
+  }
+
+  .feature-name {
+    font-size: 2rem;
+    margin: 10px;
+  }
+
   .form-columns {
     flex-direction: column;
   }
+
   .form-column {
     width: 100%;
+  }
+
+  .problem-statement, .feature-input-field {
+    margin: 5px;
+    padding: 10px;
   }
 }

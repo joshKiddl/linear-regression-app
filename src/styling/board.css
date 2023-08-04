@@ -8,13 +8,26 @@
   width: 100vw;
   padding-left: 200px;
 }
-  
+
 .board-content {
   display: flex;
   height: 80vh;
   overflow-x: auto;
 }
 
+@media screen and (max-width: 768px) {
+  .board-body {
+    padding-left: 1rem;
+  }
+}
 
-  
-  
+@media screen and (max-width: 576px) {
+  .board-body {
+    padding-left: 0;
+  }
+
+  .board-content {
+    flex-direction: column;
+    height: auto;
+  }
+}
