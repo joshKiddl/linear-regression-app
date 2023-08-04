@@ -29,5 +29,6 @@
   .board-content {
     flex-direction: column;
     height: auto;
+    gap: 20px;
   }
 }
