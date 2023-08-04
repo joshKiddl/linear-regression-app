@@ -32,17 +32,20 @@ export async function fetchFeatureData(userId) {
     const querySnapshot = await getDocs(q);
 
     const featureData = querySnapshot.docs.map((doc) => ({
-      id: doc.id, // add the document ID
+      id: doc.id,
       featureName: doc.data().featureName,
+      status: doc.data().status, // add the status field
     }));
+
+    // Sort features by status
+    featureData.sort((a, b) => a.status - b.status);
+    
     return featureData;
   } catch (error) {
     console.error("Error fetching feature data:", error);
-    return []; // Return an empty array in case of an error
+    return [];
   }
 }
-
-
 
 // Performance Monitoring
 const perf = getPerformance(firebaseApp);

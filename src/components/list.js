@@ -13,8 +13,8 @@ const List = ({ list, boardData, setBoardData, onDragEnd }) => {
   const [{ canDrop }, dropRef] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item, monitor) => {
-      console.log('Drop event:', item, monitor);
-      console.log('list.id:', list.id);
+      console.log('Dropped item:', item);
+      console.log('Target list id:', list.id);
       onDragEnd(item, list.id); // Pass the target list id to onDragEnd function
     },
     canDrop: (item, monitor) => {
@@ -34,8 +34,11 @@ const List = ({ list, boardData, setBoardData, onDragEnd }) => {
       flex: 1,
       minWidth: '200px',
       height: '100%',
-      padding: '16px',
+      padding: '12px',
       borderRadius: '15px',
+      borderStyle:'solid',
+      borderColor:'#dadee3',
+      borderWidth:'1px',
       margin: '0 10px',
     }} className="column">
       <h3 style={{
@@ -51,7 +54,7 @@ const List = ({ list, boardData, setBoardData, onDragEnd }) => {
           onClick={() => navigate('/createFeature')}
         >
           <FontAwesomeIcon style={{ marginRight: '5px' }} icon={faPlus} size="lg" />
-          Add card
+          Add Feature
         </button>
       )}
     </div>

@@ -46,7 +46,14 @@ const transformFeatureDataToBoardData = (featureData) => {
 
   featureData.forEach((feature) => {
     const card = { id: feature.id, text: feature.featureName };
-    boardData[0].cards.push(card); // Add the card to the 'Ideas' list
+    // Find the list which matches the status of the feature
+    const targetList = boardData.find(list => list.title === feature.status);
+    if (targetList) {
+      targetList.cards.push(card);
+    } else {
+      // If no matching status, add the feature to 'Ideas' list
+      boardData[0].cards.push(card);
+    }
   });
 
   return boardData;

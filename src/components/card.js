@@ -29,12 +29,15 @@ const Card = ({ id, text, listId }) => {
         opacity: isDragging ? 0.5 : 1,
         backgroundColor: 'white',
         padding: '8px',
-        borderRadius: '4px',
+        borderRadius: '10px',
         marginBottom: '8px',
         cursor: 'grab',
+        borderStyle:'solid',
+        borderColor:'#dadee3',
+        borderWidth:'1px',
         fontSize: '14px',
         minHeight: '60px',
-        boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.3)',
+        boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.3)',
         position: 'relative', // Add relative positioning here
       }}
     >
@@ -42,7 +45,7 @@ const Card = ({ id, text, listId }) => {
       <FontAwesomeIcon
         icon={faChevronRight}
         onClick={navigateToFeature}
-        size={'s'}
+        size={'sm'}
         style={{
           cursor: 'pointer',
           position: 'absolute', // Absolute positioning for the icon

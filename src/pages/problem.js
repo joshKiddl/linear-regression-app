@@ -39,7 +39,6 @@ function Problem() {
     }
   };
   
-  
   const handleSubmit = () => {
     setIsLoading(true); // start loading
     fetch('https://ml-linear-regression.onrender.com/openai-predict', {

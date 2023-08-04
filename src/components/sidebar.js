@@ -2,7 +2,7 @@ import React from 'react';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPause, faList, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import logo from '../images/PMAILogo.png'; 
@@ -10,7 +10,7 @@ import { signOut } from "firebase/auth";
 import { auth } from '../firebase'; 
 import { styled } from '@mui/system';
 import '../styling/sidebar.css';
-
+import { NavLink } from 'react-router-dom';
 
 const DrawerStyled = styled(Drawer)({
   width: 175,
@@ -22,6 +22,22 @@ const DrawerStyled = styled(Drawer)({
     alignItems: 'center',
   },
 });
+
+const NavLinkStyled = styled(NavLink)({
+  textDecoration: 'none',
+  color: 'inherit',
+  '&.MuiButtonBase-root': {
+    '&.active': {
+      backgroundColor: '#284781',
+      borderRadius: '12px',
+    },
+    '&:hover': {
+      backgroundColor: '#284781',
+      borderRadius: '12px',
+    },
+  }
+});
+
 
 function AppSidebar({ children }) {
   const navigate = useNavigate();
@@ -39,7 +55,7 @@ function AppSidebar({ children }) {
     <div className='sidebar-content'>
       <List className='top-links'>
       <img src={logo} alt="Logo" style={{width: "50px", height: "50px"}} className="sidebar-logo" />
-        <ListItem button component={Link} to="/ListOfFeatures" className="sidebar-item-icon-text-wrapper">
+        <ListItem button component={NavLinkStyled} to="/ListOfFeatures" className="sidebar-item-icon-text-wrapper">
           <div className="sidebar-item-icon">
             <FontAwesomeIcon icon={faList} size="2x" color="white" />
           </div>
@@ -47,7 +63,7 @@ function AppSidebar({ children }) {
             Features
           </div>
         </ListItem>
-        <ListItem button component={Link} to="/board" className="sidebar-item-icon-text-wrapper">
+        <ListItem button component={NavLinkStyled} to="/board" className="sidebar-item-icon-text-wrapper">
           <div className="sidebar-item-icon">
             <FontAwesomeIcon icon={faPause} size="2x" color="white" />
           </div>
@@ -55,7 +71,7 @@ function AppSidebar({ children }) {
             Board
           </div>
         </ListItem>
-        <ListItem button component={Link} to="/createFeature" className="sidebar-item-icon-text-wrapper">
+        <ListItem button component={NavLinkStyled} to="/createFeature" className="sidebar-item-icon-text-wrapper">
           <div className="sidebar-item-icon">
             <FontAwesomeIcon icon={faPlus} size="2x" color="white" />
           </div>

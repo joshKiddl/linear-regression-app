@@ -37,12 +37,14 @@
   align-items: center;
   flex-direction: row; 
   width: 100%;
+  
 }
 
 .sidebar-item-icon {
   display: flex;
   justify-content: center;
   width: 50px;
+  
 }
 
 .sidebar-item-text {

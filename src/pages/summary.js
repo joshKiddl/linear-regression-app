@@ -5,7 +5,7 @@ import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, Twitter
 import '../styling/summary.css';
 import '../styling/ModalForm.css';
 import { db } from '../firebase';  // import your Firestore instance
-import { setDoc, doc, getDoc, getDocs, collection } from 'firebase/firestore';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
 import logo from '../images/PMAILogo.png'; // adjust the import path as necessary
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudDownload, faUser } from "@fortawesome/free-solid-svg-icons";

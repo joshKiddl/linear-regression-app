@@ -7,36 +7,49 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom'; 
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { onAuthStateChanged } from "firebase/auth";
 
 const STORAGE_KEY = 'featuresData'; // Define a key for storing the data in localStorage
+
 
 function ListOfFeatures() {
   const [features, setFeatures] = useState([]);
   const navigate = useNavigate(); 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log("fetchData is being called"); // add this line
-      if (auth.currentUser) {
-        console.log("User is logged in with ID: ", auth.currentUser.uid);
-        const userId = auth.currentUser.uid;
-        const userDoc = doc(db, 'users', userId);
-        const featureCollection = collection(userDoc, 'feature');
-        const featureData = await getDocs(featureCollection);
-        console.log("featureData: ", featureData); // log the raw featureData
-        const data = featureData.docs.map(doc => {
-          console.log("doc.data: ", doc.data()); // log each document's data
-          return { ...doc.data(), id: doc.id };
-        });
-        setFeatures(data);
   
-        // Save the data in localStorage
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } else {
-        console.log("No user is currently logged in.");
+  const fetchData = async () => {
+    console.log("fetchData is being called"); // add this line
+    if (auth.currentUser) {
+      console.log("User is logged in with ID: ", auth.currentUser.uid);
+      const userId = auth.currentUser.uid;
+      const userDoc = doc(db, 'users', userId);
+      const featureCollection = collection(userDoc, 'feature');
+      const featureData = await getDocs(featureCollection);
+      console.log("featureData: ", featureData); // log the raw featureData
+      const data = featureData.docs.map(doc => {
+        console.log("doc.data: ", doc.data()); // log each document's data
+        return { ...doc.data(), id: doc.id, status: doc.data().status };
+      });
+      setFeatures(data);
+
+      // Save the data in localStorage
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } else {
+      console.log("No user is currently logged in.");
+    }
+  };
+  
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        fetchData();
       }
-    };
-    
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+  
+  useEffect(() => {
     // fetch data regardless of the localStorage data
     fetchData();
   }, []);
