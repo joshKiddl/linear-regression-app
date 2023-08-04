@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
@@ -7,6 +7,7 @@ import "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function Problem() {
   const sessionId = sessionStorage.getItem("sessionId");
@@ -14,6 +15,18 @@ function Problem() {
     const newSessionId = new Date().getTime(); // or any other method you prefer to generate a unique ID
     sessionStorage.setItem("sessionId", newSessionId.toString());
   }
+
+  const auth = getAuth(); // Initialize the Firebase Auth instance
+  const [user, setUser] = useState(null); // New state for tracking the current user
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    // Detach the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   const navigate = useNavigate();
   const [inputText, setInputText] = useState("");
@@ -50,26 +63,26 @@ function Problem() {
         inputText: inputText,
       }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      setIsLoading(false); // stop loading
-      if (data.error) {
-        setAIResponse({ error: data.error });
-      } else {
-        // When a new response comes, prepend it to the old responses and update the state
-        const newResponses = data.predicted_items;
-        setAIResponse([...newResponses, ...oldAIResponse]);
-        setOldAIResponse([...newResponses, ...oldAIResponse]);
-      }
-      setShowProblemStatement(true);
-    })
-    .catch((error) => {
-      setIsLoading(false); // stop loading
-      console.error('Error fetching data:', error);
-      setAIResponse({ error: 'Failed to get AI response.' });
-      setShowProblemStatement(true);
-    });
-};
+      .then((response) => response.json())
+      .then((data) => {
+        setIsLoading(false); // stop loading
+        if (data.error) {
+          setAIResponse({ error: data.error });
+        } else {
+          // When a new response comes, prepend it to the old responses and update the state
+          const newResponses = data.predicted_items;
+          setAIResponse([...newResponses, ...oldAIResponse]);
+          setOldAIResponse([...newResponses, ...oldAIResponse]);
+        }
+        setShowProblemStatement(true);
+      })
+      .catch((error) => {
+        setIsLoading(false); // stop loading
+        console.error("Error fetching data:", error);
+        setAIResponse({ error: "Failed to get AI response." });
+        setShowProblemStatement(true);
+      });
+  };
 
   const handleResponseItemClick = (item) => {
     setSelectedItem(item); // Update the selected item state with the clicked item's text

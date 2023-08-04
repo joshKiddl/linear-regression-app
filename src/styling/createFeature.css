@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   background-color: #f8f8f8;
-  height: 100vh;  
+  height: 100vw;  
   width: 100vw;
   padding-left: 200px;
   align-items: flex-start; 
@@ -16,6 +16,10 @@
 
   .create-btn {
     margin: 10px
+  }
+
+  .create-btn:hover {
+    background-color: blue
   }
 
   .form-row {
@@ -43,7 +47,7 @@
     color: #333;
   }
   
-  .create-feature form button {
+  /* .create-feature form button {
     padding: 10px 20px;
     border: none;
     background-color: #007BFF;
@@ -52,11 +56,11 @@
     border-radius: 5px;
     font-size: 0.9rem;
     align-self: center;
-  }
+  } */
   
-  .create-feature form button:hover {
+  /* .create-feature form button:hover {
     background-color: #0056b3;
-  }
+  } */
 
   .form-buttons {
     display: flex;
@@ -66,3 +70,80 @@
     margin-top: 15px; 
   }
   
+  .input-group {
+    position: relative;
+  }
+  
+  .input-group input {
+    padding-right: 80px; /* Adjust according to the size of your button */
+  }
+  
+  .gen-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    border: none;
+    background: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px 5px 5px 5px; /* match the border-radius with the input field */
+    cursor: pointer;
+  }
+  
+  .gen-button:hover {
+    background: #0056b3;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    word-break: break-word; /* To prevent long text from overflowing */
+    margin: 0px 0px 20px 20px;
+    color: black;
+  }
+
+  .textarea {
+    width:75%;
+    border-radius: 10px 10px 0px 0px;
+    padding: 5px;
+    border-color: #ccc;
+  }
+
+  .suggestions-box {
+    position: absolute;
+    z-index: 1; 
+    background-color: white;
+    border-radius: 0px 0px 10px 10px;
+    width: 75%;
+    border-color: #ccc;
+    border-style: solid;
+    padding: 5px;
+    border-width: 1px;
+    width: 50%;
+    top: 30px
+  }
+
+  .item-box {
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 5px 0;
+  }
+
+  .item-box.selected {
+    background-color:lightskyblue; 
+    border-color: #0056b3;
+  }
+
+  .close-button {
+    background-color: cornflowerblue;
+    color: white;
+    width: fit-content;
+    height: auto;
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 1px;
+    font-size: 12px;
+}
