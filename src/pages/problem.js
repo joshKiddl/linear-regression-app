@@ -140,7 +140,7 @@ function Problem() {
     // You can adjust maxChars depending on your requirements
     const maxChars = 100;
     const progress = (value.length / maxChars) * 100;
-    setProgress(progress);
+    setProgress(Math.min(progress, 100)); // Here we use Math.min() to make sure the progress doesn't exceed 100%
   };
 
   return (
