@@ -74,23 +74,27 @@ function FeatureName() {
   };
 
   const handleResponseItemClick = (item) => {
-    // If the item is already selected, remove it from the selected items
-    if (selectedItems.includes(item)) {
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
-    }
-    // If the item is not selected, add it to the selected items
-    else {
-      setSelectedItems([...selectedItems, item]);
-    }
+    // Update the selectedItems state with the clicked item's text
+    setSelectedItems([item]);
+  };
+
+  const handleSelectedItemChange = (index, event) => {
+    const newList = [...selectedItems];
+    newList[index] = event.target.value;
+    setSelectedItems(newList);
   };
 
   useEffect(() => {
-    if (selectedItems.length > 0) {
-      setNextButtonLabel("Next");
+    // If selectedItems is empty or all itemText are empty, set nextButtonLabel as 'Feature Name Required' and make it unclickable
+    if (
+      selectedItems.length === 0 ||
+      selectedItems.every(
+        (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
+      )
+    ) {
+      setNextButtonLabel("Feature Name Required");
     } else {
-      setNextButtonLabel("Skip");
+      setNextButtonLabel("Next");
     }
   }, [selectedItems]); // Add selectedItems to the dependency array
 
@@ -155,7 +159,6 @@ function FeatureName() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-
         <div className="ai-response">
           <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
@@ -182,26 +185,53 @@ function FeatureName() {
         </div>
 
         {/* New block for displaying selected items */}
-        <div className="selected-items">
-          <h2>Selected Feature Name</h2>
-          {selectedItems.map((item, index) => {
-            const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
-            return (
-              <div key={index} className="selected-item">
-                <span className="minus-icon"></span> {itemText}
-              </div>
-            );
-          })}
-        </div>
+        <h2>Selected Feature Name (editable)</h2>
+        {selectedItems.map((item, index) => {
+          const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
+          return (
+            <input
+              key={index}
+              type="text"
+              value={itemText}
+              onChange={(event) => handleSelectedItemChange(index, event)}
+              className="selected-item-input"
+            />
+          );
+        })}
       </div>
+
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>
           Back
         </button>
-        <button className="next-button" onClick={handleNext}>
+        <button
+          className="next-button"
+          onClick={handleNext}
+          disabled={
+            selectedItems.length === 0 ||
+            selectedItems.every(
+              (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
+            )
+          } // disables the button when all selectedItems are empty
+          style={{
+            backgroundColor:
+              selectedItems.length === 0 ||
+              selectedItems.every(
+                (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
+              )
+                ? "white"
+                : undefined,
+            color:
+              selectedItems.length === 0 ||
+              selectedItems.every(
+                (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
+              )
+                ? "blue"
+                : undefined,
+          }} // changes the button color to white with blue text if selectedItems are empty
+        >
           {nextButtonLabel}
-        </button>{" "}
-        {/* Use nextButtonLabel */}
+        </button>
       </div>
     </div>
   );
