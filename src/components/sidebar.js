@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPause, faList, faSignOutAlt, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPause, faList, faSignOutAlt, faBars, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import logo from '../images/PMAILogo.png'; 
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'; 
@@ -87,6 +87,14 @@ function AppSidebar({ children }) {
           </div>
           <div className="sidebar-item-text">
             New
+          </div>
+        </ListItem>
+        <ListItem button component={NavLinkStyled} to="/feedback" className="sidebar-item-icon-text-wrapper">
+          <div className="sidebar-item-icon">
+            <FontAwesomeIcon icon={faThumbsUp} size="2x" color="white" />
+          </div>
+          <div className="sidebar-item-text">
+            Feedback
           </div>
         </ListItem>
       </List>
