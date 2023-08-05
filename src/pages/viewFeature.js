@@ -15,7 +15,7 @@ function ViewFeature() {
     acceptanceCriteria: [],
     tasks: [],
     targetCustomer: "",
-    marketSize: "",
+    // marketSize: "",
     dataElements: [],
     hypothesis: "",
     marketingMaterial: "",
@@ -222,7 +222,7 @@ function ViewFeature() {
           </div>
           <div className="form-column">
             {/* marketSize field */}
-            <label htmlFor="marketSize">Market Size</label>
+            {/* <label htmlFor="marketSize">Market Size</label>
             <div className="feature-input-field">
               {isEditing === "marketSize" ? (
                 <input
@@ -247,7 +247,7 @@ function ViewFeature() {
                   />
                 </div>
               )}
-            </div>
+            </div> */}
 
             {/* dataElements field */}
             <label htmlFor="dataElements">Data Elements</label>

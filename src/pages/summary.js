@@ -39,7 +39,7 @@ function Summary() {
   // const [technicalRequirements, setTechnicalRequirements] = useState("");
   const [tasks, setTasks] = useState("");
   const [keyCustomer, setKeyCustomer] = useState("");
-  const [marketSize, setMarketSize] = useState("");
+  // const [marketSize, setMarketSize] = useState("");
   const [dataElements, setDataElements] = useState("");
   const [hypothesis, setHypothesis] = useState("");
   const [marketingMaterial, setMarketingMaterial] = useState("");
@@ -132,7 +132,7 @@ function Summary() {
           // technicalRequirements,
           tasks,
           keyCustomer,
-          marketSize,
+          // marketSize,
           dataElements,
           hypothesis,
           marketingMaterial,
@@ -157,7 +157,7 @@ function Summary() {
       keyCustomer: Array.isArray(keyCustomer)
         ? keyCustomer.join(",")
         : keyCustomer,
-      marketSize: Array.isArray(marketSize) ? marketSize.join(",") : marketSize,
+      // marketSize: Array.isArray(marketSize) ? marketSize.join(",") : marketSize,
       dataElements: Array.isArray(dataElements)
         ? dataElements.join(",")
         : dataElements,
@@ -200,7 +200,7 @@ function Summary() {
         setFeatureName(data.featureName);
         setTasks(data.tasks);
         setKeyCustomer(data.targetCustomer);
-        setMarketSize(data.marketSize);
+        // setMarketSize(data.marketSize);
         setDataElements(data.dataElements);
         setHypothesis(data.hypotheses);
         setMarketingMaterial(data.marketingMaterial);
@@ -539,7 +539,7 @@ function Summary() {
             {lastCopiedId === "keyCustomer" ? "Copied!" : "Copy"}
           </button>
         </div>
-        <div className="market-size">
+        {/* <div className="market-size">
           <h2>Market Size</h2>
           <p className="content">
             {Array.isArray(marketSize)
@@ -563,7 +563,7 @@ function Summary() {
           >
             {lastCopiedId === "marketSize" ? "Copied!" : "Copy"}
           </button>
-        </div>
+        </div> */}
         <div className="data-elements">
           <h2>Data Elements</h2>
           <p className="content">

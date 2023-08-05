@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import {
-  collection,
+  // collection,
   doc,
-  query,
-  where,
-  getDocs,
+  // query,
+  getDoc,
+  // where,
+  // getDocs,
   setDoc,
 } from "@firebase/firestore";
 import { db, auth } from "../firebase"; // import your Firestore instance
@@ -24,16 +25,22 @@ function FeatureName() {
   const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
 
   const getDataFromSession = async (field) => {
-    const q = query(
-      collection(db, "features"),
-      where("sessionId", "==", sessionStorage.getItem("sessionId"))
-    );
-    const querySnapshot = await getDocs(q);
-    let data = "";
-    querySnapshot.forEach((doc) => {
-      data = doc.data()[field];
-    });
-    return data;
+    const documentId = sessionStorage.getItem("documentId");
+    const userId = auth.currentUser.uid; // Assuming you have auth imported and configured correctly
+    const docRef = doc(db, "users", userId, "feature", documentId);
+  
+    try {
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data()[field];
+        return data;
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
   };
 
   const handleSubmit = () => {
@@ -42,10 +49,12 @@ function FeatureName() {
     Promise.all([
       getDataFromSession("finalProblemStatement"),
       getDataFromSession("targetCustomer"),
-      getDataFromSession("hypothesis"),
-    ]).then(([finalProblemStatement, targetCustomer, hypothesis]) => {
+      getDataFromSession("hypotheses"),
+    ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
       // Concatenate the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize, and hypothesis, separated by commas
-      const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypothesis}`;
+      const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
+      console.log("Sending data:", inputText); // Log the data being sent
+
       // Make a POST request to the API endpoint
       fetch("https://ml-linear-regression.onrender.com/feature-name", {
         method: "POST",

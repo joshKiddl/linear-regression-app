@@ -81,6 +81,14 @@ body {
   margin-bottom: 100px;
 }
 
+.dashboard-btn {
+  background-color:#1c4bba;
+  color: white;
+  border-radius: 20px;
+  padding: 8px;
+  text-decoration: none;
+}
+
 /* Start of Media Query */
 @media screen and (max-width: 768px) {
   .container1,

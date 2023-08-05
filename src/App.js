@@ -5,10 +5,8 @@ import "../src/App.css";
 import PMAILogo from "./images/PMAILogo.png";
 import Screenshot1 from "./images/Screenshot1.png";
 import Screenshot2 from "./images/Screenshot2.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -51,12 +49,8 @@ function App() {
         </div>
         <div className="login-btn-container">
           {loggedIn ? (
-            <Link to="/listOfFeatures" className="user-info">
-              <FontAwesomeIcon
-                size={"2x"}
-                color="cornflowerblue"
-                icon={faUser}
-              />
+            <Link to="/listOfFeatures" className="dashboard-btn">
+              Dashboard
             </Link>
           ) : (
             <>

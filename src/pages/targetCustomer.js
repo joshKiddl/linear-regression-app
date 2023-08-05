@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import {
-  collection,
+  // collection,
   doc,
-  query,
-  where,
-  getDocs,
+  // query,
+  // where,
+  // getDocs,
+  getDoc,
   setDoc,
 } from "@firebase/firestore";
 import { db, auth } from "../firebase"; // import your Firestore instance
@@ -25,16 +26,16 @@ function TargetCustomer() {
   const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
 
   const fetchDataFromSession = async () => {
-    const q = query(
-      collection(db, "features"),
-      where("sessionId", "==", sessionStorage.getItem("sessionId"))
-    );
-    const querySnapshot = await getDocs(q);
-    let data = {};
-    querySnapshot.forEach((doc) => {
-      data = doc.data();
-    });
-    setFetchedData(data);
+    const userId = auth.currentUser.uid;
+    const documentId = sessionStorage.getItem("documentId");
+    const docRef = doc(db, "users", userId, "feature", documentId);
+    const docSnapshot = await getDoc(docRef);
+
+    if (docSnapshot.exists()) {
+      setFetchedData(docSnapshot.data());
+    } else {
+      console.log("No such document!");
+    }
   };
 
   useEffect(() => {
@@ -43,11 +44,12 @@ function TargetCustomer() {
 
   const handleSubmit = async () => {
     setIsLoading(true); // start loading
-
     const { finalProblemStatement, acceptanceCriteria, technicalRequirements } =
       fetchedData;
     const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${technicalRequirements}`;
-
+  
+    console.log("Sending data:", inputText); // Log the data being sent
+    
     try {
       const response = await fetch(
         "https://ml-linear-regression.onrender.com/targetCustomer",
@@ -59,16 +61,14 @@ function TargetCustomer() {
           body: JSON.stringify({ inputText }),
         }
       );
-
       const { error, predicted_items: predictedItems } = await response.json();
-
       if (error) {
         setAIResponse({ error });
       } else {
         setAIResponse(predictedItems);
       }
       setIsLoading(false); // stop loading
-
+  
       setShowProblemStatement(true);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -76,6 +76,7 @@ function TargetCustomer() {
       setShowProblemStatement(true);
     }
   };
+  
 
   const handleResponseItemClick = (item) => {
     if (selectedItems.includes(item)) {
@@ -115,7 +116,7 @@ function TargetCustomer() {
         { merge: true }
       );
       console.log("Successfully updated document:", documentId);
-      navigate("/marketSize");
+      navigate("/dataElements");
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -162,9 +163,7 @@ function TargetCustomer() {
                   onClick={() => handleResponseItemClick(item)}
                 >
                   {item}
-                  <FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
+                  <FontAwesomeIcon icon={faPlusCircle} />
                 </div>
               ))
           ) : (

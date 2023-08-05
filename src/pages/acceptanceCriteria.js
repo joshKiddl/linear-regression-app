@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import {
-  collection,
-  getDocs,
-  query,
-  where,
+  // collection,
+  // getDocs,
+  getDoc,
+  // query,
+  // where,
   doc,
   setDoc,
 } from "firebase/firestore";
@@ -25,17 +26,22 @@ function AcceptanceCriteria() {
   const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
 
   const getProblemStatementFromSession = async () => {
-    const q = query(
-      collection(db, "features"),
-      where("sessionId", "==", sessionStorage.getItem("sessionId"))
-    );
-    const querySnapshot = await getDocs(q);
+    const userId = auth.currentUser.uid;
+    const documentId = sessionStorage.getItem("documentId");
+
+    // Construct a reference to the desired document
+    const docRef = doc(db, "users", userId, "feature", documentId);
+    // Get the document
+    const docSnap = await getDoc(docRef);
+
     let problemStatement = "";
-    querySnapshot.forEach((doc) => {
-      problemStatement = doc.data().finalProblemStatement;
-    });
+
+    if (docSnap.exists()) {
+      // Document data will be undefined in case the document doesn't exist
+      problemStatement = docSnap.data().finalProblemStatement;
+    }
     return problemStatement;
-  };
+};
 
   useEffect(() => {
     getProblemStatementFromSession().then((problemStatement) =>

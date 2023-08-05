@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import {
-  collection,
+  // collection,
   doc,
-  query,
-  where,
-  getDocs,
+  // query,
+  getDoc,
+  // where,
+  // getDocs,
   setDoc,
 } from "@firebase/firestore";
 import { db, auth } from "../firebase"; // import your Firestore instance
@@ -24,64 +25,63 @@ function MarketingMaterial() {
   const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
 
   const getDataFromSession = async (field) => {
-    const q = query(
-      collection(db, "features"),
-      where("sessionId", "==", sessionStorage.getItem("sessionId"))
-    );
-    const querySnapshot = await getDocs(q);
-    let data = "";
-    querySnapshot.forEach((doc) => {
-      data = doc.data()[field];
-    });
-    return data;
+    const documentId = sessionStorage.getItem("documentId");
+    const userId = auth.currentUser.uid; // Assuming you have auth imported and configured correctly
+    const docRef = doc(db, "users", userId, "feature", documentId);
+
+    try {
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data()[field];
+        return data;
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
   };
+
+  
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-    // Fetch the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize and hypothesis from Firestore
     Promise.all([
       getDataFromSession("finalProblemStatement"),
       getDataFromSession("targetCustomer"),
-      getDataFromSession("marketSize"),
-      getDataFromSession("hypothesis"),
-    ]).then(
-      ([
-        finalProblemStatement,
-        acceptanceCriteria,
-        targetCustomer,
-        marketSize,
-        hypothesis,
-      ]) => {
-        // Concatenate the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize, and hypothesis, separated by commas
-        const inputText = `${finalProblemStatement}, ${targetCustomer}, ${marketSize}, ${hypothesis}`;
-        // Make a POST request to the API endpoint
-        fetch("https://ml-linear-regression.onrender.com/marketing-material", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            inputText: inputText,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            setIsLoading(false); // stop loading
+      getDataFromSession("hypotheses"),
+    ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
+      const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
+      console.log("Sending data:", inputText); // Log the data being sent
 
-            if (data.error) {
-              setAIResponse({ error: data.error });
-            } else {
-              setAIResponse(data.predicted_items);
-            }
-            setShowProblemStatement(true);
-          })
-          .catch((error) => {
-            console.error("Error fetching data:", error);
-            setAIResponse({ error: "Please generate responses again" });
-            setShowProblemStatement(true);
-          });
-      }
-    );
+      // Make a POST request to the API endpoint
+      fetch("https://ml-linear-regression.onrender.com/marketing-material", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputText: inputText,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setIsLoading(false); // stop loading
+
+          if (data.error) {
+            setAIResponse({ error: data.error });
+          } else {
+            setAIResponse(data.predicted_items);
+          }
+          setShowProblemStatement(true);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setAIResponse({ error: "Please generate responses again" });
+          setShowProblemStatement(true);
+        });
+    });
   };
 
   const handleResponseItemClick = (item) => {
@@ -172,9 +172,8 @@ function MarketingMaterial() {
                   }`}
                   onClick={() => handleResponseItemClick(item)}
                 >
-                   {itemText}<FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
+                  {itemText}
+                  <FontAwesomeIcon icon={faPlusCircle} />
                 </div>
               );
             })
@@ -192,9 +191,7 @@ function MarketingMaterial() {
             return (
               <div key={index} className="selected-item">
                 {itemText}
-                <FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
+                <FontAwesomeIcon icon={faPlusCircle} />
               </div>
             );
           })}

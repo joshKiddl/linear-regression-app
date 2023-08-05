@@ -98,7 +98,7 @@ function Problem() {
         // Handle error if the API request fails
         console.error('Error fetching data:', error);
         // Optionally, set a default AI response or show an error message
-        setAIResponse({ error: 'Failed to get AI response.' });
+        setAIResponse({ error: 'Please try generating again!' });
         setShowProblemStatement(true); // Show the "Final Problem Statement" field even if the request fails
       });
   };

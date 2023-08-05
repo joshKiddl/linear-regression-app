@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import {
-  collection,
+  // collection,
   doc,
-  query,
-  where,
-  getDocs,
+  // query,
+  // where,
+  // getDocs,
   setDoc,
+  getDoc,
 } from "@firebase/firestore";
 import { db, auth } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
@@ -29,16 +30,22 @@ function DataElements() {
   });
 
   const getDataFromSession = async (field) => {
-    const q = query(
-      collection(db, "features"),
-      where("sessionId", "==", sessionStorage.getItem("sessionId"))
-    );
-    const querySnapshot = await getDocs(q);
-    let data = "";
-    querySnapshot.forEach((doc) => {
-      data = doc.data()[field];
-    });
-    return data;
+    const documentId = sessionStorage.getItem("documentId");
+    const userId = auth.currentUser.uid; // Assuming you have auth imported and configured correctly
+    const docRef = doc(db, "users", userId, "feature", documentId);
+
+    try {
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()) {
+        const data = docSnapshot.data()[field];
+        return data;
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error getting document:", error);
+    }
   };
 
   useEffect(() => {
@@ -56,7 +63,6 @@ function DataElements() {
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-
     Promise.all([
       getDataFromSession("finalProblemStatement"),
       getDataFromSession("acceptanceCriteria"),
@@ -64,6 +70,8 @@ function DataElements() {
     ])
       .then(([finalProblemStatement, acceptanceCriteria, targetCustomer]) => {
         const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}`;
+        console.log("Sending data:", inputText); // Log the data being sent
+
         return fetch("https://ml-linear-regression.onrender.com/dataElements", {
           method: "POST",
           headers: {
@@ -198,9 +206,7 @@ function DataElements() {
                   onClick={() => handleResponseItemClick(item)}
                 >
                   {item}
-                  <FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
+                  <FontAwesomeIcon icon={faPlusCircle} />
                 </div>
               ))
           ) : (

@@ -10,7 +10,7 @@ import AcceptanceCriteria from './pages/acceptanceCriteria';
 // import TechnicalRequirements from './pages/technicalRequirements';
 import Tasks from './pages/tasks';
 import TargetCustomer from './pages/targetCustomer';
-import MarketSize from './pages/marketSize';
+// import MarketSize from './pages/marketSize';
 import DataElements from './pages/dataElements';
 import Hypothesis from './pages/hypothesis';
 import MarketingMaterial from './pages/marketingMaterial';
@@ -62,7 +62,7 @@ const AppRoutes = () => {
       {/* <Route path="/technicalRequirements" element={<TechnicalRequirements />} /> */}
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/targetCustomer" element={<TargetCustomer />} />
-      <Route path="/marketSize" element={<MarketSize />} />      
+      {/* <Route path="/marketSize" element={<MarketSize />} />       */}
       <Route path="/dataElements" element={<DataElements />} />      
       <Route path='/marketingMaterial' element={<MarketingMaterial />} />
       <Route path="/hypothesis" element={<Hypothesis />} />
