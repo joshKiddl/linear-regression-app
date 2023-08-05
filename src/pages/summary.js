@@ -296,6 +296,7 @@ function Summary() {
 
       <Modal
         isOpen={feedbackModalIsOpen}
+        ariaHideApp={false}
         onRequestClose={() => {
           closeFeedbackModal();
           setFeedbackMessage("");
@@ -377,6 +378,7 @@ function Summary() {
       <Modal
         isOpen={betaModalIsOpen}
         onRequestClose={closeBetaModal}
+        ariaHideApp={false}
         contentLabel="Beta Sign Up Form"
         className="modal"
       >
@@ -407,6 +409,7 @@ function Summary() {
       <Modal
         isOpen={shareModalIsOpen}
         onRequestClose={closeShareModal}
+        ariaHideApp={false}
         contentLabel="Share"
         className="modal"
       >
@@ -467,13 +470,15 @@ function Summary() {
         </div>
         <div className="acceptance-criteria">
           <h2>Acceptance Criteria</h2>
-          <p className="content">
-            {Array.isArray(acceptanceCriteria)
-              ? acceptanceCriteria.map((element, index) => (
-                  <div key={index}>{element}</div>
-                ))
-              : "No data available"}
-          </p>
+          <ul className="ul">
+            {Array.isArray(acceptanceCriteria) ? (
+              acceptanceCriteria.map((element, index) => (
+                <li key={index}>{element}</li>
+              ))
+            ) : (
+              <li>No data available</li>
+            )}
+          </ul>
 
           {/* replace placeholder */}
           <button

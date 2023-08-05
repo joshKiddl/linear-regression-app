@@ -140,6 +140,10 @@ body {
     margin-left: 30px;
 }
 
+.ul {
+    font-size: 12px;
+}
+
 @media screen and (max-width: 600px) {
     .content-container {
         grid-template-columns: 1fr;
