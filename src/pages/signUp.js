@@ -42,8 +42,12 @@ function SignUp() {
           navigate('/listOfFeatures');
         })
         .catch((error) => {
-          console.error('Error upgrading anonymous account:', error);
-          setErrorMsg('Failed to upgrade the anonymous account.');
+          if (error.code === 'auth/provider-already-linked') {
+            setErrorMsg('This Google account is already linked with another user. Please try with a different account.');
+          } else {
+            console.error('Error upgrading anonymous account:', error);
+            setErrorMsg('Failed to upgrade the anonymous account.');
+          }
         });
     } else {
       createUserWithEmailAndPassword(auth, email, password)

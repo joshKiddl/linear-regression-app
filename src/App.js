@@ -93,6 +93,9 @@ function App() {
             borderRadius: "10px",
           }}
           type="video/mp4"
+          onError={(e) => {
+            console.error("Video error:", e);
+          }}
         />
       </div>
       <div className="container2">
