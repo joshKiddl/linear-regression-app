@@ -77,21 +77,24 @@ function ViewFeature() {
   };
 
   const handleInlineEdit = async (field, newValue) => {
-    if (auth.currentUser) {
-      const uid = auth.currentUser.uid;
-      const docRef = doc(db, "users", uid, "feature", featureId);
-
-      let updateValue = newValue;
-      if (field === "acceptanceCriteria") {
-        updateValue =
-          typeof newValue === "string" ? newValue.split(",") : newValue;
-      }
-
+    if (!auth.currentUser) return; // Exit early if there's no currentUser
+    
+    const uid = auth.currentUser.uid;
+    const docRef = doc(db, "users", uid, "feature", featureId);
+  
+    let updateValue = newValue;
+    if (field === "acceptanceCriteria") {
+      updateValue = typeof newValue === "string" ? newValue.split(",") : newValue;
+    }
+  
+    try {
       await updateDoc(docRef, { [field]: updateValue });
       setFeature({ ...feature, [field]: updateValue });
       setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update the document:", error);
     }
-  };
+  };  
 
   return (
     <AppSidebar>

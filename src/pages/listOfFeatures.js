@@ -16,16 +16,16 @@ function ListOfFeatures() {
   const navigate = useNavigate();
 
   const fetchData = async () => {
-    console.log("fetchData is being called"); // add this line
+    // console.log("fetchData is being called"); // add this line
     if (auth.currentUser) {
-      console.log("User is logged in with ID: ", auth.currentUser.uid);
+      // console.log("User is logged in with ID: ", auth.currentUser.uid);
       const userId = auth.currentUser.uid;
       const userDoc = doc(db, "users", userId);
       const featureCollection = collection(userDoc, "feature");
       const featureData = await getDocs(featureCollection);
-      console.log("featureData: ", featureData); // log the raw featureData
+      // console.log("featureData: ", featureData); // log the raw featureData
       const data = featureData.docs.map((doc) => {
-        console.log("doc.data: ", doc.data()); // log each document's data
+        // console.log("doc.data: ", doc.data()); // log each document's data
         return { ...doc.data(), id: doc.id, status: doc.data().status };
       });
       setFeatures(data);
@@ -33,7 +33,7 @@ function ListOfFeatures() {
       // Save the data in localStorage
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } else {
-      console.log("No user is currently logged in.");
+      // console.log("No user is currently logged in.");
     }
   };
 
