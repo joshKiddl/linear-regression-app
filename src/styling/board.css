@@ -27,7 +27,7 @@
   }
 
   .board-content {
-    flex-direction: column;
+    flex-direction: row;
     height: auto;
     gap: 20px;
   }

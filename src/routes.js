@@ -23,6 +23,7 @@ import Board from './pages/board';
 import ViewFeature from './pages/viewFeature';
 import FeatureName from './pages/featureName';
 import Feedback from './pages/feedback';
+import Settings from './pages/settings';
 
 // Initialize Performance Monitoring here
 perf.dataCollectionEnabled = true;
@@ -75,6 +76,7 @@ const AppRoutes = () => {
       <Route path="/board" element={<Board />} />
       <Route path="/featureName" element={<FeatureName />} />
       <Route path="/feedback" element={<Feedback />} />
+      <Route path="/settings" element={<Settings />} />
     </Routes>
   );
 };

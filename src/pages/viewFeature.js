@@ -23,6 +23,41 @@ function ViewFeature() {
   const [isEditing, setIsEditing] = useState(false);
   const { featureId } = useParams();
 
+  const createJiraIssue = async () => {
+    const BACKEND_URL = "http://ml-linear-regression.onrender.com/create-jira-issue";
+    const issueData = {
+      "fields": {
+        "project": {
+          "key": "TES"
+        },
+        "summary": feature.featureName,
+        "description": feature.problemStatement,
+        "issuetype": {
+          "name": "Issue" // or Bug, Story, etc.
+        }
+      }
+    };
+  
+    try {
+      const response = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(issueData)
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Issue created successfully:", data);
+      } else {
+        console.error("Error creating Jira issue:", await response.text());
+      }
+    } catch (error) {
+      console.error("Error in network request:", error);
+    }
+  };
+
   useEffect(() => {
     const loadFeatureData = async () => {
       const uid = auth.currentUser.uid;
@@ -338,6 +373,7 @@ function ViewFeature() {
                 </div>
               )}
             </div>
+            <button onClick={createJiraIssue}>Create Jira Issue</button>
           </div>
         </div>
       </div>

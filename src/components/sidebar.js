@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPause, faList, faSignOutAlt, faBars, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPause, faList, faSignOutAlt, faBars, faThumbsUp, faCog } from '@fortawesome/free-solid-svg-icons';
 import logo from '../images/PMAILogo.png'; 
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase'; 
@@ -99,6 +99,14 @@ function AppSidebar({ children }) {
         </ListItem>
       </List>
       <List className='bottom-links'>
+      <ListItem button component={NavLinkStyled} to="/settings" className="sidebar-item-icon-text-wrapper">
+          <div className="sidebar-item-icon">
+            <FontAwesomeIcon icon={faCog} size="2x" color="white" />
+          </div>
+          <div className="sidebar-item-text">
+            Settings
+          </div>
+        </ListItem>
         <ListItem button onClick={handleSignOut} className="sidebar-item-icon-text-wrapper">
           <div className="sidebar-item-icon">
             <FontAwesomeIcon icon={faSignOutAlt} size="2x" color="white" />
