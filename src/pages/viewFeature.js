@@ -24,7 +24,7 @@ function ViewFeature() {
   const { featureId } = useParams();
 
   const createJiraIssue = async () => {
-    const BACKEND_URL = "http://ml-linear-regression.onrender.com/create-jira-issue";
+    const BACKEND_URL = "https://ml-linear-regression.onrender.com/create-jira-issue";
     const issueData = {
       "fields": {
         "project": {
