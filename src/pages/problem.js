@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styling/problem.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
@@ -11,6 +11,7 @@ import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import HowToWriteProblemStatementModal from "../components/howToWriteAProblemStatment";
 
 function Problem() {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ function Problem() {
   const [isLoading, setIsLoading] = useState(false);
   // const [oldAIResponse, setOldAIResponse] = useState([]); // New state to store old responses
   const [user, setUser] = useState(null); // New state for tracking the current user
+  const [isProblemStatementModalOpen, setProblemStatementModalOpen] =
+    useState(false);
 
   const auth = getAuth(); // Initialize the Firebase Auth instance
   const sessionId = sessionStorage.getItem("sessionId");
@@ -73,10 +76,10 @@ function Problem() {
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-    fetch('https://ml-linear-regression.onrender.com/openai-predict', {
-      method: 'POST',
+    fetch("https://ml-linear-regression.onrender.com/openai-predict", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         inputText: inputText,
@@ -96,9 +99,9 @@ function Problem() {
         setIsLoading(false); // stop loading
 
         // Handle error if the API request fails
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
         // Optionally, set a default AI response or show an error message
-        setAIResponse({ error: 'Please try generating again!' });
+        setAIResponse({ error: "Please try generating again!" });
         setShowProblemStatement(true); // Show the "Final Problem Statement" field even if the request fails
       });
   };
@@ -146,8 +149,10 @@ function Problem() {
 
   return (
     <div className="container">
-      <h1>What Problem are you trying to solve?</h1>
-      {/* Problem Description field */}
+      <h1 style={{marginBottom:'2px'}}>What Problem are you trying to solve?</h1>
+      <Link className="problem-link" onClick={() => setProblemStatementModalOpen(true)}>
+        How do I write a problem statement?
+      </Link>
       <div className="input-container">
         <input
           type="text"
@@ -162,9 +167,7 @@ function Problem() {
               animation="border"
               role="status"
               style={{ width: "1rem", height: "1rem" }} // Add this line
-            >
-              
-            </Spinner>
+            ></Spinner>
           ) : (
             "Generate"
           )}
@@ -180,28 +183,27 @@ function Problem() {
         <div className="ai-response">
           <h2>Select an option below</h2>
           {Array.isArray(aiResponse) ? (
-  aiResponse
-    .map((item) => {
-      const itemText = item.replace(/^\d+\.\s*-*\s*/, "").trim();
-      return itemText ? item : null; // Return null if itemText is blank
-    })
-    .filter(Boolean) // Remove null (or blank) items
-    .map((item, index) => (
-      <div
-        key={index}
-        className={`response-item ${selectedItem === item ? "selected" : ""}`}
-        onClick={() => handleResponseItemClick(item)}
-      >
-         {item}
-         <FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
-      </div>
-    ))
-) : (
-  <p>{aiResponse.error}</p>
-)}
-
+            aiResponse
+              .map((item) => {
+                const itemText = item.replace(/^\d+\.\s*-*\s*/, "").trim();
+                return itemText ? item : null; // Return null if itemText is blank
+              })
+              .filter(Boolean) // Remove null (or blank) items
+              .map((item, index) => (
+                <div
+                  key={index}
+                  className={`response-item ${
+                    selectedItem === item ? "selected" : ""
+                  }`}
+                  onClick={() => handleResponseItemClick(item)}
+                >
+                  {item}
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                </div>
+              ))
+          ) : (
+            <p>{aiResponse.error}</p>
+          )}
         </div>
         <label
           className="finalProblemStatementLabel"
@@ -241,6 +243,10 @@ function Problem() {
           {problemStatement.trim() === "" ? "Skip" : "Next"}
         </button>
       </div>
+      <HowToWriteProblemStatementModal
+        isOpen={isProblemStatementModalOpen}
+        onClose={() => setProblemStatementModalOpen(false)}
+      />
     </div>
   );
 }

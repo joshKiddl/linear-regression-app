@@ -50,6 +50,15 @@ h1 {
   align-items: center;
 }
 
+.problem-link {
+  text-align: center;
+  font-size: 12px;
+  text-decoration: none;
+  align-self: center;
+  justify-self: center;
+  display: block;
+  margin-bottom: 10px; /* Add some margin at the top to separate it from the input field */
+}
 
 .ai-response .response-item:hover {
   background-color: lightblue;
