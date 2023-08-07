@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import AppSidebar from "../components/sidebar";
 import "../styling/listOfFeatures.css";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -13,7 +13,43 @@ const STORAGE_KEY = "featuresData"; // Define a key for storing the data in loca
 
 function ListOfFeatures() {
   const [features, setFeatures] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [featureToDelete, setFeatureToDelete] = useState(null);
   const navigate = useNavigate();
+
+  const handleDeleteFeature = async (id) => {
+    const userId = auth.currentUser.uid;
+    const userDoc = doc(db, "users", userId);
+    const featureDoc = doc(userDoc, "feature", id);
+    await deleteDoc(featureDoc);
+    fetchData(); // Refetch the data after deleting the feature.
+  };
+
+  function ConfirmDeleteModal({ isOpen, onClose, onConfirm }) {
+    return isOpen ? (
+      <div className="modal-overlay">
+        <div className="modal-content">
+          <h4>Confirm Delete</h4>
+          <p>Are you sure you want to delete this feature?</p>
+          <button style={{backgroundColor: 'cornflowerblue'}} onClick={onClose}>Cancel</button>
+          <button onClick={onConfirm}>Confirm</button>
+        </div>
+      </div>
+    ) : null;
+  }
+
+  const promptDeleteFeature = (id) => {
+    setFeatureToDelete(id);
+    setModalOpen(true);
+  };
+
+  const confirmDeleteFeature = async () => {
+    if (featureToDelete) {
+      await handleDeleteFeature(featureToDelete);
+      setFeatureToDelete(null);
+    }
+    setModalOpen(false);
+  };
 
   const fetchData = async () => {
     // console.log("fetchData is being called"); // add this line
@@ -67,8 +103,6 @@ function ListOfFeatures() {
         <h2 className="lof-h2">Feature List</h2>
         <table className="feature-list">
           <thead>
-            <tr>
-            </tr>
           </thead>
           <tbody>
             {features.map((feature) => {
@@ -92,11 +126,19 @@ function ListOfFeatures() {
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        gap: "40px"
+                        gap: "40px",
                       }}
                     >
                       <div>Stage: {feature.status}</div>
                       <div style={{ fontWeight: "200" }}>{dateString}</div>
+                    </td>
+                    <td>
+                    <button
+                      className="delete-button"
+                      onClick={() => promptDeleteFeature(feature.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
                     </td>
                   </tr>
                 );
@@ -126,6 +168,11 @@ function ListOfFeatures() {
         >
           <FontAwesomeIcon icon={faPlus} /> Create a new feature
         </button>
+      <ConfirmDeleteModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onConfirm={confirmDeleteFeature}
+      />
       </AppSidebar>
     </div>
   );
