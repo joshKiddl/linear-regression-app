@@ -28,7 +28,7 @@ function App() {
     });
     const timer = setTimeout(() => {
       setShowPriorityModal(true);
-    }, 2000);
+    }, 20000);
     return () => clearTimeout(timer);
   }, []);
 
