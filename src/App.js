@@ -7,9 +7,11 @@ import Screenshot1 from "./images/Screenshot1.png";
 import Screenshot2 from "./images/Screenshot2.png";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
+import PriorityModal from './components/priorityModal'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [showPriorityModal, setShowPriorityModal] = useState(false); // Add state for the modal
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +26,15 @@ function App() {
         console.log("User is logged out or anonymous");
       }
     });
+    const timer = setTimeout(() => {
+      setShowPriorityModal(true);
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
+
+  const handlePrioritySelect = async (priority) => {
+    console.log("Selected priority:", priority);
+  };
 
   const handleAnonSignIn = async () => {
     try {
@@ -260,6 +270,11 @@ function App() {
       <div className="footer">
         <p>© 2023 Product Manager AI. All rights reserved.</p>
       </div>
+      <PriorityModal
+        isOpen={showPriorityModal}
+        onClose={() => setShowPriorityModal(false)}
+        onPrioritySelect={handlePrioritySelect}
+      />
     </div>
   );
 }
