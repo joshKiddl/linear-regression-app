@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { db } from "../firebase"; // import your Firestore instance
 import { doc, getDoc, updateDoc, setDoc, increment } from "firebase/firestore";
 
@@ -41,6 +41,9 @@ const PriorityModal = ({ isOpen, onClose, onPrioritySelect }) => {
   return (
     <div className="modal">
       <div className="modal-content">
+      <button style={{backgroundColor:'transparent', display: 'flex', justifyContent: 'flex-end'}} onClick={onClose}>
+            <FontAwesomeIcon icon={faTimes} color="grey" />
+        </button>
         <h3>Which of these problems are highest priority for you?</h3>
         <div>
           <button
@@ -66,6 +69,7 @@ const PriorityModal = ({ isOpen, onClose, onPrioritySelect }) => {
             )}
           </button>
         </div>
+        
       </div>
     </div>
   );

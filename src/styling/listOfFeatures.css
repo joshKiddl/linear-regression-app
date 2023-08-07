@@ -46,8 +46,9 @@
 
 .feature-list th,
 .feature-list td {
-  padding: 2px 15px;  /* Adjust as needed */
-  text-align: right;
+  padding: 10px 15px;  /* Adjust as needed */
+  text-align: left;
+  width: 300px;
 }
 
 

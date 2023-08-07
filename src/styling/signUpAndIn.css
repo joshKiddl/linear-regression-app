@@ -34,6 +34,18 @@
   color: #000000;
   font-size: small;
   font-weight: 300;
+  padding: 0px;
+  margin-bottom: 30px;
+}
+
+.login-btn {
+  background-color: #1c4bba;
+  color: #fff;
+}
+
+.signup-btn {
+  background-color: #1c4bba;
+  color: #fff;
 }
 
 .google-btn {
@@ -41,6 +53,7 @@
   color: white;
   border: none;
   padding: 10px 20px;
+  width: 500px;
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const HowToWriteProblemStatementModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;

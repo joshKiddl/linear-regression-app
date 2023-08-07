@@ -145,7 +145,7 @@ function SignUp() {
           Password:
           <input type="password" name="password" onChange={handleInputChange} />
         </label>
-        <input type="submit" className='btn' value="Sign Up with Email" />
+        <input type="submit" className='signup-btn' value="Sign Up with Email" />
       </form>
       <button onClick={handleGoogleSignUp} className='google-btn'>Sign Up with Google</button>
       <Link className='to-other-auth' to="/login">or log in</Link>

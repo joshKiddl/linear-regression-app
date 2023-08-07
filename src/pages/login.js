@@ -77,7 +77,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <input className='btn' type="submit" value="Log In with Email" />
+        <input className='login-btn' type="submit" value="Log In with Email" />
       </form>
       <button onClick={handlePasswordReset} className="reset-password-btn">Forgot password?</button>
       <button onClick={handleGoogleLogin} className='google-btn'>Log In with Google</button>

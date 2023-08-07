@@ -129,7 +129,7 @@ function ListOfFeatures() {
                         gap: "40px",
                       }}
                     >
-                      <div>Stage: {feature.status}</div>
+                      <div>{feature.status}</div>
                       <div style={{ fontWeight: "200" }}>{dateString}</div>
                     </td>
                     <td>
