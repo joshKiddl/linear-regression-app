@@ -15,48 +15,49 @@ function ViewFeature() {
     acceptanceCriteria: [],
     tasks: [],
     targetCustomer: "",
-    // marketSize: "",
     dataElements: [],
     hypothesis: "",
     marketingMaterial: "",
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [activeTab, setActiveTab] = useState("Tab1"); // default tab
   const { featureId } = useParams();
 
-  const createJiraIssue = async () => {
-    const BACKEND_URL = "https://ml-linear-regression.onrender.com/create-jira-issue";
-    const issueData = {
-      "fields": {
-        "project": {
-          "key": "TES"
-        },
-        "summary": feature.featureName,
-        "description": feature.problemStatement,
-        "issuetype": {
-          "name": "Issue" // or Bug, Story, etc.
-        }
-      }
-    };
-  
-    try {
-      const response = await fetch(BACKEND_URL, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(issueData)
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Issue created successfully:", data);
-      } else {
-        console.error("Error creating Jira issue:", await response.text());
-      }
-    } catch (error) {
-      console.error("Error in network request:", error);
-    }
-  };
+  // const createJiraIssue = async () => {
+  //   const BACKEND_URL =
+  //     "https://ml-linear-regression.onrender.com/create-jira-issue";
+  //   const issueData = {
+  //     fields: {
+  //       project: {
+  //         key: "TES",
+  //       },
+  //       summary: feature.featureName,
+  //       description: feature.problemStatement,
+  //       issuetype: {
+  //         name: "Issue", // or Bug, Story, etc.
+  //       },
+  //     },
+  //   };
+
+  //   try {
+  //     const response = await fetch(BACKEND_URL, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(issueData),
+  //     });
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log("Issue created successfully:", data);
+  //     } else {
+  //       console.error("Error creating Jira issue:", await response.text());
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in network request:", error);
+  //   }
+  // };
 
   useEffect(() => {
     const loadFeatureData = async () => {
@@ -78,15 +79,16 @@ function ViewFeature() {
 
   const handleInlineEdit = async (field, newValue) => {
     if (!auth.currentUser) return; // Exit early if there's no currentUser
-    
+
     const uid = auth.currentUser.uid;
     const docRef = doc(db, "users", uid, "feature", featureId);
-  
+
     let updateValue = newValue;
     if (field === "acceptanceCriteria") {
-      updateValue = typeof newValue === "string" ? newValue.split(",") : newValue;
+      updateValue =
+        typeof newValue === "string" ? newValue.split(",") : newValue;
     }
-  
+
     try {
       await updateDoc(docRef, { [field]: updateValue });
       setFeature({ ...feature, [field]: updateValue });
@@ -94,12 +96,11 @@ function ViewFeature() {
     } catch (error) {
       console.error("Failed to update the document:", error);
     }
-  };  
+  };
 
   return (
     <AppSidebar>
       <div className="view-feature">
-        {/* featureName field */}
         {isEditing === "featureName" ? (
           <input
             className="feature-name"
@@ -120,8 +121,40 @@ function ViewFeature() {
             />
           </p>
         )}
-        <div className="form-columns">
-          <div className="form-column">
+
+        {/* Tabs */}
+
+        <div className="tab-container">
+          <div
+            className={`tab ${activeTab === "Tab1" ? "active" : ""}`}
+            onClick={() => setActiveTab("Tab1")}
+          >
+            Problem
+          </div>
+          <div
+            className={`tab ${activeTab === "Tab2" ? "active" : ""}`}
+            onClick={() => setActiveTab("Tab2")}
+          >
+            Solution
+          </div>
+          <div
+            className={`tab ${activeTab === "Tab3" ? "active" : ""}`}
+            onClick={() => setActiveTab("Tab3")}
+          >
+            Development
+          </div>
+          <div
+            className={`tab ${activeTab === "Tab4" ? "active" : ""}`}
+            onClick={() => setActiveTab("Tab4")}
+          >
+            Rollout
+          </div>
+        </div>
+
+        {/* Problem */}
+
+        {activeTab === "Tab1" && (
+          <>
             {/* problemStatement field */}
             <label htmlFor="problemStatement">User Story</label>
             <div className="problem-statement">
@@ -129,28 +162,126 @@ function ViewFeature() {
                 <input
                   className="editable-field"
                   type="text"
-                  value={feature.problemStatement}
+                  value={feature.finalProblemStatement}
                   onChange={(e) =>
                     setFeature({
                       ...feature,
-                      problemStatement: e.target.value,
+                      finalProblemStatement: e.target.value,
                     })
                   }
                   onBlur={() =>
                     handleInlineEdit(
                       "problemStatement",
-                      feature.problemStatement
+                      feature.finalProblemStatement
                     )
                   }
                 />
               ) : (
                 <div className="feature-text">
-                  <p className="editable-field">{feature.problemStatement}</p>
+                  <p className="editable-field">
+                    {feature.finalProblemStatement}
+                  </p>
                   <FontAwesomeIcon
                     icon={faPencilAlt}
                     size={"xs"}
                     className="custom-icon"
-                    onClick={() => handleEdit("problemStatement")}
+                    onClick={() => handleEdit("FinalProblemStatement")}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Figma field */}
+            <label htmlFor="figma">Figma</label>
+            <div className="feature-input-field">
+              {isEditing === "figma" ? (
+                <input
+                  className="editable-field"
+                  type="text"
+                  value={feature.figma}
+                  onChange={(e) =>
+                    setFeature({ ...feature, figma: e.target.value })
+                  }
+                  onBlur={() => handleInlineEdit("figma", feature.figma)}
+                />
+              ) : (
+                <div className="feature-text">
+                  <p className="editable-field">TBD</p>
+                  <FontAwesomeIcon
+                    size={"xs"}
+                    icon={faPencilAlt}
+                    className="custom-icon"
+                    onClick={() => handleEdit("figma")}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* targetCustomer field */}
+            <label htmlFor="targetCustomer">Target Customer</label>
+            <div className="feature-input-field">
+              {isEditing === "targetCustomer" ? (
+                <input
+                  className="editable-field"
+                  type="text"
+                  value={feature.targetCustomer}
+                  onChange={(e) =>
+                    setFeature({ ...feature, targetCustomer: e.target.value })
+                  }
+                  onBlur={() =>
+                    handleInlineEdit("targetCustomer", feature.targetCustomer)
+                  }
+                />
+              ) : (
+                <div className="feature-text">
+                  <p className="editable-field">{feature.targetCustomer}</p>
+                  <FontAwesomeIcon
+                    icon={faPencilAlt}
+                    size={"xs"}
+                    className="custom-icon"
+                    onClick={() => handleEdit("targetCustomer")}
+                  />
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Solution */}
+
+        {activeTab === "Tab2" && (
+          <>
+            {/* problemStatement field */}
+            <label htmlFor="finalProblemStatement">User Story</label>
+            <div className="problem-statement">
+              {isEditing === "finalProblemStatement" ? (
+                <input
+                  className="editable-field"
+                  type="text"
+                  value={feature.finalProblemStatement}
+                  onChange={(e) =>
+                    setFeature({
+                      ...feature,
+                      finalProblemStatement: e.target.value,
+                    })
+                  }
+                  onBlur={() =>
+                    handleInlineEdit(
+                      "finalProblemStatement",
+                      feature.finalProblemStatement
+                    )
+                  }
+                />
+              ) : (
+                <div className="feature-text">
+                  <p className="editable-field">
+                    {feature.finalProblemStatement}
+                  </p>
+                  <FontAwesomeIcon
+                    icon={faPencilAlt}
+                    size={"xs"}
+                    className="custom-icon"
+                    onClick={() => handleEdit("finalProblemStatement")}
                   />
                 </div>
               )}
@@ -204,34 +335,40 @@ function ViewFeature() {
               )}
             </div>
 
-            {/* targetCustomer field */}
-            <label htmlFor="targetCustomer">Target Customer</label>
+            {/* hypothesis field */}
+            <label htmlFor="hypotheses">Hypothesis</label>
             <div className="feature-input-field">
-              {isEditing === "targetCustomer" ? (
+              {isEditing === "hypotheses" ? (
                 <input
                   className="editable-field"
                   type="text"
-                  value={feature.targetCustomer}
+                  value={feature.hypotheses}
                   onChange={(e) =>
-                    setFeature({ ...feature, targetCustomer: e.target.value })
+                    setFeature({ ...feature, hypotheses: e.target.value })
                   }
                   onBlur={() =>
-                    handleInlineEdit("targetCustomer", feature.targetCustomer)
+                    handleInlineEdit("hypotheses", feature.hypotheses)
                   }
                 />
               ) : (
                 <div className="feature-text">
-                  <p className="editable-field">{feature.targetCustomer}</p>
+                  <p className="editable-field">{feature.hypotheses}</p>
                   <FontAwesomeIcon
                     icon={faPencilAlt}
                     size={"xs"}
                     className="custom-icon"
-                    onClick={() => handleEdit("targetCustomer")}
+                    onClick={() => handleEdit("hypotheses")}
                   />
                 </div>
               )}
             </div>
+          </>
+        )}
 
+        {/* Developement */}
+
+        {activeTab === "Tab3" && (
+          <>
             {/* tasks field */}
             <label htmlFor="tasks">Tasks</label>
             <div className="feature-input-field">
@@ -247,97 +384,24 @@ function ViewFeature() {
                 />
               ) : (
                 <div className="feature-text">
-                  <p className="editable-field">{feature.tasks}</p>
+                  <ul>
+                    {typeof feature.tasks === "string"
+                      ? feature.tasks.split(",").map((criteria, index) => (
+                          <li key={index} className="editable-field">
+                            {criteria.trim()}
+                          </li>
+                        ))
+                      : feature.acceptanceCriteria.map((criteria, index) => (
+                          <li key={index} className="editable-field">
+                            {criteria}
+                          </li>
+                        ))}
+                  </ul>
                   <FontAwesomeIcon
                     size={"xs"}
                     icon={faPencilAlt}
                     className="custom-icon"
                     onClick={() => handleEdit("tasks")}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="form-column">
-            {/* marketSize field */}
-            {/* <label htmlFor="marketSize">Market Size</label>
-            <div className="feature-input-field">
-              {isEditing === "marketSize" ? (
-                <input
-                  className="editable-field"
-                  type="text"
-                  value={feature.marketSize}
-                  onChange={(e) =>
-                    setFeature({ ...feature, marketSize: e.target.value })
-                  }
-                  onBlur={() =>
-                    handleInlineEdit("marketSize", feature.marketSize)
-                  }
-                />
-              ) : (
-                <div className="feature-text">
-                  <p className="editable-field">{feature.marketSize}</p>
-                  <FontAwesomeIcon
-                    size={"xs"}
-                    icon={faPencilAlt}
-                    className="custom-icon"
-                    onClick={() => handleEdit("marketSize")}
-                  />
-                </div>
-              )}
-            </div> */}
-
-            {/* dataElements field */}
-            <label htmlFor="dataElements">Data Elements</label>
-            <div className="feature-input-field">
-              {isEditing === "dataElements" ? (
-                <input
-                  className="editable-field"
-                  type="text"
-                  value={feature.dataElements}
-                  onChange={(e) =>
-                    setFeature({ ...feature, dataElements: e.target.value })
-                  }
-                  onBlur={() =>
-                    handleInlineEdit("dataElements", feature.dataElements)
-                  }
-                />
-              ) : (
-                <div className="feature-text">
-                  <p className="editable-field">{feature.dataElements}</p>
-                  <FontAwesomeIcon
-                    icon={faPencilAlt}
-                    className="custom-icon"
-                    size={"xs"}
-                    onClick={() => handleEdit("dataElements")}
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* hypothesis field */}
-            <label htmlFor="hypothesis">Hypothesis</label>
-            <div className="feature-input-field">
-              {isEditing === "hypothesis" ? (
-                <input
-                  className="editable-field"
-                  type="text"
-                  value={feature.hypothesis}
-                  onChange={(e) =>
-                    setFeature({ ...feature, hypothesis: e.target.value })
-                  }
-                  onBlur={() =>
-                    handleInlineEdit("hypothesis", feature.hypothesis)
-                  }
-                />
-              ) : (
-                <div className="feature-text">
-                  <p className="editable-field">{feature.hypothesis}</p>
-                  <FontAwesomeIcon
-                    icon={faPencilAlt}
-                    size={"xs"}
-                    className="custom-icon"
-                    onClick={() => handleEdit("hypothesis")}
                   />
                 </div>
               )}
@@ -376,12 +440,77 @@ function ViewFeature() {
                 </div>
               )}
             </div>
-            <button onClick={createJiraIssue}>Create Jira Issue</button>
-          </div>
-        </div>
+
+            {/* dataElements field */}
+            <label htmlFor="dataElements">Data Elements</label>
+            <div className="feature-input-field">
+              {isEditing === "dataElements" ? (
+                <input
+                  className="editable-field"
+                  type="text"
+                  value={feature.dataElements}
+                  onChange={(e) =>
+                    setFeature({ ...feature, dataElements: e.target.value })
+                  }
+                  onBlur={() =>
+                    handleInlineEdit("dataElements", feature.dataElements)
+                  }
+                />
+              ) : (
+                <div className="feature-text">
+                  <p className="editable-field">{feature.dataElements}</p>
+                  <FontAwesomeIcon
+                    icon={faPencilAlt}
+                    className="custom-icon"
+                    size={"xs"}
+                    onClick={() => handleEdit("dataElements")}
+                  />
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Rollout */}
+
+        {activeTab === "Tab4" && (
+          <>
+            {/* hypothesis field */}
+            <label htmlFor="hypotheses">Hypothesis</label>
+            <div className="feature-input-field">
+              {isEditing === "hypotheses" ? (
+                <input
+                  className="editable-field"
+                  type="text"
+                  value={feature.hypotheses}
+                  onChange={(e) =>
+                    setFeature({ ...feature, hypotheses: e.target.value })
+                  }
+                  onBlur={() =>
+                    handleInlineEdit("hypothesis", feature.hypotheses)
+                  }
+                />
+              ) : (
+                <div className="feature-text">
+                  <p className="editable-field">{feature.hypotheses}</p>
+                  <FontAwesomeIcon
+                    icon={faPencilAlt}
+                    size={"xs"}
+                    className="custom-icon"
+                    onClick={() => handleEdit("hypotheses")}
+                  />
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </AppSidebar>
   );
 }
+
+// {
+//   /* <button onClick={createJiraIssue}>Create Jira Issue</button> */
+// }
 
 export default ViewFeature;

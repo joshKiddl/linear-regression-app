@@ -54,6 +54,38 @@
   width: 45%; /* You can adjust this value based on your needs */
 }
 
+.tab-container {
+  display: flex;  /* Using flex to equally distribute space among tabs */
+  width: 100%;    /* Making sure it spans the width of the page */
+  margin-bottom: 20px;
+  padding-right: 15px;
+}
+
+.tab {
+  flex: 1;                /* Makes each tab take up an equal amount of space in the container */
+  background-color: transparent; /* Transparent background */
+  color: black;            /* Text color */
+  text-align: center;     /* Centering the text in the tab */
+  padding: 10px 0;        /* Giving some vertical padding for better appearance */
+  cursor: pointer;        /* Changing cursor to pointer to indicate clickable area */
+  transition: background-color 0.3s; /* Smooth transition for hover effects */
+  border-color: black;
+  border-top: 1px solid black;   /* 1px solid black border on top */
+  border-left: 1px solid black;  /* 1px solid black border on left */
+  border-right: 1px solid black; /* 1px solid black border on right */
+  border-bottom: none;           /* No border on the bottom */
+}
+
+.tab:hover {
+  background-color: darkgray; /* Yellow background on hover */
+  color: white;
+}
+
+.tab.active {
+  background-color: darkgray;   /* Blue background for the active tab */
+  color: white;             /* Assuming you'd want white text on a blue background, adjust if needed */
+}
+
 @media screen and (max-width: 1200px) {
   .view-feature {
     padding-left: 1rem;

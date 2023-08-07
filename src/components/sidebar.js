@@ -34,11 +34,11 @@ const NavLinkStyled = styled(NavLink)({
   '&.MuiButtonBase-root': {
     '&.active': {
       backgroundColor: '#284781',
-      borderRadius: '12px',
+      // borderRadius: '12px',
     },
     '&:hover': {
       backgroundColor: '#284781',
-      borderRadius: '12px',
+      // borderRadius: '12px',
     },
   }
 });
