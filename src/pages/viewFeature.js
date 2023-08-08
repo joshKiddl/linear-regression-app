@@ -508,9 +508,9 @@ function ViewFeature() {
         )}
         <hr />
         <h3>Whats next?</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <div>
           <WhatsNext userId={auth.currentUser?.uid} featureId={featureId} />
-          <FeatureAssess userId={auth.currentUser?.uid} featureId={featureId} />
+          {/* <FeatureAssess userId={auth.currentUser?.uid} featureId={featureId} /> */}
         </div>
       </div>
     </AppSidebar>
