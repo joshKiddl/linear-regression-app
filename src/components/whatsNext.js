@@ -9,6 +9,7 @@ function WhatsNext({ userId, featureId }) {
   const [aiResponse, setAIResponse] = useState({});
   const [showProblemStatement, setShowProblemStatement] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  // eslint-disable-next-line
   const [showGenerateTaskButton, setShowGenerateTaskButton] = useState(false);
   const [clickedItem, setClickedItem] = useState(null);
   const [taskList, setTaskList] = useState([]);
@@ -46,6 +47,7 @@ function WhatsNext({ userId, featureId }) {
       .then((response) => response.json())
       .then((data) => {
         console.log("Received data from backend:", data);
+        // setShowGenerateTaskButton(true);
         setIsLoading(false);
         if (data && data.error) {
           setAIResponse({ error: data.error });

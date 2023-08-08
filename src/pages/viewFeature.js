@@ -8,7 +8,6 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import AppSidebar from "../components/sidebar";
 import { updateDoc } from "firebase/firestore";
 import WhatsNext from "../components/whatsNext";
-import FeatureAssess from "../components/featureAssess";
 
 function ViewFeature() {
   const [feature, setFeature] = useState({
