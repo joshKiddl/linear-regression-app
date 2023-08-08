@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   background-color: #f8f8f8;
-  height: 100vh;
+  min-height: 100vh;
   font-family: 'Montserrat', sans-serif;  
   width: 100vw;
   padding-left: 200px;
@@ -52,6 +52,21 @@
 
 .form-column {
   width: 45%; /* You can adjust this value based on your needs */
+}
+
+.whats-next {
+  background-color: white;
+  border: black 1px solid;
+  border-radius: 12px;
+  padding: 5px;
+  margin: 10px;
+  min-width: 50%;
+  min-height: 70px;
+}
+
+.whats-next-section {
+  display: flex;
+  flex-direction: row;
 }
 
 .tab-container {

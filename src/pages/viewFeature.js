@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import AppSidebar from "../components/sidebar";
 import { updateDoc } from "firebase/firestore";
+import WhatsNext from "../components/whatsNext";
+import FeatureAssess from "../components/featureAssess";
 
 function ViewFeature() {
   const [feature, setFeature] = useState({
@@ -504,6 +506,12 @@ function ViewFeature() {
             </div>
           </>
         )}
+        <hr />
+        <h3>Whats next?</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <WhatsNext userId={auth.currentUser?.uid} featureId={featureId} />
+          <FeatureAssess userId={auth.currentUser?.uid} featureId={featureId} />
+        </div>
       </div>
     </AppSidebar>
   );
