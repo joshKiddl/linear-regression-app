@@ -15,7 +15,7 @@ import { db, auth } from "../firebase"; // import your Firestore instance
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import logo from "../images/PMAILogo.png"; // adjust the import path as necessary
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudDownload, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCloudDownload, faSignInAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import NPS from "../components/nps";
 
@@ -133,6 +133,23 @@ function Summary() {
           tasks,
           keyCustomer,
           // marketSize,
+          dataElements,
+          hypothesis,
+          marketingMaterial,
+          featureName,
+        },
+      },
+    });
+  };
+
+  const goToSignIn = () => {
+    navigate("/login", {
+      state: {
+        featureData: {
+          problemStatement,
+          acceptanceCriteria,
+          tasks,
+          keyCustomer,
           dataElements,
           hypothesis,
           marketingMaterial,
@@ -442,9 +459,13 @@ function Summary() {
 
       <div className="header-container">
         <h1>{featureName}</h1>
-        <button className="download-button" onClick={goToSignUp}>
-          <FontAwesomeIcon icon={faUser} size="2x" color="cornflowerblue" />`
+        <button style={{width: '200px'}} onClick={goToSignUp}>
+          <FontAwesomeIcon style={{marginRight: '5px'}}  icon={faSignInAlt} size="1x" color="white" />
           Save Feature & Create Account
+        </button>
+        <button style={{width: '200px'}} onClick={goToSignIn}>
+          <FontAwesomeIcon style={{marginRight: '5px'}} icon={faUser} size="1x" color="white" />
+          Save Feature & Log In
         </button>
         <NPS />
       </div>

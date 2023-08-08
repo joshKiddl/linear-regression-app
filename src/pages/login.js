@@ -3,6 +3,15 @@ import { signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider,
 import { auth } from '../firebase'; 
 import { useNavigate, Link } from 'react-router-dom';
 import '../styling/signUpAndIn.css';
+import { 
+  collection, 
+  doc, 
+  query, 
+  getDocs, 
+  setDoc, 
+  deleteDoc 
+} from 'firebase/firestore';
+import { db } from '../firebase';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -11,23 +20,54 @@ function Login() {
   const [resetMsg, setResetMsg] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const anonymousUid = auth.currentUser?.uid; // Store the anonymous UID before signing in.
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log('User:', user);
+        sessionStorage.setItem('userId', user.uid);
+        if (anonymousUid) {
+            await migrateFeatures(anonymousUid, user.uid);
+        }
+        navigate('/listOfFeatures');
+    } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error('Error:', errorCode, errorMessage);
+        setErrorMsg('Email or password incorrect.');
+    }
+};
 
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log('User:', user);
-      sessionStorage.setItem('userId', user.uid);
-      navigate('/listOfFeatures');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error('Error:', errorCode, errorMessage);
-      setErrorMsg('Email or password incorrect.');
-    });
-  }
+const migrateFeatures = async (fromUid, toUid) => {
+    const featuresRef = collection(db, "users", fromUid, "feature");
+    const q = query(featuresRef); 
+    const querySnapshot = await getDocs(q);
+    for (let docSnapshot of querySnapshot.docs) {
+        const docData = docSnapshot.data();
+        const newFeatureRef = doc(db, "users", toUid, "feature", docSnapshot.id);
+        await setDoc(newFeatureRef, docData);
+        const oldFeatureRef = doc(db, "users", fromUid, "feature", docSnapshot.id);
+        await deleteDoc(oldFeatureRef); 
+    }
+};
+
+const handleGoogleLogin = async () => {
+    const anonymousUid = auth.currentUser?.uid; // Store the anonymous UID before signing in.
+    try {
+        const result = await signInWithPopup(auth, new GoogleAuthProvider());
+        const user = result.user;
+        console.log('User:', user);
+        sessionStorage.setItem('userId', user.uid);
+        if (anonymousUid) {
+            await migrateFeatures(anonymousUid, user.uid);
+        }
+        navigate('/listOfFeatures');
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
 
   const handlePasswordReset = () => {
     sendPasswordResetEmail(auth, email)
@@ -37,21 +77,6 @@ function Login() {
     .catch((error) => {
       console.error('Error in password reset:', error);
       setErrorMsg('Error in password reset. Please try again.');
-    });
-  }
-
-  const handleGoogleLogin = () => { // new function for Google login
-    const provider = new GoogleAuthProvider();
-
-    signInWithPopup(auth, provider)
-    .then((result) => {
-      const user = result.user;
-      console.log('User:', user);
-      sessionStorage.setItem('userId', user.uid);
-      navigate('/listOfFeatures');
-    })
-    .catch((error) => {
-      console.error('Error:', error);
     });
   }
 

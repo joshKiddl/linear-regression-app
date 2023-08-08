@@ -81,9 +81,9 @@ body {
 }
 
 .modal-close {
-    position: absolute;
+    position: relative;
     right: 20px;
-    top: 20px;
+    top: 10px;
     background: none;
     border: none;
     font-size: 14px;
