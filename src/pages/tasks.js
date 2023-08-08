@@ -127,7 +127,8 @@ function Tasks() {
 
   return (
     <div className="container">
-      <h1>Generate some Tasks to create your Solution</h1>
+      <h1>Tasks</h1>
+      <h5>Get the feature broken up into tasks so the devs can get working on this today!</h5>
       <div className="input-container">
         <button onClick={handleSubmit}>
           {isLoading ? (

@@ -131,7 +131,8 @@ function AcceptanceCriteria() {
 
   return (
     <div className="container">
-      <h1>Generate Acceptance Criteria that will solve the Problem</h1>
+      <h1>Acceptance Criteria</h1>
+      <h5>Generate the acceptance criteria to hone in on the scope of this feature. The acceptance criteria should also help drive test scripts when testing the feature before rollout.</h5>
       {/* <p className='problem-statement'>{problemStatement}</p> */}
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}

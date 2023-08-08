@@ -31,7 +31,12 @@ function ListOfFeatures() {
         <div className="modal-content">
           <h4>Confirm Delete</h4>
           <p>Are you sure you want to delete this feature?</p>
-          <button style={{backgroundColor: 'cornflowerblue'}} onClick={onClose}>Cancel</button>
+          <button
+            style={{ backgroundColor: "cornflowerblue" }}
+            onClick={onClose}
+          >
+            Cancel
+          </button>
           <button onClick={onConfirm}>Confirm</button>
         </div>
       </div>
@@ -102,25 +107,24 @@ function ListOfFeatures() {
       <AppSidebar>
         <h2 className="lof-h2">Feature List</h2>
         <table className="feature-list">
-          <thead>
-          </thead>
+          <thead></thead>
           <tbody>
-            {features.map((feature) => {
-              // Check if createdAt exists
-              if (feature.createdAt) {
-                // convert the timestamp to a date
-                const dateCreated = new Date(feature.createdAt.seconds * 1000);
-                // format the date as a string
-                const dateString = dateCreated.toLocaleDateString("en-US");
-                return (
-                  <tr className="data-row" key={feature.id}>
-                    <td style={{ fontWeight: "400" }}>
-                      <button
+          {features.map((feature) => {
+    // Check if createdAt exists
+    if (feature.createdAt) {
+        // convert the timestamp to a date
+        const dateCreated = new Date(feature.createdAt.seconds * 1000);
+        // format the date as a string
+        const dateString = dateCreated.toLocaleDateString("en-US");
+        return (
+            <tr className="data-row" key={feature.id}>
+                <td style={{ fontWeight: "400" }}>
+                    <button
                         className="feature-name-button"
                         onClick={() => handleEdit(feature.id)}
-                      >
-                        {feature.featureName}
-                      </button>
+                    >
+                        {feature.featureName || "This feature has no name!"}
+                    </button>
                     </td>
                     <td
                       style={{
@@ -133,19 +137,21 @@ function ListOfFeatures() {
                       <div style={{ fontWeight: "200" }}>{dateString}</div>
                     </td>
                     <td>
-                    <button
-                      className="delete-button"
-                      onClick={() => promptDeleteFeature(feature.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => promptDeleteFeature(feature.id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
                     </td>
                   </tr>
                 );
               } else {
                 return (
                   <tr className="data-row" key={feature.id}>
-                    <td>{feature.featureName}</td>
+                    <td>
+                      {feature.featureName || "This feature has no name!"}
+                    </td>
                     <td>Data not available</td>
                     <td>{feature.status}</td>
                     <td>
@@ -168,11 +174,11 @@ function ListOfFeatures() {
         >
           <FontAwesomeIcon icon={faPlus} /> Create a new feature
         </button>
-      <ConfirmDeleteModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onConfirm={confirmDeleteFeature}
-      />
+        <ConfirmDeleteModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          onConfirm={confirmDeleteFeature}
+        />
       </AppSidebar>
     </div>
   );

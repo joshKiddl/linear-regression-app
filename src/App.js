@@ -51,7 +51,15 @@ function App() {
       <div className="container1">
         <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
         <h1 className="title">Product Manager AI</h1>
-        <h2 className="subtitle">Your Product Management Copilot</h2>
+        <h2 className="subtitle">Explain in your own words what problem you’re looking to solve, and for who… and we’ll take care of the rest.</h2>
+        <ul style={{border: '1px darkgray solid', borderRadius: '12px', paddingRight:'15px', paddingTop:'10px', paddingBottom:'10px', fontSize:'14px'}}>
+          <li>Well articulated the problem statement</li>
+          <li>Clear and concise acceptance criteria</li>
+          <li>Structured break down of the tasks ready for the delivery team</li>
+          <li>Defined target customer and ideal marketing material</li>
+          <li>Defined key metrics and solution hypothesis to track whether the feature has failed/succeeded</li>
+        </ul>
+        <h2 className="subtitle">In 2 minutes you’ll have a feature ready to share with stakeholders and get the delivery work started!</h2>
         <div className="btn-container">
           <button onClick={handleAnonSignIn} className="btn">
             Create a Feature

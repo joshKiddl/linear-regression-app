@@ -162,9 +162,9 @@ function DataElements() {
   return (
     <div className="container">
       <h1>
-        Generate the Data Elements that are important for understanding the
-        success of this feature
+        Metrics
       </h1>
+      <h5>It’s never too early to think about metrics. Plan the metrics you’ll be tracking once you release the feature, so you know whether the feature has been successful.</h5>
       <div className="input-container">
         <button onClick={handleSubmit}>
           {isLoading ? (

@@ -51,9 +51,10 @@ function Hypothesis() {
       getDataFromSession("finalProblemStatement"),
       getDataFromSession("acceptanceCriteria"),
       getDataFromSession("targetCustomer"),
-    ]).then(([finalProblemStatement, acceptanceCriteria, targetCustomer]) => {
+      getDataFromSession("dataElements"),
+    ]).then(([finalProblemStatement, acceptanceCriteria, targetCustomer, dataElements]) => {
       // Concatenate the finalProblemStatement, acceptanceCriteria, and targetCustomer, separated by commas
-      const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}`;
+      const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}, ${dataElements}`;
       console.log("Sending data:", inputText); // Log the data being sent
 
       // Make a POST request to the API endpoint
@@ -135,6 +136,7 @@ function Hypothesis() {
   return (
     <div className="container">
       <h1>Generate potential Solution Hypotheses</h1>
+      <h5>This is often missed, along with tracking metrics. Without a hypothesis there is no direction. Generate a hypothesis that will keep you, your team, and stakeholders honest about the effectiveness of a new feature.</h5>
       <div className="input-container">
         <button onClick={handleSubmit}>
           {isLoading ? (

@@ -149,7 +149,7 @@ function Problem() {
 
   return (
     <div className="container">
-      <h1 style={{marginBottom:'2px'}}>What Problem are you trying to solve?</h1>
+      <h1 style={{marginBottom:'2px'}}>In your own words, tell us what problem you are trying to solve.</h1>
       <Link className="problem-link" onClick={() => setProblemStatementModalOpen(true)}>
         How do I write a problem statement?
       </Link>

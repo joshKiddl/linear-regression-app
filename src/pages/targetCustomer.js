@@ -124,7 +124,8 @@ function TargetCustomer() {
 
   return (
     <div className="container">
-      <h1>Generate the Target Customer for your feature</h1>
+      <h1>Target Customer</h1>
+      <h5>Start thinking about who you might want to target for this specific feature.</h5>
       <div className="input-container">
         <button onClick={handleSubmit}>
           {isLoading ? (
