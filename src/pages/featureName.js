@@ -45,44 +45,54 @@ function FeatureName() {
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-    // Fetch the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize and hypothesis from Firestore
-    Promise.all([
-      getDataFromSession("finalProblemStatement"),
-      getDataFromSession("targetCustomer"),
-      getDataFromSession("hypotheses"),
-    ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
-      // Concatenate the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize, and hypothesis, separated by commas
-      const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
-      console.log("Sending data:", inputText); // Log the data being sent
-
-      // Make a POST request to the API endpoint
-      fetch("https://ml-linear-regression.onrender.com/feature-name", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputText: inputText,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setIsLoading(false); // stop loading
-
-          if (data.error) {
-            setAIResponse({ error: data.error });
-          } else {
-            setAIResponse(data.predicted_items);
-          }
-          setShowProblemStatement(true);
+  
+    const fetchData = (retryCount = 0) => {
+      // Fetch the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize and hypothesis from Firestore
+      Promise.all([
+        getDataFromSession("finalProblemStatement"),
+        getDataFromSession("targetCustomer"),
+        getDataFromSession("hypotheses"),
+      ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
+        // Concatenate the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize, and hypothesis, separated by commas
+        const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
+        console.log("Sending data:", inputText); // Log the data being sent
+  
+        // Make a POST request to the API endpoint
+        fetch("https://ml-linear-regression.onrender.com/feature-name", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            inputText: inputText,
+          }),
         })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          setIsLoading(false); // stop loading
-          setAIResponse({ error: "Please generate responses again" });
-          setShowProblemStatement(true);
-        });
-    });
+          .then((response) => response.json())
+          .then((data) => {
+            setIsLoading(false); // stop loading
+  
+            if (data.error) {
+              setAIResponse({ error: data.error });
+            } else {
+              setAIResponse(data.predicted_items);
+            }
+            setShowProblemStatement(true);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+            setIsLoading(false); // stop loading
+  
+            if (retryCount < 1) { // Retry once
+              fetchData(retryCount + 1);
+            } else {
+              setAIResponse({ error: "Please generate responses again" });
+              setShowProblemStatement(true);
+            }
+          });
+      });
+    };
+  
+    fetchData(); // Initial call
   };
 
   const handleResponseItemClick = (item) => {

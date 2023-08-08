@@ -74,37 +74,47 @@ function Problem() {
     }
   };
 
-  const handleSubmit = () => {
-    setIsLoading(true); // start loading
-    fetch("https://ml-linear-regression.onrender.com/openai-predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        inputText: inputText,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setIsLoading(false); // stop loading
-        if (data.error) {
-          setAIResponse({ error: data.error }); // Update the state with the API error response
-        } else {
-          setAIResponse(data.predicted_items); // Update the state with the AI response (assuming 'predicted_items' is the array of items in the API response)
-        }
-        setShowProblemStatement(true); // Show the "Final Problem Statement" field after Check is clicked
-      })
-      .catch((error) => {
-        setIsLoading(false); // stop loading
-
-        // Handle error if the API request fails
-        console.error("Error fetching data:", error);
-        // Optionally, set a default AI response or show an error message
-        setAIResponse({ error: "Please try generating again!" });
-        setShowProblemStatement(true); // Show the "Final Problem Statement" field even if the request fails
+  const fetchAIResponse = async () => {
+    try {
+      const response = await fetch("https://ml-linear-regression.onrender.com/openai-predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputText: inputText,
+        }),
       });
+  
+      const data = await response.json();
+  
+      if (data.error) {
+        setAIResponse({ error: data.error });
+      } else {
+        setAIResponse(data.predicted_items);
+      }
+  
+      setShowProblemStatement(true);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return false; // Indicates that fetching failed
+    }
+    return true; // Indicates that fetching was successful
   };
+  
+  const handleSubmit = async () => {
+    setIsLoading(true);
+  
+    const success = await fetchAIResponse();
+  
+    if (!success) {
+      // Retry once if fetching failed the first time
+      console.log("Retrying after failure...");
+      await fetchAIResponse();
+    }
+  };
+  
 
   const handleResponseItemClick = (item) => {
     setSelectedItem(item); // Update the selected item state with the clicked item's text
