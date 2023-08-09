@@ -3,7 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Spinner } from "react-bootstrap"; // Step 1: Import the Spinner
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 function WhatsNext({ userId, featureId }) {
   const [isLoading, setIsLoading] = useState(false);
