@@ -18,7 +18,8 @@ h5 {
   margin-bottom: 30px;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
-  max-width: 50vw;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .problem-statement-input {

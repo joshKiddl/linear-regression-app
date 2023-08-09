@@ -161,10 +161,12 @@ function DataElements() {
 
   return (
     <div className="container">
-      <h1>
-        Metrics
-      </h1>
-      <h5>It’s never too early to think about metrics. Plan the metrics you’ll be tracking once you release the feature, so you know whether the feature has been successful.</h5>
+      <h1>Metrics</h1>
+      <h5>
+        It’s never too early to think about metrics. Plan the metrics you’ll be
+        tracking once you release the feature, so you know whether the feature
+        has been successful.
+      </h5>
       <div className="input-container">
         <button onClick={handleSubmit}>
           {isLoading ? (
@@ -193,7 +195,7 @@ function DataElements() {
                 const itemText = item
                   .replace(/^\d+\.\s*/, "")
                   .replace(/-/g, "")
-                  .trim(); // Removes numbering from the start of the item and all dashes
+                  .trim();
                 return itemText ? item : null; // Return null if itemText is blank
               })
               .filter(Boolean) // Remove null (or blank) items
@@ -212,6 +214,19 @@ function DataElements() {
           ) : (
             <p>{state.aiResponse.error}</p>
           )}
+        </div>
+
+        {/* New block for displaying selected items */}
+        <div className="selected-items">
+          <h2>Selected items</h2>
+          {state.selectedItems.map((item, index) => {
+            const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
+            return (
+              <div key={index} className="selected-item">
+                {itemText}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="button-container">

@@ -43,9 +43,42 @@ function Hypothesis() {
     }
   };
 
+  const sendDataToAPI = (inputText, retryCount = 1) => {
+    fetch("https://ml-linear-regression.onrender.com/hypothesis", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        inputText: inputText,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setIsLoading(false);
+  
+        if (data.error) {
+          setAIResponse({ error: data.error });
+        } else {
+          setAIResponse(data.predicted_items);
+        }
+        setShowProblemStatement(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        if (retryCount > 0) {
+          console.log("Retrying request...");
+          sendDataToAPI(inputText, retryCount - 1);
+        } else {
+          setAIResponse({ error: "Please generate responses again" });
+          setShowProblemStatement(true);
+        }
+      });
+  };
+  
   const handleSubmit = () => {
-    setIsLoading(true); // start loading
-
+    setIsLoading(true); 
+  
     // Fetch the finalProblemStatement, acceptanceCriteria, and targetCustomer from Firestore
     Promise.all([
       getDataFromSession("finalProblemStatement"),
@@ -53,37 +86,16 @@ function Hypothesis() {
       getDataFromSession("targetCustomer"),
       getDataFromSession("dataElements"),
     ]).then(([finalProblemStatement, acceptanceCriteria, targetCustomer, dataElements]) => {
-      // Concatenate the finalProblemStatement, acceptanceCriteria, and targetCustomer, separated by commas
       const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}, ${dataElements}`;
-      console.log("Sending data:", inputText); // Log the data being sent
-
-      // Make a POST request to the API endpoint
-      fetch("https://ml-linear-regression.onrender.com/hypothesis", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputText: inputText,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setIsLoading(false); // stop loading
-
-          if (data.error) {
-            setAIResponse({ error: data.error });
-          } else {
-            setAIResponse(data.predicted_items);
-          }
-          setShowProblemStatement(true);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          setAIResponse({ error: "Please generate responses again" });
-          setShowProblemStatement(true);
-        });
+      console.log("Sending data:", inputText);
+      sendDataToAPI(inputText); // Calling the separate fetch function
     });
+  };
+  
+  const handleSelectedItemChange = (index, event) => {
+    const newList = [...selectedItems];
+    newList[index] = event.target.value;
+    setSelectedItems(newList);
   };
 
   const handleResponseItemClick = (item) => {
@@ -135,6 +147,7 @@ function Hypothesis() {
 
   return (
     <div className="container">
+      <div>
       <h1>Generate potential Solution Hypotheses</h1>
       <h5>This is often missed, along with tracking metrics. Without a hypothesis there is no direction. Generate a hypothesis that will keep you, your team, and stakeholders honest about the effectiveness of a new feature.</h5>
       <div className="input-container">
@@ -143,7 +156,7 @@ function Hypothesis() {
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
+              style={{ width: "1rem", height: "1rem" }}
             >
               <span className="sr-only"></span>
             </Spinner>
@@ -160,25 +173,43 @@ function Hypothesis() {
         <div className="ai-response">
           <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
-            aiResponse.map((item, index) => {
-              const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, "");
-              return (
-                <div
-                  key={index}
-                  className={`response-item ${
-                    selectedItems.includes(item) ? "selected" : ""
-                  }`}
-                  onClick={() => handleResponseItemClick(item)}
-                >
-                  {itemText}
-                  <FontAwesomeIcon icon={faPlusCircle} />
-                </div>
-              );
-            })
-          ) : (
-            <p>{aiResponse.error}</p>
-          )}
+  aiResponse.map((item, index) => {
+    const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, "");
+    if (itemText.trim() === "") return null;  // This will skip rendering of empty items
+    return (
+      <div
+        key={index}
+        className={`response-item ${
+          selectedItems.includes(item) ? "selected" : ""
+        }`}
+        onClick={() => handleResponseItemClick(item)}
+      >
+        {item}
+        <FontAwesomeIcon
+          icon={faPlusCircle}
+        />
+      </div>
+    );
+  })
+) : (
+  <p>{aiResponse.error}</p>
+)}
         </div>
+
+        <h2>Selected Hypotheses (editable)</h2>
+        {selectedItems.map((item, index) => {
+          const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); 
+          return (
+            <input
+              key={index}
+              type="text"
+              value={itemText}
+              onChange={(event) => handleSelectedItemChange(index, event)}
+              className="selected-item-input"
+            />
+          );
+        })}
+      </div>
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>

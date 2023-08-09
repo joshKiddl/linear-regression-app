@@ -43,8 +43,37 @@ function MarketingMaterial() {
     }
   };
 
+  const postToApi = (inputText, retry = true) => {
+    return fetch("https://ml-linear-regression.onrender.com/marketing-material", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        inputText: inputText,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          setAIResponse({ error: data.error });
+        } else {
+          setAIResponse(data.predicted_items);
+        }
+        setShowProblemStatement(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        if (retry) {
+          console.log("Retrying...");
+          return postToApi(inputText, false);
+        } else {
+          setAIResponse({ error: "Please generate responses again" });
+          setShowProblemStatement(true);
+        }
+      });
+  };
   
-
   const handleSubmit = () => {
     setIsLoading(true); // start loading
     Promise.all([
@@ -54,32 +83,10 @@ function MarketingMaterial() {
     ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
       const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
       console.log("Sending data:", inputText); // Log the data being sent
-
-      // Make a POST request to the API endpoint
-      fetch("https://ml-linear-regression.onrender.com/marketing-material", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputText: inputText,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
+  
+      postToApi(inputText)
+        .finally(() => {
           setIsLoading(false); // stop loading
-
-          if (data.error) {
-            setAIResponse({ error: data.error });
-          } else {
-            setAIResponse(data.predicted_items);
-          }
-          setShowProblemStatement(true);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          setAIResponse({ error: "Please generate responses again" });
-          setShowProblemStatement(true);
         });
     });
   };
