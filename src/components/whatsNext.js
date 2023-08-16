@@ -138,7 +138,7 @@ function WhatsNext({ userId, featureId }) {
           flexDirection: "column",
           gap: "10px",
           marginBottom: "20px",
-          width: "100%",
+          width: "50%",
         }}
       >
         <button
@@ -170,22 +170,22 @@ function WhatsNext({ userId, featureId }) {
           </button>
         )}
 
-        <div
-          style={{
+{showProblemStatement && (
+    <div
+        style={{
             width: "100%",
             backgroundColor: "white",
             border: "1px darkgray solid",
             borderRadius: "12px",
             padding: "8px",
-          }}
-        >
-          <h1>Next Steps</h1>
-          {showProblemStatement &&
-            aiResponse.predicted_items &&
+        }}
+    >
+        <h1>Next Steps</h1>
+        {aiResponse.predicted_items &&
             aiResponse.predicted_items.map((item) => {
-              const cleanedItem = removeListNumbers(item.trim());
-              return (
-                <React.Fragment key={cleanedItem}>
+                const cleanedItem = removeListNumbers(item.trim());
+                return (
+                    <React.Fragment key={cleanedItem}>
                   {cleanedItem !== "" && (
                     <div
                       onClick={() => handleResponseItemClick(cleanedItem)}
@@ -201,7 +201,9 @@ function WhatsNext({ userId, featureId }) {
                         margin: "10px 0",
                         cursor: "pointer",
                         display: "flex",
-                        alignItems: "center",
+                        alignItems: 'center',
+                        gap: '10px',
+                        justifyContent: "space-between"
                       }}
                     >
                       {cleanedItem}
@@ -232,16 +234,17 @@ function WhatsNext({ userId, featureId }) {
                     </button>
                   )}
                 </React.Fragment>
-              );
+                );
             })}
-        </div>
+    </div>
+)}
       </div>
 
       {taskList.length > 0 && ( // <--- Use this conditional to control the visibility
         <div
           // Styles for the right part
           style={{
-            width: "90%",
+            width: "0%",
             backgroundColor: "white",
             border: "1px darkgray solid",
             borderRadius: "12px",
