@@ -244,7 +244,7 @@ function WhatsNext({ userId, featureId }) {
         <div
           // Styles for the right part
           style={{
-            width: "0%",
+            width: "50%",
             backgroundColor: "white",
             border: "1px darkgray solid",
             borderRadius: "12px",
