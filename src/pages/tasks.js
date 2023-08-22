@@ -15,6 +15,7 @@ import { db, auth } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 function Tasks() {
   const navigate = useNavigate();
@@ -127,6 +128,18 @@ function Tasks() {
 
   return (
     <div className="container">
+      <ProgressBar
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+        now={37.5}
+        variant="info"
+      />
       <h1>Tasks</h1>
       <h5>Get the feature broken up into tasks so the devs can get working on this today!</h5>
       <div className="input-container">

@@ -15,6 +15,7 @@ import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 function MarketingMaterial() {
   const navigate = useNavigate();
@@ -44,15 +45,18 @@ function MarketingMaterial() {
   };
 
   const postToApi = (inputText, retry = true) => {
-    return fetch("https://ml-linear-regression.onrender.com/marketing-material", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        inputText: inputText,
-      }),
-    })
+    return fetch(
+      "https://ml-linear-regression.onrender.com/marketing-material",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          inputText: inputText,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
@@ -73,7 +77,7 @@ function MarketingMaterial() {
         }
       });
   };
-  
+
   const handleSubmit = () => {
     setIsLoading(true); // start loading
     Promise.all([
@@ -83,11 +87,10 @@ function MarketingMaterial() {
     ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
       const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
       console.log("Sending data:", inputText); // Log the data being sent
-  
-      postToApi(inputText)
-        .finally(() => {
-          setIsLoading(false); // stop loading
-        });
+
+      postToApi(inputText).finally(() => {
+        setIsLoading(false); // stop loading
+      });
     });
   };
 
@@ -139,6 +142,18 @@ function MarketingMaterial() {
 
   return (
     <div className="container">
+      <ProgressBar
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+        now={87.5}
+        variant="info"
+      />
       <h1>Generate Marketing Material for this Feature</h1>
       <div className="input-container">
         <button onClick={handleSubmit}>

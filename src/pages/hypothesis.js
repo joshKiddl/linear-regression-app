@@ -15,6 +15,8 @@ import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from "react-bootstrap/ProgressBar";
+
 
 function Hypothesis() {
   const navigate = useNavigate();
@@ -56,7 +58,7 @@ function Hypothesis() {
       .then((response) => response.json())
       .then((data) => {
         setIsLoading(false);
-  
+
         if (data.error) {
           setAIResponse({ error: data.error });
         } else {
@@ -75,23 +77,30 @@ function Hypothesis() {
         }
       });
   };
-  
+
   const handleSubmit = () => {
-    setIsLoading(true); 
-  
+    setIsLoading(true);
+
     // Fetch the finalProblemStatement, acceptanceCriteria, and targetCustomer from Firestore
     Promise.all([
       getDataFromSession("finalProblemStatement"),
       getDataFromSession("acceptanceCriteria"),
       getDataFromSession("targetCustomer"),
       getDataFromSession("dataElements"),
-    ]).then(([finalProblemStatement, acceptanceCriteria, targetCustomer, dataElements]) => {
-      const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}, ${dataElements}`;
-      console.log("Sending data:", inputText);
-      sendDataToAPI(inputText); // Calling the separate fetch function
-    });
+    ]).then(
+      ([
+        finalProblemStatement,
+        acceptanceCriteria,
+        targetCustomer,
+        dataElements,
+      ]) => {
+        const inputText = `${finalProblemStatement}, ${acceptanceCriteria}, ${targetCustomer}, ${dataElements}`;
+        console.log("Sending data:", inputText);
+        sendDataToAPI(inputText); // Calling the separate fetch function
+      }
+    );
   };
-  
+
   const handleSelectedItemChange = (index, event) => {
     const newList = [...selectedItems];
     newList[index] = event.target.value;
@@ -148,68 +157,85 @@ function Hypothesis() {
   return (
     <div className="container">
       <div>
-      <h1>Generate potential Solution Hypotheses</h1>
-      <h5>This is often missed, along with tracking metrics. Without a hypothesis there is no direction. Generate a hypothesis that will keep you, your team, and stakeholders honest about the effectiveness of a new feature.</h5>
-      <div className="input-container">
-        <button onClick={handleSubmit}>
-          {isLoading ? (
-            <Spinner
-              animation="border"
-              role="status"
-              style={{ width: "1rem", height: "1rem" }}
-            >
-              <span className="sr-only"></span>
-            </Spinner>
-          ) : (
-            "Generate"
-          )}
-        </button>
-      </div>
-      <div
-        className={`input-container2 ${
-          showProblemStatement ? "show-problem-statement" : ""
-        }`}
-      >
-        <div className="ai-response">
-          <h2>Select one or more items below</h2>
-          {Array.isArray(aiResponse) ? (
-  aiResponse.map((item, index) => {
-    const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, "");
-    if (itemText.trim() === "") return null;  // This will skip rendering of empty items
-    return (
-      <div
-        key={index}
-        className={`response-item ${
-          selectedItems.includes(item) ? "selected" : ""
-        }`}
-        onClick={() => handleResponseItemClick(item)}
-      >
-        {item}
-        <FontAwesomeIcon
-          icon={faPlusCircle}
-        />
-      </div>
-    );
-  })
-) : (
-  <p>{aiResponse.error}</p>
-)}
+      <ProgressBar
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+        now={75}
+        variant="info"
+      />
+        <h1>Generate potential Solution Hypotheses</h1>
+        <h5>
+          This is often missed, along with tracking metrics. Without a
+          hypothesis there is no direction. Generate a hypothesis that will keep
+          you, your team, and stakeholders honest about the effectiveness of a
+          new feature.
+        </h5>
+        <div className="input-container">
+          <button onClick={handleSubmit}>
+            {isLoading ? (
+              <Spinner
+                animation="border"
+                role="status"
+                style={{ width: "1rem", height: "1rem" }}
+              >
+                <span className="sr-only"></span>
+              </Spinner>
+            ) : (
+              "Generate"
+            )}
+          </button>
         </div>
+        <div
+          className={`input-container2 ${
+            showProblemStatement ? "show-problem-statement" : ""
+          }`}
+        >
+          <div className="ai-response">
+            <h2>Select one or more items below</h2>
+            {Array.isArray(aiResponse) ? (
+              aiResponse.map((item, index) => {
+                const itemText = item
+                  .replace(/^\d+\.\s*/, "")
+                  .replace(/-/g, "");
+                if (itemText.trim() === "") return null; // This will skip rendering of empty items
+                return (
+                  <div
+                    key={index}
+                    className={`response-item ${
+                      selectedItems.includes(item) ? "selected" : ""
+                    }`}
+                    onClick={() => handleResponseItemClick(item)}
+                  >
+                    {item}
+                    <FontAwesomeIcon icon={faPlusCircle} />
+                  </div>
+                );
+              })
+            ) : (
+              <p>{aiResponse.error}</p>
+            )}
+          </div>
 
-        <h2>Selected Hypotheses (editable)</h2>
-        {selectedItems.map((item, index) => {
-          const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); 
-          return (
-            <input
-              key={index}
-              type="text"
-              value={itemText}
-              onChange={(event) => handleSelectedItemChange(index, event)}
-              className="selected-item-input"
-            />
-          );
-        })}
-      </div>
+          <h2>Selected Hypotheses (editable)</h2>
+          {selectedItems.map((item, index) => {
+            const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, "");
+            return (
+              <input
+                key={index}
+                type="text"
+                value={itemText}
+                onChange={(event) => handleSelectedItemChange(index, event)}
+                className="selected-item-input"
+              />
+            );
+          })}
+        </div>
       </div>
       <div className="button-container">
         <button className="back-button" onClick={handleBack}>

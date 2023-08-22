@@ -15,6 +15,7 @@ import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 function TargetCustomer() {
   const navigate = useNavigate();
@@ -124,6 +125,18 @@ function TargetCustomer() {
 
   return (
     <div className="container">
+      <ProgressBar
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+        now={50}
+        variant="info"
+      />
       <h1>Target Customer</h1>
       <h5>Start thinking about who you might want to target for this specific feature.</h5>
       <div className="input-container">

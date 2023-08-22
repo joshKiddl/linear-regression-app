@@ -13,6 +13,8 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
+import ProgressBar from "react-bootstrap/ProgressBar";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -131,6 +133,18 @@ function AcceptanceCriteria() {
 
   return (
     <div className="container">
+      <ProgressBar
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+        now={25}
+        variant="info"
+      />
       <h1>Acceptance Criteria</h1>
       <h5>Generate the acceptance criteria to hone in on the scope of this feature. The acceptance criteria should also help drive test scripts when testing the feature before rollout.</h5>
       {/* <p className='problem-statement'>{problemStatement}</p> */}

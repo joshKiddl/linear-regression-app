@@ -22,6 +22,16 @@ h5 {
   padding-right: 100px;
 }
 
+/* .progress-bar {
+  position: fixed;
+  left: 50%;
+  top: 30px;
+  width: 80%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: lightgray; 
+} */
+
 .problem-statement-input {
   width: 100%; 
   border-color: black;

@@ -22,7 +22,6 @@ function Problem() {
   const [selectedItem, setSelectedItem] = useState(null); // New state to keep track of the selected item
   const [progress, setProgress] = useState(0); // New state for the progress
   const [isLoading, setIsLoading] = useState(false);
-  // const [oldAIResponse, setOldAIResponse] = useState([]); // New state to store old responses
   const [user, setUser] = useState(null); // New state for tracking the current user
   const [isProblemStatementModalOpen, setProblemStatementModalOpen] =
     useState(false);
@@ -76,24 +75,27 @@ function Problem() {
 
   const fetchAIResponse = async () => {
     try {
-      const response = await fetch("https://ml-linear-regression.onrender.com/openai-predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputText: inputText,
-        }),
-      });
-  
+      const response = await fetch(
+        "https://ml-linear-regression.onrender.com/openai-predict",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            inputText: inputText,
+          }),
+        }
+      );
+
       const data = await response.json();
-  
+
       if (data.error) {
         setAIResponse({ error: data.error });
       } else {
         setAIResponse(data.predicted_items);
       }
-  
+
       setShowProblemStatement(true);
       setIsLoading(false);
     } catch (error) {
@@ -102,19 +104,18 @@ function Problem() {
     }
     return true; // Indicates that fetching was successful
   };
-  
+
   const handleSubmit = async () => {
     setIsLoading(true);
-  
+
     const success = await fetchAIResponse();
-  
+
     if (!success) {
       // Retry once if fetching failed the first time
       console.log("Retrying after failure...");
       await fetchAIResponse();
     }
   };
-  
 
   const handleResponseItemClick = (item) => {
     setSelectedItem(item); // Update the selected item state with the clicked item's text
@@ -159,8 +160,25 @@ function Problem() {
 
   return (
     <div className="container">
-      <h1 style={{marginBottom:'2px'}}>In your own words, tell us what problem you are trying to solve.</h1>
-      <Link className="problem-link" onClick={() => setProblemStatementModalOpen(true)}>
+      <ProgressBar
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+        }}
+        now={12.5}
+        variant="info"
+      />
+      <h1 style={{ marginBottom: "2px" }}>
+        In your own words, tell us what problem you are trying to solve.
+      </h1>
+      <Link
+        className="problem-link"
+        onClick={() => setProblemStatementModalOpen(true)}
+      >
         How do I write a problem statement?
       </Link>
       <div className="input-container">
