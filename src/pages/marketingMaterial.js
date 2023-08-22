@@ -153,6 +153,8 @@ function MarketingMaterial() {
         }}
         now={87.5}
         variant="info"
+        label="7/8" // Adding the label here
+
       />
       <h1>Generate Marketing Material for this Feature</h1>
       <div className="input-container">

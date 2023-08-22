@@ -173,6 +173,8 @@ function DataElements() {
         }}
         now={62.5}
         variant="info"
+        label="5/8" // Adding the label here
+
       />
       <h1>Metrics</h1>
       <h5>

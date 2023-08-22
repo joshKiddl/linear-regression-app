@@ -136,6 +136,8 @@ function TargetCustomer() {
         }}
         now={50}
         variant="info"
+        label="4/8" // Adding the label here
+
       />
       <h1>Target Customer</h1>
       <h5>Start thinking about who you might want to target for this specific feature.</h5>

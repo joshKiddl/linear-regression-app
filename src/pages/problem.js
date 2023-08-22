@@ -171,6 +171,8 @@ function Problem() {
         }}
         now={12.5}
         variant="info"
+        label="1/8" // Adding the label here
+
       />
       <h1 style={{ marginBottom: "2px" }}>
         In your own words, tell us what problem you are trying to solve.

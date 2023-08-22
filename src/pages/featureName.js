@@ -170,9 +170,12 @@ function FeatureName() {
     transform: "translateX(-50%)",
     zIndex: 1000,
     backgroundColor: "lightgray", // Background color for the entire bar
+
   }}
   now={12.5}
   variant="info"
+  label="8/8" // Adding the label here
+
 >
   <ProgressBar
     style={{

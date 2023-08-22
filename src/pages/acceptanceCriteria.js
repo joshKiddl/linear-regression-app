@@ -144,6 +144,8 @@ function AcceptanceCriteria() {
         }}
         now={25}
         variant="info"
+        label="2/8" // Adding the label here
+
       />
       <h1>Acceptance Criteria</h1>
       <h5>Generate the acceptance criteria to hone in on the scope of this feature. The acceptance criteria should also help drive test scripts when testing the feature before rollout.</h5>
