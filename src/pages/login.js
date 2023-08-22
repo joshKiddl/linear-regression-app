@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'; // import necessary functions for Google login
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'; // import necessary functions for Google login
 import { auth } from '../firebase'; 
 import { useNavigate, Link } from 'react-router-dom';
 import '../styling/signUpAndIn.css';
