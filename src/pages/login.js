@@ -105,7 +105,7 @@ const handleGoogleLogin = async () => {
         <input className='login-btn' type="submit" value="Log In with Email" />
       </form>
       <button onClick={handlePasswordReset} className="reset-password-btn">Forgot password?</button>
-      <button onClick={handleGoogleLogin} className='google-btn'>Log In with Google</button>
+      {/* <button onClick={handleGoogleLogin} className='google-btn'>Log In with Google</button> */}
       <Link className='to-other-auth' to="/signUp">Don't have an account?</Link>
       {errorMsg && <p className="error-msg">{errorMsg}</p>}
       {resetMsg && <p className="reset-msg">{resetMsg}</p>}

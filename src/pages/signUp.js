@@ -147,7 +147,7 @@ function SignUp() {
         </label>
         <input type="submit" className='signup-btn' value="Sign Up with Email" />
       </form>
-      <button onClick={handleGoogleSignUp} className='google-btn'>Sign Up with Google</button>
+      {/* <button onClick={handleGoogleSignUp} className='google-btn'>Sign Up with Google</button> */}
       <Link className='to-other-auth' to="/login">or log in</Link>
       {errorMsg && <p className="error-msg">{errorMsg}</p>}
     </div>
