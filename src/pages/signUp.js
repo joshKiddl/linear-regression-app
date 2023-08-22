@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, EmailAuthProvider, linkWithCredential } from "firebase/auth"; // import GoogleAuthProvider, signInWithPopup, EmailAuthProvider and linkWithCredential
+import { getAuth, createUserWithEmailAndPassword, EmailAuthProvider, linkWithCredential } from "firebase/auth"; // import GoogleAuthProvider, signInWithPopup, EmailAuthProvider and linkWithCredential
 import '../styling/signUpAndIn.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, Link } from 'react-router-dom';
