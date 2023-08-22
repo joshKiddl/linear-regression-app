@@ -73,64 +73,64 @@ function SignUp() {
     }
   }
 
-  const handleGoogleSignUp = () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
+  // const handleGoogleSignUp = () => {
+  //   const auth = getAuth();
+  //   const provider = new GoogleAuthProvider();
   
-    if (auth.currentUser) {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
+  //   if (auth.currentUser) {
+  //     signInWithPopup(auth, provider)
+  //       .then((result) => {
+  //         const credential = GoogleAuthProvider.credentialFromResult(result);
   
-          linkWithCredential(auth.currentUser, credential)
-            .then(async (userCredential) => {
-              console.log('Anonymous account successfully upgraded:', userCredential.user);
-              const user = userCredential.user;
-              sessionStorage.setItem('userId', user.uid);
+  //         linkWithCredential(auth.currentUser, credential)
+  //           .then(async (userCredential) => {
+  //             console.log('Anonymous account successfully upgraded:', userCredential.user);
+  //             const user = userCredential.user;
+  //             sessionStorage.setItem('userId', user.uid);
   
-              // Update the Firestore document with email and signUpDate fields
-              const userRef = doc(db, "users", user.uid);
-              await setDoc(userRef, {
-                email: user.email,
-                signUpDate: serverTimestamp()
-              }, { merge: true });
+  //             // Update the Firestore document with email and signUpDate fields
+  //             const userRef = doc(db, "users", user.uid);
+  //             await setDoc(userRef, {
+  //               email: user.email,
+  //               signUpDate: serverTimestamp()
+  //             }, { merge: true });
   
-              navigate('/listOfFeatures');
-            })
-            .catch((error) => {
-              console.error('Error upgrading anonymous account:', error);
-            });
-        })
-        .catch((error) => {
-          console.error('Error signing in with Google:', error);
-        });
-    } else {
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const user = result.user;
-          console.log('User:', user);
-          sessionStorage.setItem('userId', user.uid);
+  //             navigate('/listOfFeatures');
+  //           })
+  //           .catch((error) => {
+  //             console.error('Error upgrading anonymous account:', error);
+  //           });
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error signing in with Google:', error);
+  //       });
+  //   } else {
+  //     signInWithPopup(auth, provider)
+  //       .then((result) => {
+  //         const user = result.user;
+  //         console.log('User:', user);
+  //         sessionStorage.setItem('userId', user.uid);
   
-          // Create the Firestore document with email and signUpDate fields
-          const userRef = doc(db, "users", user.uid);
-          setDoc(userRef, {
-            email: user.email,
-            signUpDate: serverTimestamp()
-          })
-            .then(() => {
-              console.log("Document successfully written!");
-            })
-            .catch((error) => {
-              console.error("Error writing document: ", error);
-            });
+  //         // Create the Firestore document with email and signUpDate fields
+  //         const userRef = doc(db, "users", user.uid);
+  //         setDoc(userRef, {
+  //           email: user.email,
+  //           signUpDate: serverTimestamp()
+  //         })
+  //           .then(() => {
+  //             console.log("Document successfully written!");
+  //           })
+  //           .catch((error) => {
+  //             console.error("Error writing document: ", error);
+  //           });
   
-          navigate('/listOfFeatures');
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    }
-  };
+  //         navigate('/listOfFeatures');
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error:', error);
+  //       });
+  //   }
+  // };
   
 
   return (

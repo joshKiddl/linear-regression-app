@@ -53,21 +53,21 @@ const migrateFeatures = async (fromUid, toUid) => {
     }
 };
 
-const handleGoogleLogin = async () => {
-    const anonymousUid = auth.currentUser?.uid; // Store the anonymous UID before signing in.
-    try {
-        const result = await signInWithPopup(auth, new GoogleAuthProvider());
-        const user = result.user;
-        console.log('User:', user);
-        sessionStorage.setItem('userId', user.uid);
-        if (anonymousUid) {
-            await migrateFeatures(anonymousUid, user.uid);
-        }
-        navigate('/listOfFeatures');
-    } catch (error) {
-        console.error('Error:', error);
-    }
-};
+// const handleGoogleLogin = async () => {
+//     const anonymousUid = auth.currentUser?.uid; // Store the anonymous UID before signing in.
+//     try {
+//         const result = await signInWithPopup(auth, new GoogleAuthProvider());
+//         const user = result.user;
+//         console.log('User:', user);
+//         sessionStorage.setItem('userId', user.uid);
+//         if (anonymousUid) {
+//             await migrateFeatures(anonymousUid, user.uid);
+//         }
+//         navigate('/listOfFeatures');
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// };
 
   const handlePasswordReset = () => {
     sendPasswordResetEmail(auth, email)

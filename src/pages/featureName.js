@@ -162,17 +162,26 @@ function FeatureName() {
   return (
     <div className="container">
       <ProgressBar
-        style={{
-          position: "fixed",
-          left: "50%",
-          top: "30px",
-          width: "80%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-        }}
-        now={100}
-        variant="info"
-      />
+  style={{
+    position: "fixed",
+    left: "50%",
+    top: "30px",
+    width: "80%",
+    transform: "translateX(-50%)",
+    zIndex: 1000,
+    backgroundColor: "lightgray", // Background color for the entire bar
+  }}
+  now={12.5}
+  variant="info"
+>
+  <ProgressBar
+    style={{
+      backgroundColor: "gold", // Filled part color
+    }}
+    now={100}
+  />
+</ProgressBar>
+
       <h1>Finally, generate a Feature Name</h1>
       <div className="input-container">
         <button onClick={handleSubmit}>
