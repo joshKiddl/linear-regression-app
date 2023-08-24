@@ -16,7 +16,22 @@ body {
   /* Your CSS here, e.g.: */
   margin-left: 10px;
   text-decoration: none;
+  border: black 2px solid;
+  border-radius: 6px;
+padding: 10px;
+color: #000;
+  /* other styles to make it look like a button */
+}
 
+.sign-up-btn {
+  /* Your CSS here, e.g.: */
+  margin-left: 10px;
+  text-decoration: none;
+  background-color: black;
+  border: black 2px solid;
+  border-radius: 6px;
+padding: 10px;
+color: #fff;
   /* other styles to make it look like a button */
 }
 
@@ -294,7 +309,7 @@ p {
   margin: 0 auto;
   padding: 15px 30px;
   font-size: 18px;
-  background-color: #1c4bba;
+  background-color: #000;
   color: #fff;
   border: none;
   border-radius: 10px;

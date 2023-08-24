@@ -62,7 +62,7 @@ function App() {
         <h2 className="subtitle">In 2 minutes you’ll have a feature ready to share with stakeholders and get the delivery work started!</h2>
         <div className="btn-container">
           <button onClick={handleAnonSignIn} className="btn">
-            Create a Feature
+            Create a Feature - it's free
           </button>
         </div>
         <div className="login-btn-container">
@@ -75,8 +75,8 @@ function App() {
               <Link to="/login" className="create-account-btn">
                 Log In
               </Link>
-              <Link to="/signUp" className="create-account-btn">
-                Create Account
+              <Link to="/signUp" className="sign-up-btn">
+                Sign Up
               </Link>
             </>
           )}

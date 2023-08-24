@@ -82,7 +82,7 @@ const migrateFeatures = async (fromUid, toUid) => {
 
   return (
     <div className="sign-in">
-      <h2 className='login-h2'>Log In</h2>
+      <h2 className='login-h2'>Product Manager AI</h2>
       <form className='form' onSubmit={handleSubmit}>
         <label>
           Email:
@@ -102,7 +102,7 @@ const migrateFeatures = async (fromUid, toUid) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <input className='login-btn' type="submit" value="Log In with Email" />
+        <input className='login-btn' type="submit" value="Log in to Product Manager AI" />
       </form>
       <button onClick={handlePasswordReset} className="reset-password-btn">Forgot password?</button>
       {/* <button onClick={handleGoogleLogin} className='google-btn'>Log In with Google</button> */}

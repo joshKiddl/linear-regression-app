@@ -11,8 +11,9 @@
 
 .board-content {
   display: flex;
-  height: 80vh;
+  height: 80%;
   overflow-x: auto;
+  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 768px) {
