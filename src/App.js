@@ -188,7 +188,6 @@ function App() {
       <div className="container2">
         <div className="problem-section">
           <div className="h3AndP">
-            {/* <h2 className="header">Made for Product Managers</h2> */}
             <h2 className="section-header">PM Captain</h2>
             <h3>
               Let AI feature builder generate your features, only takes 2
@@ -341,42 +340,6 @@ function App() {
             alt="PMAI Logo"
           />
         </div>
-
-        {/* <div className="problem-section4">
-          <div className="h3AndP">
-            <h3>Efficient Hypothesis Tracking</h3>
-            <p>
-              As product managers, we sometimes struggle in defining our
-              hypothesis for a feature/product launch, and with that, forget to
-              really define the metrics to track in order to validate the
-              success / failure of a feature/product. There’s no shame in this,
-              we’re coming into the age of product efficiencies, master your
-              pivot / persevere techniques as a product manager. We help you
-              define your hypothesis and set metrics that you’ll want to track…
-              and even better yet, connect our tool with your reporting tools so
-              we automatically import the key metrics into each feature. Oh and
-              don’t worry, if you’re not tracking that metrics, we automatically
-              add a task in the feature to enable the tracking of that metric…
-              doesn’t get better than that!
-            </p>
-            <button onClick={handleAnonSignIn} className="section-btn">
-              Create a Feature
-            </button>
-          </div>
-          <img
-            src={Screenshot2}
-            alt="PMAI Logo"
-            width={"auto"}
-            className={"lpimage"}
-            height={"250px"}
-            style={{
-              borderWidth: "1px",
-              borderColor: "gray",
-              borderStyle: "solid",
-              borderRadius: "10px",
-            }}
-          />
-        </div> */}
       </div>
 
       {/* <div className="container2">
