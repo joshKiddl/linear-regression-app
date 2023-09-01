@@ -190,8 +190,8 @@ background-color: #f5f5f5;}
   }
 
   li {
-    width: 100vw;
-    margin-left: 0;
+    /* width: 100vw; */
+    /* margin-left: 0px; */
   }
 
 }
@@ -323,8 +323,9 @@ li {
   transition: background-color .2s;
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  /* width: 50vw; */
   margin-left: -34px;
+  margin-right: 20px;
   
 }
 
