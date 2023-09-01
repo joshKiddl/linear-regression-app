@@ -73,7 +73,6 @@ color: #fff;
   flex-direction: column; /* Stack the children vertically */
   justify-content:space-between; /* Center children vertically */
   align-items:center; /* Center children horizontally */
-  /* margin: 0 50px;  0 padding on the top and bottom, 10px padding on the left and right */
 }
 
 .container3 {
@@ -142,75 +141,62 @@ background-color: #f5f5f5;}
   .container1b,
   .container2,
   .container3 {
-    width: 100vw;
-    padding: 5px;
-    align-content: center;
-  }
-  
-  .problem-section {
-    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20%;
+    /* padding: 10px; */
   }
 
-  .lpimage {    
-    width: 95%;
+  .problem-section,
+  .problem-section2,
+  .problem-section3,
+  .problem-section4 {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .lpimage {
+    width: 100%;
     height: auto;
   }
 
-  .subtitle, .h4 {
-    font-size: 18px;
-    
+  .h3AndP {
+  margin-bottom: 20px;
   }
 
-  .header {
+  .login-btn-container {
+    display: flow;
+    flex-direction: column;
+  }
+
+  .header, .title, h3 {
     font-size: 24px;
-    overflow-wrap: break-word; /* Add this line */
-    padding-left: 10px; /* Add this line */
-    padding-right: 10px; /* Add this line */
     text-align: center;
+    padding: 10px;
   }
 
-  h3 {
-    font-size: 18px;
-    overflow-wrap: break-word; /* Add this line */
-    padding-left: 10px; /* Add this line */
-    padding-right: 10px; /* Add this line */
+  .subtitle, .h4, p {
+    font-size: 16px;
     text-align: center;
-
+    padding: 10px;
   }
 
-  p {
-    font-size: 14px;
+  .btn, .form-input {
     width: 100%;
-    overflow-wrap: break-word; /* Add this line */
-    padding-left: 10px; /* Add this line */
-    padding-right: 10px; /* Add this line */ 
-    text-align: center;
   }
 
-  .blurb {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  
-  .form-input,
-  .btn {
-    width: 100%; 
+  .btn-container, .login-btn-container {
+    flex-direction: row;
+    align-items: center;
   }
 
-  .lpVid {
-    width: 110%;
+  li {
+    width: 100vw;
+    margin-left: 0;
   }
 
-  .h3AndP p {
-    font-size: 14px;
-    width: 100%;
-    overflow-wrap: break-word; /* Add this line */
-    padding-left: 10px; /* Add this line */
-    padding-right: 10px; /* Add this line */ 
-    text-align: center;
-  }
 }
 /* End of Media Query */
+
 
 .content-container {
   margin-bottom: 20px
