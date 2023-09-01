@@ -11,8 +11,60 @@ import PriorityModal from "./components/priorityModal";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [selected, setSelected] = useState(0);
   const [showPriorityModal, setShowPriorityModal] = useState(false); // Add state for the modal
   const navigate = useNavigate();
+
+  const items = [
+    {
+      name: "Dev ready",
+      content:
+        "The only text you have to type is the problem statement, AI then generates the rest; acceptance criteria and breaks down tasks so you don’t have to!    ",
+    },
+    {
+      name: "Market ready",
+      content:
+        "PM Captain helps define your target market, list competitors, and generates marketing material ready for feature release.    ",
+    },
+    {
+      name: "Release ready",
+      content:
+        "PM Captain suggests metrics to track and defines a solution hypothesis for each feature, giving you the ammo to unbiasedly make the decision to pivot or persevere.    ",
+    },]
+
+    const items2 = [
+    {
+      name: "Dev ready",
+      content:
+        "Share tasks with dev team, share acceptance criteria with UX/UI designer… PM Assistant helps you navigate through your tasks as a PM, so you don’t have to.        ",
+    },
+    {
+      name: "Market ready",
+      content:
+        "Run a competitor analysis, generate a LinkedIn post about your next feature release… PM Assistant helps you navigate through your tasks as a PM, so you don’t have to.        ",
+    },
+    {
+      name: "Release ready",
+      content:
+        "Add metrics to track your feature, send metrics request to data team, enable metrics in reporting tool… PM Assistant helps you navigate through your tasks as a PM, so you don’t have to.        ",
+    },]
+
+    const items3 = [
+    {
+      name: "Dev ready",
+      content:
+        "Start with feature outcomes in mind, ensuring you have metrics and hypotheses in order to align with stakeholders.        ",
+    },
+    {
+      name: "Market ready",
+      content: "Plan your marketing material based on outcomes.        ",
+    },
+    {
+      name: "Release ready",
+      content:
+        "Keep your metrics handy ready to track whether to pivot or persevere with each feature.        ",
+    },
+  ];
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -143,29 +195,30 @@ function App() {
               minutes!
             </h3>
             <ul>
-              <li>
-                <strong>Dev ready</strong>
-                <div className="bubble-body">
-                  The only text you have to type is the problem statement, AI
-                  then generates the rest; acceptance criteria and breaks down
-                  tasks so you don’t have to!
-                </div>
-              </li>
-              <li>
-                <strong>Market ready</strong>
-                <div className="bubble-body">
-                  PM Captain helps define your target market, list competitors,
-                  and generates marketing material ready for feature release.
-                </div>
-              </li>
-              <li>
-                <strong>Release ready</strong>
-                <div className="bubble-body">
-                  PM Captain suggests metrics to track and defines a solution
-                  hypothesis for each feature, giving you the ammo to unbiasedly
-                  make the decision to pivot or persevere.
-                </div>
-              </li>
+              {items.map((item, index) => (
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor:
+                      selected === index ? "#fff" : "rgba(255,255,255,.2)",
+                  }}
+                  onClick={() => setSelected(index)}
+                >
+                  <strong
+                    style={{
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    {item.name}
+                  </strong>
+                  <div
+                    className="bubble-body"
+                    style={{ display: selected === index ? "block" : "none" }}
+                  >
+                    {item.content}
+                  </div>
+                </li>
+              ))}
             </ul>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
@@ -195,31 +248,30 @@ function App() {
               best actions throughout the feature lifecycle.
             </h3>
             <ul>
-              <li>
-                <strong>Dev ready</strong>
-                <div className="bubble-body">
-                  Share tasks with dev team, share acceptance criteria with
-                  UX/UI designer… PM Assistant helps you navigate through your
-                  tasks as a PM, so you don’t have to.
-                </div>
-              </li>
-              <li>
-                <strong>Market ready</strong>
-                <div className="bubble-body">
-                  Run a competitor analysis, generate a LinkedIn post about your
-                  next feature release… PM Assistant helps you navigate through
-                  your tasks as a PM, so you don’t have to.
-                </div>
-              </li>
-              <li>
-                <strong>Release ready</strong>
-                <div className="bubble-body">
-                  Add metrics to track your feature, send metrics request to
-                  data team, enable metrics in reporting tool… PM Assistant
-                  helps you navigate through your tasks as a PM, so you don’t
-                  have to.
-                </div>
-              </li>
+              {items2.map((item, index) => (
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor:
+                      selected === index ? "#fff" : "rgba(255,255,255,.2)",
+                  }}
+                  onClick={() => setSelected(index)}
+                >
+                  <strong
+                    style={{
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    {item.name}
+                  </strong>
+                  <div
+                    className="bubble-body"
+                    style={{ display: selected === index ? "block" : "none" }}
+                  >
+                    {item.content}
+                  </div>
+                </li>
+              ))}
             </ul>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
@@ -246,26 +298,30 @@ function App() {
             <p className="coming-soon">(Coming soon)</p>
             <h3>Focus on building outcome driven features</h3>
             <ul>
-              <li>
-                <strong>Dev ready</strong>
-                <div className="bubble-body">
-                  Start with feature outcomes in mind, ensuring you have metrics
-                  and hypotheses in order to align with stakeholders.
-                </div>
-              </li>
-              <li>
-                <strong>Market ready</strong>
-                <div className="bubble-body">
-                  Plan your marketing material based on outcomes.
-                </div>
-              </li>
-              <li>
-                <strong>Release ready</strong>
-                <div className="bubble-body">
-                  Keep your metrics handy ready to track whether to pivot or
-                  persevere with each feature.
-                </div>
-              </li>
+              {items3.map((item, index) => (
+                <li
+                  key={index}
+                  style={{
+                    backgroundColor:
+                      selected === index ? "#fff" : "rgba(255,255,255,.2)",
+                  }}
+                  onClick={() => setSelected(index)}
+                >
+                  <strong
+                    style={{
+                      fontSize: "1.4rem",
+                    }}
+                  >
+                    {item.name}
+                  </strong>
+                  <div
+                    className="bubble-body"
+                    style={{ display: selected === index ? "block" : "none" }}
+                  >
+                    {item.content}
+                  </div>
+                </li>
+              ))}
             </ul>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
