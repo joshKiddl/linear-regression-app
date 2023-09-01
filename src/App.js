@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/App.css";
 import PMAILogo from "./images/PMAILogo.png";
 import Screenshot1 from "./images/Screenshot1.png";
-import Screenshot2 from "./images/Screenshot2.png";
+// import Screenshot2 from "./images/Screenshot2.png";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import PriorityModal from "./components/priorityModal";
@@ -78,7 +78,7 @@ function App() {
             Create a Feature - it's free
           </button>
         </div>
-        <ul
+        {/* <ul
           style={{
             border: "1px darkgray solid",
             borderRadius: "12px",
@@ -98,11 +98,11 @@ function App() {
             Defined key metrics and solution hypothesis to track whether the
             feature has failed/succeeded
           </li>
-        </ul>
-        <h2 className="subtitle">
+        </ul> */}
+        {/* <h2 className="subtitle">
           In 2 minutes you’ll have a feature ready to share with stakeholders
           and get the delivery work started!
-        </h2>
+        </h2> */}
 
         {/* <FontAwesomeIcon
           className="arrow"
@@ -137,20 +137,36 @@ function App() {
         <div className="problem-section">
           <div className="h3AndP">
             {/* <h2 className="header">Made for Product Managers</h2> */}
-            <h3>Streamlining Product Management</h3>
-            <p>
-              As product managers, we often struggle to take the time to really
-              take features and products throughout the entire lifecycle. So
-              many decisions, so many people, so many tasks, it’s borderline
-              impossible to really bring a feature or product throughout the
-              entire product lifecycle. That’s not the case anymore, we’ve built
-              a real product for product managers... And no… we’re not just
-              another tool with a fancy kanban board so you can get lost in all
-              its capabilities… we focus on what’s important… helping and
-              guiding product managers take features and products from defining
-              the problem statement all the way to tracking the metrics needed
-              to identify whether you should pivot or persevere!
-            </p>
+            <h2 className="section-header">PM Captain</h2>
+            <h3>
+              Let AI feature builder generate your features, only takes 2
+              minutes!
+            </h3>
+            <ul>
+              <li>
+                <strong>Dev ready</strong>
+                <div className="bubble-body">
+                  The only text you have to type is the problem statement, AI
+                  then generates the rest; acceptance criteria and breaks down
+                  tasks so you don’t have to!
+                </div>
+              </li>
+              <li>
+                <strong>Market ready</strong>
+                <div className="bubble-body">
+                  PM Captain helps define your target market, list competitors,
+                  and generates marketing material ready for feature release.
+                </div>
+              </li>
+              <li>
+                <strong>Release ready</strong>
+                <div className="bubble-body">
+                  PM Captain suggests metrics to track and defines a solution
+                  hypothesis for each feature, giving you the ammo to unbiasedly
+                  make the decision to pivot or persevere.
+                </div>
+              </li>
+            </ul>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
             </button>
@@ -172,15 +188,39 @@ function App() {
 
         <div className="problem-section2">
           <div className="h3AndP">
-            <h3>AI-driven Strategic Advantage</h3>
-            <p>
-              As a product manager, sometimes it’s hard to figure out the next
-              best move… so many decisions, so many people to involve, so many
-              steps to take to deliver a single feature and/or product. Our new
-              AI co-pilot doesn’t just support you on your current step, but
-              plans your next moves, so you’re always on top of your game… and
-              most importantly… always ahead of your competition!
-            </p>
+            <h2 className="section-header">PM Assistant</h2>
+            <p className="coming-soon">(Coming soon)</p>
+            <h3>
+              So many decisions, stakeholders, tasks… let AI suggest your next
+              best actions throughout the feature lifecycle.
+            </h3>
+            <ul>
+              <li>
+                <strong>Dev ready</strong>
+                <div className="bubble-body">
+                  Share tasks with dev team, share acceptance criteria with
+                  UX/UI designer… PM Assistant helps you navigate through your
+                  tasks as a PM, so you don’t have to.
+                </div>
+              </li>
+              <li>
+                <strong>Market ready</strong>
+                <div className="bubble-body">
+                  Run a competitor analysis, generate a LinkedIn post about your
+                  next feature release… PM Assistant helps you navigate through
+                  your tasks as a PM, so you don’t have to.
+                </div>
+              </li>
+              <li>
+                <strong>Release ready</strong>
+                <div className="bubble-body">
+                  Add metrics to track your feature, send metrics request to
+                  data team, enable metrics in reporting tool… PM Assistant
+                  helps you navigate through your tasks as a PM, so you don’t
+                  have to.
+                </div>
+              </li>
+            </ul>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
             </button>
@@ -202,19 +242,31 @@ function App() {
 
         <div className="problem-section3">
           <div className="h3AndP">
-            <h3>Comprehensive Feature Development</h3>
-            <p>
-              Tech team want X in a feature, design team need Y, marketing team
-              needs Z, finance, legal, senior management, customers… the list
-              goes on. It always seems impossible to have a complete feature
-              written up… well not anymore… our new AI will take care of it all.
-              Start by writing a feature or product problem statement and let us
-              do the rest… From problem statement, acceptance criteria, breaking
-              down the feature/product into tasks, defining your target market,
-              sizing the target market, creating marketing material, all the way
-              to creating your hypothesis and metrics to track once you’ve
-              released your feature/product, we really take care of it all!
-            </p>
+            <h2 className="section-header">PM Co-Pilot</h2>
+            <p className="coming-soon">(Coming soon)</p>
+            <h3>Focus on building outcome driven features</h3>
+            <ul>
+              <li>
+                <strong>Dev ready</strong>
+                <div className="bubble-body">
+                  Start with feature outcomes in mind, ensuring you have metrics
+                  and hypotheses in order to align with stakeholders.
+                </div>
+              </li>
+              <li>
+                <strong>Market ready</strong>
+                <div className="bubble-body">
+                  Plan your marketing material based on outcomes.
+                </div>
+              </li>
+              <li>
+                <strong>Release ready</strong>
+                <div className="bubble-body">
+                  Keep your metrics handy ready to track whether to pivot or
+                  persevere with each feature.
+                </div>
+              </li>
+            </ul>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
             </button>
@@ -234,7 +286,7 @@ function App() {
           />
         </div>
 
-        <div className="problem-section4">
+        {/* <div className="problem-section4">
           <div className="h3AndP">
             <h3>Efficient Hypothesis Tracking</h3>
             <p>
@@ -268,7 +320,7 @@ function App() {
               borderRadius: "10px",
             }}
           />
-        </div>
+        </div> */}
       </div>
 
       {/* <div className="container2">

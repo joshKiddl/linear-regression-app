@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-
 body {
   min-height: 100vh; /* Set body height to at least 100% of the viewport height */
   display: flex;
@@ -327,6 +326,43 @@ p {
   margin-bottom: 20px;
 }
 
+strong {
+  letter-spacing: 0;
+  font-size: 1.4rem;
+  color: #222;
+  font-weight: 600;
+  list-style-type: none;
+  font-family: 'Inter Tight', sans-serif;
+  line-height: 1.4;
+}
+
+li {
+  background-color: #fff;
+  grid-row-gap: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,.1);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 24px;
+  transition: background-color .2s;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: -34px;
+}
+
+.bubble-body {
+  max-width: 60ch;
+  color: #696969;
+  letter-spacing: .4px;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  display: flex;
+}
+
 .form-input {
   width: 200px;
   padding: 10px;
@@ -367,6 +403,17 @@ p {
   text-decoration: none; /* Remove default underline style for anchor tags */
   width: fit-content; /* Adjust the button width based on content */
   font-family: 'Montserrat', sans-serif;
+}
+
+.section-header {
+  font-size: 5.4em;
+  color: #000;
+}
+
+.coming-soon {
+  font-size: 22px;
+  color: #696969;
+  margin-top: -20px;
 }
 
 .section-btn {
