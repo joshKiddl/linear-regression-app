@@ -7,7 +7,7 @@ import Screenshot1 from "./images/Screenshot1.png";
 import Screenshot2 from "./images/Screenshot2.png";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import PriorityModal from './components/priorityModal'
+import PriorityModal from "./components/priorityModal";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -48,39 +48,63 @@ function App() {
 
   return (
     <div>
+        <div>
+          <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
+          <div className="login-btn-container">
+            {loggedIn ? (
+              <Link to="/listOfFeatures" className="dashboard-btn">
+                Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" className="create-account-btn">
+                  Log In
+                </Link>
+                <Link to="/signUp" className="sign-up-btn">
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
       <div className="container1">
-        <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
+
         <h1 className="title">Product Manager AI</h1>
-        <h2 className="subtitle">Explain in your own words what problem you’re looking to solve, and for who… and we’ll take care of the rest.</h2>
-        <ul style={{border: '1px darkgray solid', borderRadius: '12px', paddingRight:'15px', paddingTop:'10px', paddingBottom:'10px', fontSize:'14px'}}>
-          <li>Well articulated the problem statement</li>
-          <li>Clear and concise acceptance criteria</li>
-          <li>Structured break down of the tasks ready for the delivery team</li>
-          <li>Defined target customer and ideal marketing material</li>
-          <li>Defined key metrics and solution hypothesis to track whether the feature has failed/succeeded</li>
-        </ul>
-        <h2 className="subtitle">In 2 minutes you’ll have a feature ready to share with stakeholders and get the delivery work started!</h2>
+        <h2 className="subtitle">
+          Explain in your own words what problem you’re looking to solve, and
+          for who… and we’ll take care of the rest.
+        </h2>
         <div className="btn-container">
           <button onClick={handleAnonSignIn} className="btn">
             Create a Feature - it's free
           </button>
         </div>
-        <div className="login-btn-container">
-          {loggedIn ? (
-            <Link to="/listOfFeatures" className="dashboard-btn">
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link to="/login" className="create-account-btn">
-                Log In
-              </Link>
-              <Link to="/signUp" className="sign-up-btn">
-                Sign Up
-              </Link>
-            </>
-          )}
-        </div>
+        <ul
+          style={{
+            border: "1px darkgray solid",
+            borderRadius: "12px",
+            paddingRight: "15px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+            fontSize: "14px",
+          }}
+        >
+          <li>Well articulated the problem statement</li>
+          <li>Clear and concise acceptance criteria</li>
+          <li>
+            Structured break down of the tasks ready for the delivery team
+          </li>
+          <li>Defined target customer and ideal marketing material</li>
+          <li>
+            Defined key metrics and solution hypothesis to track whether the
+            feature has failed/succeeded
+          </li>
+        </ul>
+        <h2 className="subtitle">
+          In 2 minutes you’ll have a feature ready to share with stakeholders
+          and get the delivery work started!
+        </h2>
+
         {/* <FontAwesomeIcon
           className="arrow"
           icon={faAngleDown}
@@ -111,9 +135,9 @@ function App() {
         />
       </div>
       <div className="container2">
-        <h2 className="header">Made for Product Managers</h2>
         <div className="problem-section">
-        <div className="h3AndP">
+          <div className="h3AndP">
+        {/* <h2 className="header">Made for Product Managers</h2> */}
             <h3>Streamlining Product Management</h3>
             <p>
               As product managers, we often struggle to take the time to really
@@ -144,8 +168,8 @@ function App() {
           />
         </div>
 
-        <div className="problem-section">
-        <div className="h3AndP">
+        <div className="problem-section2">
+          <div className="h3AndP">
             <h3>AI-driven Strategic Advantage</h3>
             <p>
               As a product manager, sometimes it’s hard to figure out the next
@@ -159,7 +183,6 @@ function App() {
           <img
             width={"auto"}
             height={"250px"}
-            
             className={"lpimage"}
             style={{
               borderWidth: "1px",
@@ -172,8 +195,8 @@ function App() {
           />
         </div>
 
-        <div className="problem-section">
-        <div className="h3AndP">
+        <div className="problem-section3">
+          <div className="h3AndP">
             <h3>Comprehensive Feature Development</h3>
             <p>
               Tech team want X in a feature, design team need Y, marketing team
@@ -203,7 +226,7 @@ function App() {
           />
         </div>
 
-        <div className="problem-section">
+        <div className="problem-section4">
           <div className="h3AndP">
             <h3>Efficient Hypothesis Tracking</h3>
             <p>
