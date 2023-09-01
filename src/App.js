@@ -26,10 +26,10 @@ function App() {
         console.log("User is logged out or anonymous");
       }
     });
-    const timer = setTimeout(() => {
-      setShowPriorityModal(true);
-    }, 100000);
-    return () => clearTimeout(timer);
+    // const timer = setTimeout(() => {
+    //   setShowPriorityModal(true);
+    // }, 100000);
+    // return () => clearTimeout(timer);
   }, []);
 
   const handlePrioritySelect = async (priority) => {
@@ -48,27 +48,26 @@ function App() {
 
   return (
     <div>
-        <div>
-          <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
-          <div className="login-btn-container">
-            {loggedIn ? (
-              <Link to="/listOfFeatures" className="dashboard-btn">
-                Dashboard
+      <div>
+        <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
+        <div className="login-btn-container">
+          {loggedIn ? (
+            <Link to="/listOfFeatures" className="dashboard-btn">
+              Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="create-account-btn">
+                Log In
               </Link>
-            ) : (
-              <>
-                <Link to="/login" className="create-account-btn">
-                  Log In
-                </Link>
-                <Link to="/signUp" className="sign-up-btn">
-                  Sign Up
-                </Link>
-              </>
-            )}
-          </div>
+              <Link to="/signUp" className="sign-up-btn">
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
+      </div>
       <div className="container1">
-
         <h1 className="title">Product Manager AI</h1>
         <h2 className="subtitle">
           Explain in your own words what problem you’re looking to solve, and
@@ -137,7 +136,7 @@ function App() {
       <div className="container2">
         <div className="problem-section">
           <div className="h3AndP">
-        {/* <h2 className="header">Made for Product Managers</h2> */}
+            {/* <h2 className="header">Made for Product Managers</h2> */}
             <h3>Streamlining Product Management</h3>
             <p>
               As product managers, we often struggle to take the time to really
@@ -152,6 +151,9 @@ function App() {
               the problem statement all the way to tracking the metrics needed
               to identify whether you should pivot or persevere!
             </p>
+            <button onClick={handleAnonSignIn} className="section-btn">
+              Create a Feature
+            </button>
           </div>
           <img
             width={"auto"}
@@ -179,6 +181,9 @@ function App() {
               plans your next moves, so you’re always on top of your game… and
               most importantly… always ahead of your competition!
             </p>
+            <button onClick={handleAnonSignIn} className="section-btn">
+              Create a Feature
+            </button>
           </div>
           <img
             width={"auto"}
@@ -210,6 +215,9 @@ function App() {
               to creating your hypothesis and metrics to track once you’ve
               released your feature/product, we really take care of it all!
             </p>
+            <button onClick={handleAnonSignIn} className="section-btn">
+              Create a Feature
+            </button>
           </div>
           <img
             width={"auto"}
@@ -243,6 +251,9 @@ function App() {
               add a task in the feature to enable the tracking of that metric…
               doesn’t get better than that!
             </p>
+            <button onClick={handleAnonSignIn} className="section-btn">
+              Create a Feature
+            </button>
           </div>
           <img
             src={Screenshot2}
