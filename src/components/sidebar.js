@@ -16,7 +16,7 @@ import {
   faColumns,
   faTh,
 } from "@fortawesome/free-solid-svg-icons";
-import logo from "../images/PMAILogo.png";
+import logo from "../images/white-logo.png";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { styled } from "@mui/system";
@@ -78,7 +78,7 @@ function AppSidebar({ children }) {
         <img
           src={logo}
           alt="Logo"
-          style={{ width: "50px", height: "50px" }}
+          style={{ width: "auto", height: "auto" }}
           className="sidebar-logo"
         />
         <ListItem

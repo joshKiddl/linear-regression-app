@@ -133,9 +133,21 @@ function Problem() {
   };
 
   const handleNext = async () => {
-    await saveToFirestore(); // Save the 'finalProblemStatement' to Firestore
-    navigate("/acceptanceCriteria"); // Navigate to the next page (replace '/next-page' with the desired route)
+    if (problemStatement.trim() !== "") {
+      await saveToFirestore();
+      navigate("/acceptanceCriteria");
+    }
   };
+
+  const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
+
+  useEffect(() => {
+    if (problemStatement.trim() === "") {
+      setNextButtonLabel("Problem Statement Required");
+    } else {
+      setNextButtonLabel("Next");
+    }
+  }, [problemStatement]);
 
   const handleReset = () => {
     window.location.reload(); // Refresh the page
@@ -269,9 +281,23 @@ function Problem() {
         <button className="reset" onClick={handleReset}>
           Reset
         </button>
-        <button className="next-button" onClick={handleNext}>
-          {problemStatement.trim() === "" ? "Skip" : "Next"}
-        </button>
+        <button className="back-button" onClick={handleBack}>
+      Back
+    </button>
+    <button className="reset" onClick={handleReset}>
+      Reset
+    </button>
+    <button
+      className="next-button"
+      onClick={handleNext}
+      disabled={problemStatement.trim() === ""}
+      style={{
+        backgroundColor: problemStatement.trim() === "" ? "white" : undefined,
+        color: problemStatement.trim() === "" ? "blue" : undefined
+      }}
+    >
+      {nextButtonLabel}
+    </button>
       </div>
       <HowToWriteProblemStatementModal
         isOpen={isProblemStatementModalOpen}
