@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/App.css";
 import PMAILogo from "./images/PMAILogo.png";
 import Screenshot1 from "./images/Screenshot1.png";
-// import Screenshot2 from "./images/Screenshot2.png";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import PriorityModal from "./components/priorityModal";

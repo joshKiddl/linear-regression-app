@@ -20,8 +20,8 @@ body {
   text-decoration: none;
   border: black 2px solid;
   border-radius: 6px;
-padding: 10px;
-color: #000;
+  padding: 10px;
+  color: #000;
 }
 
 .sign-up-btn {
@@ -30,8 +30,8 @@ color: #000;
   background-color: rgba(0,0,0,.8);
   border: rgba(0,0,0,.8) 2px solid;
   border-radius: 6px;
-padding: 10px;
-color: #fff;
+  padding: 10px;
+  color: #fff;
 }
 
 .container1 {
@@ -125,7 +125,7 @@ color: #fff;
   justify-content:space-around; /* Center children vertically */
   align-items: center; /* Center children horizontally */
   padding: 75px 50px;
-background-color: #f5f5f5;}
+  background-color: #f5f5f5;}
 
 .dashboard-btn {
   background-color:#000;
@@ -144,6 +144,10 @@ background-color: #f5f5f5;}
     width: 100%;
     margin-bottom: 20%;
     /* padding: 10px; */
+  }
+
+  li {
+    margin-right: 0px;
   }
 
   .problem-section,
@@ -189,14 +193,8 @@ background-color: #f5f5f5;}
     align-items: center;
   }
 
-  li {
-    /* width: 100vw; */
-    /* margin-left: 0px; */
-  }
-
 }
 /* End of Media Query */
-
 
 .content-container {
   margin-bottom: 20px
@@ -323,10 +321,8 @@ li {
   transition: background-color .2s;
   display: flex;
   flex-direction: column;
-  /* width: 50vw; */
   margin-left: -34px;
   margin-right: 20px;
-  
 }
 
 .bubble-body {
