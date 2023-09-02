@@ -1,5 +1,5 @@
 {
-  "name": "linear-regression-app",
+  "name": "pmai-frontend",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://ml-linear-regression.onrender.com",
