@@ -189,7 +189,7 @@ function App() {
           <div className="h3AndP">
             <h2 className="section-header">PM Captain</h2>
             <h3>
-              Let AI feature builder generate your features, only takes 2
+              Let our AI feature builder generate your features, it only takes 2
               minutes!
             </h3>
             <ul>

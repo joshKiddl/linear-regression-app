@@ -135,66 +135,7 @@ body {
   text-decoration: none;
 }
 
-/* Start of Media Query */
-@media screen and (max-width: 768px) {
-  .container1,
-  .container1b,
-  .container2,
-  .container3 {
-    width: 100%;
-    margin-bottom: 20%;
-    /* padding: 10px; */
-  }
 
-  li {
-    margin-right: 0px;
-  }
-
-  .problem-section,
-  .problem-section2,
-  .problem-section3,
-  .problem-section4 {
-    flex-direction: column;
-    padding: 20px;
-  }
-
-  .lpimage {
-    width: 100%;
-    height: auto;
-  }
-
-  .h3AndP {
-  margin-bottom: 20px;
-  }
-
-  .login-btn-container {
-    display: flow;
-    flex-direction: column;
-  }
-
-  .header, .title, h3 {
-    font-size: 24px;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .subtitle, .h4, p {
-    font-size: 16px;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .btn, .form-input {
-    width: 100%;
-  }
-
-  .btn-container, .login-btn-container {
-    flex-direction: row;
-    align-items: center;
-  }
-
-}
-/* End of Media Query */
 
 .content-container {
   margin-bottom: 20px
@@ -379,7 +320,7 @@ li {
 }
 
 .section-header {
-  font-size: 5.4em;
+  font-size: 3.7em;
   color: #000;
 }
 
@@ -424,3 +365,69 @@ li {
   font-size: 16px;
   font-family: 'Montserrat', sans-serif;
 }
+
+/* Start of Media Query */
+@media screen and (max-width: 768px) {
+  .container1,
+  .container1b,
+  .container2,
+  .container3 {
+    width: 100%;
+    /* margin-bottom: 20%; */
+    /* padding: 10px; */
+  }
+
+  li {
+    margin-right: 0px;
+  }
+
+  .problem-section,
+  .problem-section2,
+  .problem-section3,
+  .problem-section4 {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .lpimage {
+    width: 100%;
+    height: auto;
+  }
+
+  .h3AndP {
+  margin-bottom: 20px;
+  }
+
+  .login-btn-container {
+    display: flow;
+    flex-direction: column;
+  }
+
+  .header, .title, h3 {
+    font-size: 24px;
+    text-align: left;
+    padding: 10px;
+  }
+
+  .subtitle, .h4, p {
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .coming-soon {
+    text-align: left;
+  }
+
+  .btn, .form-input {
+    width: 100%;
+  }
+
+  .btn-container, .login-btn-container {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+}
+/* End of Media Query */
