@@ -5,7 +5,7 @@ const HowToWriteProblemStatementModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal">
-      <div className="modal-content">
+      <div style={{width: '90vw'}}  className="modal-content">
         <h3>Here are some example problem statements!</h3>
         <ul style={{display: 'flex', flexDirection:'column', gap: '20px'}}>
           <li>As an app user, I would like to have access to my payment history, So that I have a detailed account of my spending on the app.</li>
