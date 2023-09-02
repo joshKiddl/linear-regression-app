@@ -78,7 +78,7 @@ function App() {
         console.log("User is logged out or anonymous");
       }
     });
-    // const timer = setTimeout(() => {
+    // const timer = setTimeout(() => {a
     //   setShowPriorityModal(true);
     // }, 100000);
     // return () => clearTimeout(timer);
