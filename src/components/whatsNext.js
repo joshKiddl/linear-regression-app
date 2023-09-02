@@ -130,6 +130,7 @@ function WhatsNext({ userId, featureId }) {
         gap: "10px",
         marginBottom: "20px",
         marginRight: "20px",
+        marginLeft: '20px'
       }}
     >
       <div

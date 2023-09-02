@@ -506,7 +506,7 @@ function ViewFeature() {
           </>
         )}
         <hr />
-        <h3>Whats next?</h3>
+        <h3 style={{marginLeft: '15px'}}>Whats next?</h3>
         <div>
           <WhatsNext userId={auth.currentUser?.uid} featureId={featureId} />
           {/* <FeatureAssess userId={auth.currentUser?.uid} featureId={featureId} /> */}
