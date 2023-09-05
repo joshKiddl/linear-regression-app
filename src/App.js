@@ -18,50 +18,52 @@ function App() {
     {
       name: "Dev ready",
       content:
-        "The only text you have to type is the problem statement, AI then generates the rest; acceptance criteria and breaks down tasks so you don’t have to!    ",
+        "The only text you have to type is the problem statement, AI then generates the rest; acceptance criteria and breaks down tasks so you don’t have to!",
     },
     {
       name: "Market ready",
       content:
-        "PM Captain helps define your target market, list competitors, and generates marketing material ready for feature release.    ",
+        "Define your target market, list competitors, and generate marketing material ready for feature release.",
     },
     {
       name: "Release ready",
       content:
-        "PM Captain suggests metrics to track and defines a solution hypothesis for each feature, giving you the ammo to unbiasedly make the decision to pivot or persevere.    ",
-    },]
+        "Feature builder suggests metrics to track and defines a solution hypothesis for each feature, giving you the ammo to unbiasedly make the decision to pivot or persevere.",
+    },
+  ];
 
-    const items2 = [
+  const items2 = [
     {
-      name: "Dev ready",
+      name: "People",
       content:
-        "Share tasks with dev team, share acceptance criteria with UX/UI designer… PM Assistant helps you navigate through your tasks as a PM, so you don’t have to.        ",
+        "Share tasks with dev team, share acceptance criteria with UX/UI designer, send metrics request to data team… PM Assistant helps you identify the right stakeholders to involve at the right time.",
     },
     {
-      name: "Market ready",
+      name: "Process",
       content:
-        "Run a competitor analysis, generate a LinkedIn post about your next feature release… PM Assistant helps you navigate through your tasks as a PM, so you don’t have to.        ",
+        "Run a competitor analysis, generate a LinkedIn post about your next feature release… PM Assistant helps you pre-plan product releases throughout the entire journey; from inception to release.",
     },
     {
-      name: "Release ready",
+      name: "Product",
       content:
-        "Add metrics to track your feature, send metrics request to data team, enable metrics in reporting tool… PM Assistant helps you navigate through your tasks as a PM, so you don’t have to.        ",
-    },]
+        "Enable metrics in reporting tool, break down feature into tasks… PM Assistant helps you prepare all the documentation needed in order to ship a feature, and most importantly, analyse the success of it once released.",
+    },
+  ];
 
-    const items3 = [
+  const items3 = [
     {
-      name: "Dev ready",
+      name: "Outcomes driven features",
       content:
-        "Start with feature outcomes in mind, ensuring you have metrics and hypotheses in order to align with stakeholders.        ",
+        "Our data co-pilot suggests metrics you’ll want to analyse on each feature you release. Build out your hypothesis for each feature with key metrics in mind. This helps define what success looks like to you, but more importantly to all the stakeholders involved.",
     },
     {
-      name: "Market ready",
-      content: "Plan your marketing material based on outcomes.        ",
+      name: "Plug and play",
+      content: "Integrate your reporting tools so that the data co-pilot can keep track of the key data points for each feature… and if the data isn’t there, it’ll automatically add a task to start tracking that data. Impressive right?!",
     },
     {
-      name: "Release ready",
+      name: "Analyse",
       content:
-        "Keep your metrics handy ready to track whether to pivot or persevere with each feature.        ",
+        "One of the biggest tasks we often overlook as product managers is analysing whether a feature has proven our hypothesis or not. Pivoting/persevering at a feature level is a key part of maintaining an efficient and value adding product.",
     },
   ];
 
@@ -189,7 +191,7 @@ function App() {
           <div className="h3AndP">
             <h2 className="section-header">PM Captain</h2>
             <h3>
-              Let our AI feature builder generate your features, it only takes 2
+              Let AI feature builder generate your features, it only takes 2
               minutes!
             </h3>
             <ul>
@@ -239,11 +241,11 @@ function App() {
 
         <div className="problem-section2">
           <div className="h3AndP">
-            <h2 className="section-header">PM Assistant</h2>
+            <h2 className="section-header">PM Co-Pilot</h2>
             <p className="coming-soon">(Coming soon)</p>
             <h3>
-              So many decisions, stakeholders, tasks… let AI suggest your next
-              best actions throughout the feature lifecycle.
+              So many decisions, stakeholders, tasks… let AI guide you to your
+              next best actions throughout the feature lifecycle.
             </h3>
             <ul>
               {items2.map((item, index) => (
@@ -292,9 +294,9 @@ function App() {
 
         <div className="problem-section3">
           <div className="h3AndP">
-            <h2 className="section-header">PM Co-Pilot</h2>
+            <h2 className="section-header">Data Analyser</h2>
             <p className="coming-soon">(Coming soon)</p>
-            <h3>Focus on building outcome driven features</h3>
+            <h3>Focus on building outcome driven features. Use data to your advantage!</h3>
             <ul>
               {items3.map((item, index) => (
                 <li
