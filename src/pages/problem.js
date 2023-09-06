@@ -10,9 +10,8 @@ import Spinner from "react-bootstrap/Spinner";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCross, faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import HowToWriteProblemStatementModal from "../components/howToWriteAProblemStatment";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Problem() {
   const navigate = useNavigate();
