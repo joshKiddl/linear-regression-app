@@ -22,6 +22,7 @@ h5 {
   padding-right: 100px;
 }
 
+
 /* .progress-bar {
   position: fixed;
   left: 50%;
@@ -240,8 +241,18 @@ h2 {
 }
 
 .selected-item-input {
-  width: 100%;
+  overflow-y: hidden;  /* Hide vertical scrollbar */
+  resize: none;        /* Prevent manual resize */
+  width: 100%;         /* Take the full width */
+  word-wrap: break-word; /* Ensure words wrap to next line */
+  padding-left: 20px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+border-width: 2px;
+border-radius: 4px;
 }
+
 
 @media screen and (max-width: 600px) {
   .container {

@@ -143,7 +143,7 @@ function Problem() {
 
   useEffect(() => {
     if (problemStatement.trim() === "") {
-      setNextButtonLabel("Problem Statement Required");
+      setNextButtonLabel("Next");
     } else {
       setNextButtonLabel("Next");
     }
@@ -292,8 +292,8 @@ function Problem() {
       onClick={handleNext}
       disabled={problemStatement.trim() === ""}
       style={{
-        backgroundColor: problemStatement.trim() === "" ? "white" : undefined,
-        color: problemStatement.trim() === "" ? "blue" : undefined
+        backgroundColor: problemStatement.trim() === "" ? "lightgrey" : undefined,
+        color: problemStatement.trim() === "" ? "white" : undefined
       }}
     >
       {nextButtonLabel}

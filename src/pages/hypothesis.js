@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
-
 function Hypothesis() {
   const navigate = useNavigate();
   const [aiResponse, setAIResponse] = useState("");
@@ -157,20 +156,19 @@ function Hypothesis() {
   return (
     <div className="container">
       <div>
-      <ProgressBar
-        style={{
-          position: "fixed",
-          left: "50%",
-          top: "30px",
-          width: "80%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-        }}
-        now={75}
-        variant="info"
-        label="6/8" // Adding the label here
-
-      />
+        <ProgressBar
+          style={{
+            position: "fixed",
+            left: "50%",
+            top: "30px",
+            width: "80%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+          }}
+          now={75}
+          variant="info"
+          label="6/8" // Adding the label here
+        />
         <h1>Generate potential Solution Hypotheses</h1>
         <h5>
           This is often missed, along with tracking metrics. Without a
@@ -227,12 +225,20 @@ function Hypothesis() {
           <h2>Selected Hypotheses (editable)</h2>
           {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, "");
+
+            const adjustHeight = (event) => {
+              event.target.style.height = 'auto';
+              event.target.style.height = event.target.scrollHeight + 'px';
+            };
+
             return (
-              <input
+              <textarea
                 key={index}
-                type="text"
                 value={itemText}
-                onChange={(event) => handleSelectedItemChange(index, event)}
+                onChange={(event) => {
+                  handleSelectedItemChange(index, event);
+                  adjustHeight(event);
+                }}
                 className="selected-item-input"
               />
             );

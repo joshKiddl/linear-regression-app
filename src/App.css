@@ -96,7 +96,7 @@ body {
   justify-content:space-around; /* Center children vertically */
   align-items: center; /* Center children horizontally */
   padding: 75px 50px;
-  background-image: linear-gradient(90deg,#c2b7fb,#f3e1ec),url(https://global-uploads.webflow.com/60c0cec90f5782a19af55867/64b638bab2301cbb30435b4e_Product.svg)
+  background-image: linear-gradient(90deg,#b7d9fb,#e4f3e1),url(https://global-uploads.webflow.com/60c0cec90f5782a19af55867/64b638bab2301cbb30435b4e_Product.svg)
 }
 
 .problem-section2 {
@@ -106,7 +106,7 @@ body {
   justify-content:space-around; /* Center children vertically */
   align-items: center; /* Center children horizontally */
   padding: 75px 50px;
-  background-image: linear-gradient(90deg,#fdcecc,#fed5a1);
+  background-image: linear-gradient(90deg,#fdedcc,#fea1b5);
 }
 
 .problem-section3 {
@@ -116,7 +116,7 @@ body {
   justify-content:space-around; /* Center children vertically */
   align-items: center; /* Center children horizontally */
   padding: 75px 50px;
-  background-image: linear-gradient(50deg,#84bdf5,#ccfada);}
+  background-image: linear-gradient(50deg,#a084f5,#ccd9fa);}
 
 .problem-section4 {
   display: flex; /* Use Flexbox */
@@ -168,7 +168,7 @@ body {
   font-family: 'Inter', sans-serif; /* Changed from Montserrat to Inter */
   filter: saturate(200%);
     text-shadow: 11px 11px 8px rgba(0,0,0,.2);
-    background-image: linear-gradient(225deg,#fed89a,#feccd4);
+    background-image: linear-gradient(225deg,#9afe9d,#ccfbfe);
     border-radius: 10rem;
     padding-left: 2.4rem;
     padding-right: 2.4rem;

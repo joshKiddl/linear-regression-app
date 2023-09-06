@@ -115,7 +115,7 @@ function FeatureName() {
         (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
       )
     ) {
-      setNextButtonLabel("Feature Name Required");
+      setNextButtonLabel("Next");
     } else {
       setNextButtonLabel("Next");
     }
@@ -272,14 +272,14 @@ function FeatureName() {
               selectedItems.every(
                 (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
               )
-                ? "white"
+                ? "lightgrey"
                 : undefined,
             color:
               selectedItems.length === 0 ||
               selectedItems.every(
                 (item) => item.replace(/^\d+\.\s*/, "").replace(/-/g, "") === ""
               )
-                ? "blue"
+                ? "white"
                 : undefined,
           }} // changes the button color to white with blue text if selectedItems are empty
         >
