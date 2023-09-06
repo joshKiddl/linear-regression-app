@@ -25,6 +25,7 @@ const Card = ({ id, text, listId }) => {
   return (
     <div
       ref={dragRef}
+      onClick={navigateToFeature}
       style={{
         opacity: isDragging ? 0.5 : 1,
         backgroundColor: 'white',
