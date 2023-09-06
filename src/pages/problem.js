@@ -208,8 +208,12 @@ function Problem() {
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
-            ></Spinner>
+              style={{ width: "1rem", height: "1rem" }}
+            >
+              <span className="sr-only"></span>
+            </Spinner>
+          ) : aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}

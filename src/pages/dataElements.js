@@ -174,7 +174,6 @@ function DataElements() {
         now={62.5}
         variant="info"
         label="5/8" // Adding the label here
-
       />
       <h1>Metrics</h1>
       <h5>
@@ -192,6 +191,8 @@ function DataElements() {
             >
               <span className="sr-only"></span>
             </Spinner>
+          ) : state.aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}
@@ -202,8 +203,8 @@ function DataElements() {
           state.showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
+        <h2>Select one or more items below</h2>
         <div className="ai-response">
-          <h2>Select one or more items below</h2>
           {Array.isArray(state.aiResponse) ? (
             state.aiResponse
               .map((item) => {

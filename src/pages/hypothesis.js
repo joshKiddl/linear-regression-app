@@ -186,6 +186,8 @@ function Hypothesis() {
               >
                 <span className="sr-only"></span>
               </Spinner>
+            ) : aiResponse ? (
+              "Generate Again"
             ) : (
               "Generate"
             )}
@@ -197,7 +199,6 @@ function Hypothesis() {
           }`}
         >
           <div className="ai-response">
-            <h2>Select one or more items below</h2>
             {Array.isArray(aiResponse) ? (
               aiResponse.map((item, index) => {
                 const itemText = item
@@ -227,8 +228,8 @@ function Hypothesis() {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, "");
 
             const adjustHeight = (event) => {
-              event.target.style.height = 'auto';
-              event.target.style.height = event.target.scrollHeight + 'px';
+              event.target.style.height = "auto";
+              event.target.style.height = event.target.scrollHeight + "px";
             };
 
             return (

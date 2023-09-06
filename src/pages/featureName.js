@@ -29,7 +29,7 @@ function FeatureName() {
     const documentId = sessionStorage.getItem("documentId");
     const userId = auth.currentUser.uid; // Assuming you have auth imported and configured correctly
     const docRef = doc(db, "users", userId, "feature", documentId);
-  
+
     try {
       const docSnapshot = await getDoc(docRef);
       if (docSnapshot.exists()) {
@@ -46,7 +46,7 @@ function FeatureName() {
 
   const handleSubmit = () => {
     setIsLoading(true); // start loading
-  
+
     const fetchData = (retryCount = 0) => {
       // Fetch the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize and hypothesis from Firestore
       Promise.all([
@@ -57,7 +57,7 @@ function FeatureName() {
         // Concatenate the finalProblemStatement, acceptanceCriteria, targetCustomer, marketSize, and hypothesis, separated by commas
         const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
         console.log("Sending data:", inputText); // Log the data being sent
-  
+
         // Make a POST request to the API endpoint
         fetch("https://ml-linear-regression.onrender.com/feature-name", {
           method: "POST",
@@ -71,7 +71,7 @@ function FeatureName() {
           .then((response) => response.json())
           .then((data) => {
             setIsLoading(false); // stop loading
-  
+
             if (data.error) {
               setAIResponse({ error: data.error });
             } else {
@@ -82,8 +82,9 @@ function FeatureName() {
           .catch((error) => {
             console.error("Error fetching data:", error);
             setIsLoading(false); // stop loading
-  
-            if (retryCount < 1) { // Retry once
+
+            if (retryCount < 1) {
+              // Retry once
               fetchData(retryCount + 1);
             } else {
               setAIResponse({ error: "Please generate responses again" });
@@ -92,7 +93,7 @@ function FeatureName() {
           });
       });
     };
-  
+
     fetchData(); // Initial call
   };
 
@@ -162,28 +163,26 @@ function FeatureName() {
   return (
     <div className="container">
       <ProgressBar
-  style={{
-    position: "fixed",
-    left: "50%",
-    top: "30px",
-    width: "80%",
-    transform: "translateX(-50%)",
-    zIndex: 1000,
-    backgroundColor: "lightgray", // Background color for the entire bar
-
-  }}
-  now={12.5}
-  variant="info"
-  label="8/8" // Adding the label here
-
->
-  <ProgressBar
-    style={{
-      backgroundColor: "gold", // Filled part color
-    }}
-    now={100}
-  />
-</ProgressBar>
+        style={{
+          position: "fixed",
+          left: "50%",
+          top: "30px",
+          width: "80%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          backgroundColor: "lightgray", // Background color for the entire bar
+        }}
+        now={12.5}
+        variant="info"
+        label="8/8" // Adding the label here
+      >
+        <ProgressBar
+          style={{
+            backgroundColor: "gold", // Filled part color
+          }}
+          now={100}
+        />
+      </ProgressBar>
 
       <h1>Finally, generate a Feature Name</h1>
       <div className="input-container">
@@ -192,10 +191,12 @@ function FeatureName() {
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
+              style={{ width: "1rem", height: "1rem" }}
             >
               <span className="sr-only"></span>
             </Spinner>
+          ) : aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}
@@ -207,7 +208,6 @@ function FeatureName() {
         }`}
       >
         <div className="ai-response">
-          <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {
@@ -227,9 +227,7 @@ function FeatureName() {
                   onClick={() => handleResponseItemClick(item)}
                 >
                   {item}
-                  <FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
+                  <FontAwesomeIcon icon={faPlusCircle} />
                 </div>
               ))
           ) : (

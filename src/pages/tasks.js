@@ -145,13 +145,17 @@ function Tasks() {
       <h1>Tasks</h1>
       <h5>Get the feature broken up into tasks so the devs can get working on this today!</h5>
       <div className="input-container">
-        <button onClick={handleSubmit}>
+      <button onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
-            ></Spinner>
+              style={{ width: "1rem", height: "1rem" }}
+            >
+              <span className="sr-only"></span>
+            </Spinner>
+          ) : aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}
@@ -163,10 +167,9 @@ function Tasks() {
         }`}
       >
         <div className="hint">
-          Hint: You can add items then click generate again to add more!
+        Select one or more items below
         </div>
         <div className="ai-response">
-          <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {

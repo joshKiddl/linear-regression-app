@@ -153,13 +153,17 @@ function AcceptanceCriteria() {
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
       <div className="input-container">
-        <button onClick={handleSubmit}>
+      <button onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
-            ></Spinner>
+              style={{ width: "1rem", height: "1rem" }}
+            >
+              <span className="sr-only"></span>
+            </Spinner>
+          ) : aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}
@@ -171,11 +175,10 @@ function AcceptanceCriteria() {
         }`}
       >
         <div className="hint">
-          Hint: You can add items then click generate again to add more!
+        Select one or more items below
         </div>
 
         <div className="ai-response">
-          <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {

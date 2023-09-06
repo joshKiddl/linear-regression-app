@@ -154,7 +154,6 @@ function MarketingMaterial() {
         now={87.5}
         variant="info"
         label="7/8" // Adding the label here
-
       />
       <h1>Generate Marketing Material for this Feature</h1>
       <div className="input-container">
@@ -163,10 +162,12 @@ function MarketingMaterial() {
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
+              style={{ width: "1rem", height: "1rem" }}
             >
               <span className="sr-only"></span>
             </Spinner>
+          ) : aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}
@@ -177,12 +178,9 @@ function MarketingMaterial() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="hint">
-          Hint: You can add items then click generate again to add more!
-        </div>
+        <div className="hint">Select one or more items below</div>
 
         <div className="ai-response">
-          <h2>Select one or more items below</h2>
           {Array.isArray(aiResponse) ? (
             // If aiResponse is a list, map through the items and render each as a separate <div> box
             aiResponse.map((item, index) => {

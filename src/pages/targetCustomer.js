@@ -142,15 +142,17 @@ function TargetCustomer() {
       <h1>Target Customer</h1>
       <h5>Start thinking about who you might want to target for this specific feature.</h5>
       <div className="input-container">
-        <button onClick={handleSubmit}>
+      <button onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
               animation="border"
               role="status"
-              style={{ width: "1rem", height: "1rem" }} // Add this line
+              style={{ width: "1rem", height: "1rem" }}
             >
               <span className="sr-only"></span>
             </Spinner>
+          ) : aiResponse ? (
+            "Generate Again"
           ) : (
             "Generate"
           )}
@@ -161,8 +163,8 @@ function TargetCustomer() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="ai-response">
           <h2>Select one or more items below</h2>
+        <div className="ai-response">
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {
