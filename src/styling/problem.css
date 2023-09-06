@@ -91,7 +91,7 @@ h5 {
 }
 
 input {
-  padding: 10px;
+  padding: 10px 10px 10px 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -99,8 +99,16 @@ input {
   font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
   width: 500px;
+
 }
 
+.delete-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
 button {
   padding: 10px 20px;
@@ -176,6 +184,10 @@ button {
   top: 10px;
   right: 10px;
   font-size: 14px;
+}
+
+.input-with-icon {
+  position: relative;
 }
 
 .show-problem-statement {
@@ -262,6 +274,7 @@ border-radius: 4px;
   input {
     width: 100%;
     margin-right: 10;
+    
   }
 
   .reset, .next-button, .back-button {

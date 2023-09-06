@@ -10,8 +10,9 @@ import Spinner from "react-bootstrap/Spinner";
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import { Timestamp } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCross, faPlusCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 import HowToWriteProblemStatementModal from "../components/howToWriteAProblemStatment";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
 function Problem() {
   const navigate = useNavigate();
@@ -184,7 +185,6 @@ function Problem() {
         now={12.5}
         variant="info"
         label="1/8" // Adding the label here
-
       />
       <h1 style={{ marginBottom: "2px" }}>
         In your own words, tell us what problem you are trying to solve.
@@ -196,13 +196,22 @@ function Problem() {
         How do I write a problem statement?
       </Link>
       <div className="input-container">
-        <input
-          type="text"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Enter your problem here"
-        />
+        <div className="input-with-icon">
+          <input
+            type="text"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Enter your problem here"
+          />
+          {inputText && (
+            <FontAwesomeIcon
+              icon={faTimes}
+              className="delete-icon"
+              onClick={() => setInputText("")}
+            />
+          )}
+        </div>
         <button onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
@@ -219,6 +228,7 @@ function Problem() {
           )}
         </button>
       </div>
+
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}
       <div
@@ -282,26 +292,24 @@ function Problem() {
         <button className="back-button" onClick={handleBack}>
           Back
         </button>
+        <button className="back-button" onClick={handleBack}>
+          Back
+        </button>
         <button className="reset" onClick={handleReset}>
           Reset
         </button>
-        <button className="back-button" onClick={handleBack}>
-      Back
-    </button>
-    <button className="reset" onClick={handleReset}>
-      Reset
-    </button>
-    <button
-      className="next-button"
-      onClick={handleNext}
-      disabled={problemStatement.trim() === ""}
-      style={{
-        backgroundColor: problemStatement.trim() === "" ? "lightgrey" : undefined,
-        color: problemStatement.trim() === "" ? "white" : undefined
-      }}
-    >
-      {nextButtonLabel}
-    </button>
+        <button
+          className="next-button"
+          onClick={handleNext}
+          disabled={problemStatement.trim() === ""}
+          style={{
+            backgroundColor:
+              problemStatement.trim() === "" ? "lightgrey" : undefined,
+            color: problemStatement.trim() === "" ? "white" : undefined,
+          }}
+        >
+          {nextButtonLabel}
+        </button>
       </div>
       <HowToWriteProblemStatementModal
         isOpen={isProblemStatementModalOpen}
