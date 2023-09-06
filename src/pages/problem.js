@@ -149,10 +149,6 @@ function Problem() {
     }
   }, [problemStatement]);
 
-  const handleReset = () => {
-    window.location.reload(); // Refresh the page
-  };
-
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSubmit(); // Trigger the handleSubmit function when Enter key is pressed
@@ -293,9 +289,6 @@ function Problem() {
         </button>
         <button className="back-button" onClick={handleBack}>
           Back
-        </button>
-        <button className="reset" onClick={handleReset}>
-          Reset
         </button>
         <button
           className="next-button"
