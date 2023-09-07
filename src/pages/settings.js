@@ -47,6 +47,7 @@ function Settings() {
     <div className="lof-body">
       <AppSidebar>
         <h2 className="lof-h2">Settings</h2>
+        <hr />
         <div style={{marginBottom: '20px'}}>
           Current Email: {currentUser && currentUser.email}
         </div>

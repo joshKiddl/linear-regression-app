@@ -146,6 +146,8 @@ function Board() {
       <AppSidebar>
         <DndProvider backend={HTML5Backend}>
           <h2 className="lof-h2">Kanban Board</h2>
+          <hr />
+
           <div className="board-content">
             {boardData.map((list, index) => (
               <List key={list.id} list={list} onDragEnd={onDragEnd} />

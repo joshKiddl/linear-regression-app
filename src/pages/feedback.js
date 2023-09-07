@@ -55,6 +55,8 @@ function Feedback() {
     <div className="lof-body">
       <AppSidebar>
         <h2 className="lof-h2">Leave us Feedback</h2>
+        <hr />
+
         <h3>How did you like this tool?</h3>
         <p>
           Was it helpful? Do you want to use AI more to help your product

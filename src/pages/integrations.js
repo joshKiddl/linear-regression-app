@@ -56,6 +56,8 @@ const Integrations = () => {
     <div className="lof-body">
       <AppSidebar>
         <h2 className="lof-h2">Integrations</h2>
+        <hr />
+
         <div className="grid-container">
           {integrationsData.map((integration, index) => (
             <div key={index} className="feature-box">

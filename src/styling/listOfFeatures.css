@@ -8,11 +8,11 @@
   height: 100vh;
   font-family: 'Montserrat', sans-serif;  
   width: 100vw;
-  padding-left: 225px;
+  padding-left: 185px;
 }
 
 .table-rounded {
-  border-radius: 20px;
+  border-radius: 8px;
 }
 
 .data-row {
@@ -20,8 +20,9 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
+  font-size: 14px;
   margin-bottom: 1rem;
-  border-radius: 10px;
+  border-radius: 8px;
   border-style: solid;
   border-color: #dadee3;
   border-width: 1px;
@@ -31,8 +32,9 @@
 .edit-button,
 .feature-name-button {
   background-color: transparent;
-  color: cornflowerblue;
+  color: #111827;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .feature-list {
@@ -107,7 +109,7 @@
 .feature-box {
   border: 1px solid #e1e4e8;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   text-align: center;
 }
 

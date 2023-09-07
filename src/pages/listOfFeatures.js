@@ -106,6 +106,7 @@ function ListOfFeatures() {
     <div className="lof-body">
       <AppSidebar>
         <h2 className="lof-h2">Feature List</h2>
+        <hr />
         <table className="feature-list">
           <thead></thead>
           <tbody>
@@ -118,7 +119,7 @@ function ListOfFeatures() {
         const dateString = dateCreated.toLocaleDateString("en-US");
         return (
             <tr className="data-row" key={feature.id}>
-                <td style={{ fontWeight: "400" }}>
+                <td style={{ fontSize: '14px', fontWeight: "400" }}>
                     <button
                         className="feature-name-button"
                         onClick={() => handleEdit(feature.id)}
@@ -133,15 +134,15 @@ function ListOfFeatures() {
                         gap: "40px",
                       }}
                     >
-                      <div>{feature.status}</div>
-                      <div style={{ fontWeight: "200" }}>{dateString}</div>
+                      <div style={{color: '#717B8A'}}>{feature.status}</div>
+                      <div style={{ fontWeight: "200", color: '#717B8A' }}>{dateString}</div>
                     </td>
                     <td>
                       <button
                         className="delete-button"
                         onClick={() => promptDeleteFeature(feature.id)}
                       >
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FontAwesomeIcon icon={faTrash} color="black" />
                       </button>
                     </td>
                   </tr>
