@@ -133,13 +133,18 @@ function FeatureName() {
     const userId = user ? user.uid : null;
     const docRef = doc(db, "users", userId, "feature", documentId);
 
+    // Sanitize each item in selectedItems
+    const sanitizedSelectedItems = selectedItems.map((item) =>
+      item.replace(/\d+\.|-/g, "").trim()
+    );
+
     try {
-      // Regardless of whether the user is anonymous, update the document if selectedItems is not null
-      if (selectedItems !== null) {
+      // Regardless of whether the user is anonymous, update the document if sanitizedSelectedItems is not null
+      if (sanitizedSelectedItems !== null) {
         await setDoc(
           docRef,
           {
-            featureName: selectedItems,
+            featureName: sanitizedSelectedItems,
           },
           { merge: true }
         );

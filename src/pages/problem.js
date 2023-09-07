@@ -55,10 +55,15 @@ function Problem() {
 
   const saveToFirestore = async () => {
     try {
+      // Sanitize problemStatement before saving
+      const sanitizedProblemStatement = problemStatement
+        .replace(/\d+\.|-/g, "")
+        .trim();
+
       const docRef = await addDoc(
         collection(db, "users", user.uid, "feature"),
         {
-          finalProblemStatement: problemStatement,
+          finalProblemStatement: sanitizedProblemStatement,
           sessionId: sessionStorage.getItem("sessionId"),
           createdAt: Timestamp.now(),
           status: "Ideas", // Add the 'status' field here
