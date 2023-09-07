@@ -14,7 +14,7 @@ import {
 import { db, auth } from "../firebase"; // import your Firestore instance
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 function MarketingMaterial() {
@@ -24,6 +24,7 @@ function MarketingMaterial() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [nextButtonLabel, setNextButtonLabel] = useState("Skip"); // New state
+  const [loadingButton, setLoadingButton] = useState(null);
 
   const getDataFromSession = async (field) => {
     const documentId = sessionStorage.getItem("documentId");
@@ -44,19 +45,16 @@ function MarketingMaterial() {
     }
   };
 
-  const postToApi = (inputText, retry = true) => {
-    return fetch(
-      "https://ml-linear-regression.onrender.com/marketing-material",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inputText: inputText,
-        }),
-      }
-    )
+  const postToApi = (inputText, endpoint, retry = true) => {
+    return fetch(`https://ml-linear-regression.onrender.com/${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        inputText: inputText,
+      }),
+    })
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
@@ -78,18 +76,21 @@ function MarketingMaterial() {
       });
   };
 
-  const handleSubmit = () => {
-    setIsLoading(true); // start loading
+  const handleSubmit = (endpoint) => {
+    setIsLoading(true);
+    setLoadingButton(endpoint); // Set the loading button
+
     Promise.all([
       getDataFromSession("finalProblemStatement"),
       getDataFromSession("targetCustomer"),
       getDataFromSession("hypotheses"),
     ]).then(([finalProblemStatement, targetCustomer, hypotheses]) => {
       const inputText = `${finalProblemStatement}, ${targetCustomer}, ${hypotheses}`;
-      console.log("Sending data:", inputText); // Log the data being sent
+      console.log("Sending data:", inputText);
 
-      postToApi(inputText).finally(() => {
-        setIsLoading(false); // stop loading
+      postToApi(inputText, endpoint).finally(() => {
+        setIsLoading(false);
+        setLoadingButton(null); // Reset the loading button after request is complete
       });
     });
   };
@@ -156,9 +157,9 @@ function MarketingMaterial() {
         label="7/8" // Adding the label here
       />
       <h1>Generate Marketing Material for this Feature</h1>
-      <div className="input-container">
-        <button onClick={handleSubmit}>
-          {isLoading ? (
+      <div className="input-container-marketing">
+        <button onClick={() => handleSubmit("social-post")}>
+          {isLoading && loadingButton === "social-post" ? (
             <Spinner
               animation="border"
               role="status"
@@ -166,10 +167,40 @@ function MarketingMaterial() {
             >
               <span className="sr-only"></span>
             </Spinner>
-          ) : aiResponse ? (
-            "Generate Again"
+          ) : aiResponse && loadingButton === null ? (
+            "Generate Post Again"
           ) : (
-            "Generate"
+            "Social Post"
+          )}
+        </button>
+        <button onClick={() => handleSubmit("blog-post")}>
+          {isLoading && loadingButton === "blog-post" ? (
+            <Spinner
+              animation="border"
+              role="status"
+              style={{ width: "1rem", height: "1rem" }}
+            >
+              <span className="sr-only"></span>
+            </Spinner>
+          ) : aiResponse && loadingButton === null ? (
+            "Generate Blog Again"
+          ) : (
+            "Social Blog"
+          )}
+        </button>
+        <button onClick={() => handleSubmit("email-post")}>
+          {isLoading && loadingButton === "email-post" ? (
+            <Spinner
+              animation="border"
+              role="status"
+              style={{ width: "1rem", height: "1rem" }}
+            >
+              <span className="sr-only"></span>
+            </Spinner>
+          ) : aiResponse && loadingButton === null ? (
+            "Generate Email Again"
+          ) : (
+            "Email"
           )}
         </button>
       </div>
@@ -178,8 +209,6 @@ function MarketingMaterial() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="hint">Select one or more items below</div>
-
         <div className="ai-response">
           {Array.isArray(aiResponse) ? (
             // If aiResponse is a list, map through the items and render each as a separate <div> box
@@ -211,9 +240,13 @@ function MarketingMaterial() {
           {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
-              <div key={index} className="selected-item">
+              <div
+                key={index}
+                className="selected-item"
+                onClick={() => handleResponseItemClick(item)} // Add onClick event here
+              >
                 {itemText}
-                <FontAwesomeIcon icon={faPlusCircle} />
+                <FontAwesomeIcon icon={faMinusCircle} />
               </div>
             );
           })}

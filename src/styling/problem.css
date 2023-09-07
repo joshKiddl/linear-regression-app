@@ -37,6 +37,15 @@ h5 {
   width: 100%;
 }
 
+.input-container-marketing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  width: 100%;
+  gap: 30px
+}
+
 .input-container2 {
   opacity: 0;
   max-height: 0;
