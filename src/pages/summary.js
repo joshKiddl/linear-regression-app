@@ -117,7 +117,7 @@ function Summary() {
   useEffect(() => {
     const timer = setTimeout(() => {
       openFeedbackModal();
-    }, 11000); // 5000ms = 5s
+    }, 20000); // 5000ms = 5s
 
     // Clear timeout if the component is unmounted
     return () => clearTimeout(timer);

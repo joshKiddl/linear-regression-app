@@ -16,8 +16,8 @@
   padding: 30px;
   align-self: center; 
   border-radius: 12px;
-  width: 800px;
-  max-width: 90%;
+  width: 90%px;
+  max-width: 90vw;
   overflow-y: auto;  /* Enable vertical scrolling if the content overflows */
   max-height: 90vh;  /* Or any height that fits your design */
 
