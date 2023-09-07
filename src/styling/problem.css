@@ -70,6 +70,7 @@ h5 {
   display: flex; /* Add this */
   justify-content: space-between; /* Add this */
   align-items: center;
+  text-align: left;
 }
 
 .problem-link {
@@ -161,6 +162,7 @@ button {
   box-shadow: 0 0 8px #1c4bba;
   max-height: 150px; /* Maximum height for the container */
   overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+  
 }
 
 .selected-items .selected-item {
@@ -173,6 +175,9 @@ button {
   margin-bottom: 5px;
   transition: background-color 0.3s;
   font-size: 14px;
+  display: flex; /* Add this */
+  justify-content: space-between; /* Add this */
+  align-items: center;
 }
 
 .sr-only {

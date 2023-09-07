@@ -16,7 +16,7 @@ import Spinner from "react-bootstrap/Spinner";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 function AcceptanceCriteria() {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ function AcceptanceCriteria() {
       problemStatement = docSnap.data().finalProblemStatement;
     }
     return problemStatement;
-};
+  };
 
   useEffect(() => {
     getProblemStatementFromSession().then((problemStatement) =>
@@ -145,15 +145,18 @@ function AcceptanceCriteria() {
         now={25}
         variant="info"
         label="2/8" // Adding the label here
-
       />
       <h1>Acceptance Criteria</h1>
-      <h5>Generate the acceptance criteria to hone in on the scope of this feature. The acceptance criteria should also help drive test scripts when testing the feature before rollout.</h5>
+      <h5>
+        Generate the acceptance criteria to hone in on the scope of this
+        feature. The acceptance criteria should also help drive test scripts
+        when testing the feature before rollout.
+      </h5>
       {/* <p className='problem-statement'>{problemStatement}</p> */}
       {/* <h2>Here are some Acceptance Criteria for your Problem Statement</h2> */}
       {/* Problem Description field */}
       <div className="input-container">
-      <button onClick={handleSubmit}>
+        <button onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
               animation="border"
@@ -174,17 +177,14 @@ function AcceptanceCriteria() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="hint">
-        Select one or more items below
-        </div>
+        <div className="hint">Select one or more items below</div>
 
         <div className="ai-response">
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {
                 const itemText = item
-                  .replace(/^\d+\.\s*/, "")
-                  .replace(/-/g, "")
+                .replace(/^\d+\.\s*/, "").replace(/-/g, "")
                   .trim();
                 return itemText ? item : null; // Return null if itemText is blank
               })
@@ -198,9 +198,7 @@ function AcceptanceCriteria() {
                   onClick={() => handleResponseItemClick(item)}
                 >
                   {item}
-                  <FontAwesomeIcon
-                    icon={faPlusCircle}
-                  />
+                  <FontAwesomeIcon icon={faPlusCircle} />
                 </div>
               ))
           ) : (
@@ -214,8 +212,13 @@ function AcceptanceCriteria() {
           {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
-              <div key={index} className="selected-item">
+              <div
+                key={index}
+                className="selected-item"
+                onClick={() => handleResponseItemClick(item)} // Add this line
+              >
                 {itemText}
+                <FontAwesomeIcon icon={faMinusCircle} />
               </div>
             );
           })}

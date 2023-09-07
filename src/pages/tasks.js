@@ -14,7 +14,7 @@ import {
 import { db, auth } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 function Tasks() {
@@ -92,11 +92,14 @@ function Tasks() {
   };
 
   const handleResponseItemClick = (item) => {
+    // If the item is already selected, remove it from the selected items
     if (selectedItems.includes(item)) {
       setSelectedItems(
         selectedItems.filter((selectedItem) => selectedItem !== item)
       );
-    } else {
+    }
+    // If the item is not selected, add it to the selected items
+    else {
       setSelectedItems([...selectedItems, item]);
     }
   };
@@ -140,12 +143,14 @@ function Tasks() {
         now={37.5}
         variant="info"
         label="3/8" // Adding the label here
-
       />
       <h1>Tasks</h1>
-      <h5>Get the feature broken up into tasks so the devs can get working on this today!</h5>
+      <h5>
+        Get the feature broken up into tasks so the devs can get working on this
+        today!
+      </h5>
       <div className="input-container">
-      <button onClick={handleSubmit}>
+        <button onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
               animation="border"
@@ -166,9 +171,7 @@ function Tasks() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="hint">
-        Select one or more items below
-        </div>
+        <div className="hint">Select one or more items below</div>
         <div className="ai-response">
           {Array.isArray(aiResponse) ? (
             aiResponse
@@ -202,8 +205,13 @@ function Tasks() {
           {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
-              <div key={index} className="selected-item">
+              <div
+                key={index}
+                className="selected-item"
+                onClick={() => handleResponseItemClick(item)} // Add this line
+              >
                 {itemText}
+                <FontAwesomeIcon icon={faMinusCircle} />
               </div>
             );
           })}

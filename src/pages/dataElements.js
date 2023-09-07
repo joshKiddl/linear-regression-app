@@ -14,7 +14,7 @@ import {
 import { db, auth } from "../firebase";
 import Spinner from "react-bootstrap/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 function DataElements() {
@@ -238,8 +238,13 @@ function DataElements() {
           {state.selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (
-              <div key={index} className="selected-item">
+              <div
+                key={index}
+                className="selected-item"
+                onClick={() => handleResponseItemClick(item)} // Add this line
+              >
                 {itemText}
+                <FontAwesomeIcon icon={faMinusCircle} />
               </div>
             );
           })}
