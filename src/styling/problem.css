@@ -190,6 +190,11 @@ button {
   position: relative;
 }
 
+.input-with-icon input {
+  padding-right: 30px; /* Adjust the value based on the size of the delete icon and desired spacing */
+}
+
+
 .show-problem-statement {
   opacity: 1;
   max-height: 500px;
