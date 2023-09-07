@@ -15,8 +15,9 @@ import {
   faCog,
   faColumns,
   faTh,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import logo from "../images/white-logo.png";
+// import logo from "../images/white-logo.png";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { styled } from "@mui/system";
@@ -25,14 +26,14 @@ import { NavLink } from "react-router-dom";
 
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   width: "0px",
-  backgroundColor: "#182a4d",
+  backgroundColor: "#fff",
   alignItems: "center",
   "& .MuiDrawer-paper": {
-    width: 200,
-    backgroundColor: "#182a4d",
+    backgroundColor: "#fff",
     alignItems: "center",
+    width: (props) => (props.expanded ? 240 : 52), // Dynamically set the width
     [theme.breakpoints.down("sm")]: {
-      width: 70,
+      width: (props) => (props.expanded ? 240 : 52), // Dynamically set the width
     },
   },
 }));
@@ -42,11 +43,11 @@ const NavLinkStyled = styled(NavLink)({
   color: "inherit",
   "&.MuiButtonBase-root": {
     "&.active": {
-      backgroundColor: "#284781",
+      backgroundColor: "lightgrey",
       // borderRadius: '12px',
     },
     "&:hover": {
-      backgroundColor: "#284781",
+      backgroundColor: "lightgrey",
       // borderRadius: '12px',
     },
   },
@@ -56,9 +57,14 @@ function AppSidebar({ children }) {
   const navigate = useNavigate();
   const matches = useMediaQuery("(max-width:768px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(!matches);
+  const [expanded, setExpanded] = useState(true);
 
   const handleDrawerToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleExpansion = () => {
+    setExpanded(!expanded);
   };
 
   const handleSignOut = () => {
@@ -75,12 +81,19 @@ function AppSidebar({ children }) {
   const drawer = (
     <div className="sidebar-content">
       <List className="top-links">
-        <img
+        <IconButton onClick={toggleExpansion} className="sidebar-toggle-btn">
+          {expanded ? (
+            <FontAwesomeIcon icon={faChevronRight} size="1x" color="#111827" />
+          ) : (
+            <FontAwesomeIcon icon={faChevronRight} size="1x" color="#111827" />
+          )}
+        </IconButton>
+        {/* <img
           src={logo}
           alt="Logo"
           style={{ width: "auto", height: "auto" }}
           className="sidebar-logo"
-        />
+        /> */}
         <ListItem
           button
           component={NavLinkStyled}
@@ -88,9 +101,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faList} size="2x" color="white" />
+            <FontAwesomeIcon icon={faList} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">Features</div>
+          {expanded && <div className="sidebar-item-text">Features</div>}
         </ListItem>
         <ListItem
           button
@@ -99,9 +112,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faColumns} size="2x" color="white" />
+            <FontAwesomeIcon icon={faColumns} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">Board</div>
+          {expanded && <div className="sidebar-item-text">Board</div>}
         </ListItem>
         <ListItem
           button
@@ -110,9 +123,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faPlus} size="2x" color="white" />
+            <FontAwesomeIcon icon={faPlus} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">New</div>
+          {expanded && <div className="sidebar-item-text">New</div>}
         </ListItem>
         <ListItem
           button
@@ -121,9 +134,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faThumbsUp} size="2x" color="white" />
+            <FontAwesomeIcon icon={faThumbsUp} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">Feedback</div>
+          {expanded && <div className="sidebar-item-text">Feedback</div>}
         </ListItem>
         <ListItem
           button
@@ -132,9 +145,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faTh} size="2x" color="white" />
+            <FontAwesomeIcon icon={faTh} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">Integrations</div>
+          {expanded && <div className="sidebar-item-text">Integrations</div>}
         </ListItem>
       </List>
       <List className="bottom-links">
@@ -145,9 +158,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faCog} size="2x" color="white" />
+            <FontAwesomeIcon icon={faCog} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">Settings</div>
+          {expanded && <div className="sidebar-item-text">Settings</div>}
         </ListItem>
         <ListItem
           button
@@ -155,9 +168,9 @@ function AppSidebar({ children }) {
           className="sidebar-item-icon-text-wrapper"
         >
           <div className="sidebar-item-icon">
-            <FontAwesomeIcon icon={faSignOutAlt} size="2x" color="white" />
+            <FontAwesomeIcon icon={faSignOutAlt} size="lg" color="#111827" />
           </div>
-          <div className="sidebar-item-text">Sign Out</div>
+          {expanded && <div className="sidebar-item-text">Sign out</div>}
         </ListItem>
       </List>
     </div>
@@ -171,7 +184,7 @@ function AppSidebar({ children }) {
           color="inherit"
           aria-label="open drawer"
         >
-          <FontAwesomeIcon icon={faBars} size="2x" color="black" />
+          <FontAwesomeIcon icon={faBars} size="lg" color="#111827" />
         </IconButton>
       )}
       <DrawerStyled
@@ -179,6 +192,7 @@ function AppSidebar({ children }) {
         open={isSidebarOpen}
         onClose={handleDrawerToggle}
         className="draw-styled"
+        expanded={expanded} // Pass the expanded state as prop to DrawerStyled
       >
         {drawer}
       </DrawerStyled>

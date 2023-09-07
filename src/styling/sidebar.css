@@ -9,8 +9,16 @@
 .top-links, .bottom-links {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;  /* Make this a relative container for absolute positioned children */
 }
+
+.sidebar-toggle-btn {
+  display: flex;
+  justify-content: center;
+  width: 75px;
+}
+
 
 .sidebar-content {
   display: flex;
@@ -23,14 +31,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 240px; /* Set a width for the sidebar */
 }
 
 .MuiListItem-root {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: 20px; /* adjust this value as needed */
+  margin-bottom: 20px; 
 }
 
 .sidebar-item-icon-text-wrapper {
@@ -38,33 +45,29 @@
   align-items: center;
   flex-direction: row; 
   width: 100%;
-  
 }
 
 .sidebar-item-icon {
   display: flex;
   justify-content: center;
   width: 50px;
-  
 }
 
 .sidebar-item-text {
   flex-grow: 1;
-  color: white;
+  color: #111827;
   font-family: 'Montserrat', sans-serif;
   padding-left: 10px;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 768px) {
   .MuiDrawer-paper {
-    width: 20px; /* Reduce the width of the sidebar on mobile screens */
-  }
-  .draw-styled {
-    width: 300px;
+    width: 52px; /* Adjust the width for mobile screens based on the collapsed state */
   }
   
   .sidebar-item-text {
-    display: none; /* Hide the text of the sidebar items on mobile screens */
+    display: none; 
   }
   
   .sidebar-logo {
