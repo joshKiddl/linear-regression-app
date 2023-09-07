@@ -171,8 +171,8 @@ function Tasks() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="hint">Select one or more items below</div>
         <div className="ai-response">
+        <div className="hint">Select one or more items below</div>
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {
@@ -201,7 +201,7 @@ function Tasks() {
         </div>
         {/* New block for displaying selected items */}
         <div className="selected-items">
-          <h2>Selected items</h2>
+        <h2>Selected items: {selectedItems.length}</h2>
           {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (

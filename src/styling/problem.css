@@ -22,19 +22,6 @@ h5 {
   padding-right: 100px;
 }
 
-
-/* .progress-bar {
-  position: fixed;
-  left: 50%;
-  top: 30px;
-  width: 80%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  background-color: lightgray; 
-} */
-
-
-
 .problem-statement-input {
   width: 100%; 
   border-color: black;
@@ -55,9 +42,75 @@ h5 {
   max-height: 0;
   overflow: hidden;
   transition: opacity 2s ease-out, max-height 2s ease;
+  display: flex; /* Set to flex to make inner items side by side */
+  justify-content: space-between; /* Add space between the two child divs */
 }
 
+.input-container2-single {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 2s ease-out, max-height 2s ease;
+  
+}
+
+.ai-response {
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border: 2px solid #1c4bba;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 8px #1c4bba;
+  max-height: 200px; /* Maximum height for the container */
+  overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+  width: 48%; /* Set width to slightly less than half to account for any padding/margins */
+}
+
+.ai-response-single {
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border: 2px solid #1c4bba;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 8px #1c4bba;
+  max-height: 200px; /* Maximum height for the container */
+  overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+}
+
+.selected-items {
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border: 2px solid #1c4bba;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 0 8px #1c4bba;
+  max-height: 150px; /* Maximum height for the container */
+  overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+  width: 48%; /* Set width to slightly less than half to account for any padding/margins */
+  max-height: 200px; /* Maximum height for the container */
+}
+
+
 .ai-response .response-item {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+  font-size: 14px;
+  display: flex; /* Add this */
+  justify-content: space-between; /* Add this */
+  align-items: center;
+  text-align: left;
+}
+
+.ai-response-single .response-item {
   cursor: pointer;
   margin: 0;
   padding: 0;
@@ -88,6 +141,14 @@ h5 {
 }
 
 .ai-response .response-item.selected {
+  background-color: lightskyblue;
+}
+
+.ai-response-single .response-item:hover {
+  background-color: lightblue;
+}
+
+.ai-response-single .response-item.selected {
   background-color: lightskyblue;
 }
 
@@ -138,31 +199,6 @@ button {
   font-size: 14px;
   color:cornflowerblue;
   margin-bottom: 5px;
-}
-
-.ai-response {
-  margin-bottom: 10px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  border: 2px solid #1c4bba;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 0 8px #1c4bba;
-  max-height: 200px; /* Maximum height for the container */
-  overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
-}
-
-.selected-items {
-  margin-bottom: 10px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  border: 2px solid #1c4bba;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 0 8px #1c4bba;
-  max-height: 150px; /* Maximum height for the container */
-  overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
-  
 }
 
 .selected-items .selected-item {
@@ -284,7 +320,6 @@ border-radius: 4px;
   input {
     width: 100%;
     margin-right: 10;
-    
   }
 
   .reset, .next-button, .back-button {
@@ -306,4 +341,48 @@ border-radius: 4px;
     left: 50%; /* Position the back button in the center */
     transform: translateX(-50%); /* Center the back button horizontally */
   }
+
+
+  .generate-button {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  h5 {
+    padding: 10px
+    }
+
+    .input-container2 {
+      overflow: hidden;
+      transition: opacity 2s ease-out, max-height 2s ease;
+      display: flex;
+    flex-direction: column; 
+    }
+
+    .ai-response {
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      border: 2px solid #1c4bba;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 8px #1c4bba;
+      max-height: 200px; /* Maximum height for the container */
+      overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+      width: 100%;
+    }
+
+    .selected-items {
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      border: 2px solid #1c4bba;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 8px #1c4bba;
+      max-height: none;
+            overflow-y: auto; /* Add vertical scroll when the content exceeds the maximum height */
+      width: 100%;
+    }
+
 }

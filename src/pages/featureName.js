@@ -203,11 +203,11 @@ function FeatureName() {
         </button>
       </div>
       <div
-        className={`input-container2 ${
+        className={`input-container2-single ${
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="ai-response">
+        <div className="ai-response-single">
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {

@@ -177,26 +177,26 @@ function AcceptanceCriteria() {
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="hint">Select one or more items below</div>
 
         <div className="ai-response">
+          <div className="hint">Select one or more items below</div>
           {Array.isArray(aiResponse) ? (
             aiResponse
-              .map((item) => {
-                const itemText = item
-                .replace(/^\d+\.\s*/, "").replace(/-/g, "")
-                  .trim();
-                return itemText ? item : null; // Return null if itemText is blank
-              })
-              .filter(Boolean) // Remove null (or blank) items
-              .map((item, index) => (
-                <div
-                  key={index}
-                  className={`response-item ${
-                    selectedItems.includes(item) ? "selected" : ""
-                  }`}
-                  onClick={() => handleResponseItemClick(item)}
-                >
+            .map((item) => {
+              const itemText = item
+              .replace(/^\d+\.\s*/, "").replace(/-/g, "")
+              .trim();
+              return itemText ? item : null; // Return null if itemText is blank
+            })
+            .filter(Boolean) // Remove null (or blank) items
+            .map((item, index) => (
+              <div
+              key={index}
+              className={`response-item ${
+                selectedItems.includes(item) ? "selected" : ""
+              }`}
+              onClick={() => handleResponseItemClick(item)}
+              >
                   {item}
                   <FontAwesomeIcon icon={faPlusCircle} />
                 </div>
@@ -208,7 +208,7 @@ function AcceptanceCriteria() {
 
         {/* New block for displaying selected items */}
         <div className="selected-items">
-          <h2>Selected items</h2>
+        <h2>Selected items: {selectedItems.length}</h2>
           {selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (

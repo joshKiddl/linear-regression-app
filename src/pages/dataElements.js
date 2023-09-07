@@ -203,8 +203,8 @@ function DataElements() {
           state.showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <h2>Select one or more items below</h2>
         <div className="ai-response">
+        <h2>Select one or more items below</h2>
           {Array.isArray(state.aiResponse) ? (
             state.aiResponse
               .map((item) => {
@@ -234,7 +234,7 @@ function DataElements() {
 
         {/* New block for displaying selected items */}
         <div className="selected-items">
-          <h2>Selected items</h2>
+        <h2>Selected items: {state.selectedItems.length}</h2>
           {state.selectedItems.map((item, index) => {
             const itemText = item.replace(/^\d+\.\s*/, "").replace(/-/g, ""); // Removes numbering from the start of the item and all dashes
             return (

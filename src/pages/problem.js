@@ -197,7 +197,7 @@ function Problem() {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Enter your problem here"
+            placeholder="Enter your problem"
           />
           {inputText && (
             <FontAwesomeIcon
@@ -207,7 +207,7 @@ function Problem() {
             />
           )}
         </div>
-        <button onClick={handleSubmit}>
+        <button className="generate-button" onClick={handleSubmit}>
           {isLoading ? (
             <Spinner
               animation="border"
@@ -227,11 +227,11 @@ function Problem() {
       {/* End of Problem Description field */}
       {/* Final Problem Statement field */}
       <div
-        className={`input-container2 ${
+        className={`input-container2-single ${
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
-        <div className="ai-response">
+        <div className="ai-response-single">
           <h2>Select an option below</h2>
           {Array.isArray(aiResponse) ? (
             aiResponse

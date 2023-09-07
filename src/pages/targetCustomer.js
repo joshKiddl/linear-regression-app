@@ -159,12 +159,12 @@ function TargetCustomer() {
         </button>
       </div>
       <div
-        className={`input-container2 ${
+        className={`input-container2-single ${
           showProblemStatement ? "show-problem-statement" : ""
         }`}
       >
+        <div className="ai-response-single">
           <h2>Select one or more items below</h2>
-        <div className="ai-response">
           {Array.isArray(aiResponse) ? (
             aiResponse
               .map((item) => {

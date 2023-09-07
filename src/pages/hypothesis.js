@@ -107,17 +107,16 @@ function Hypothesis() {
   };
 
   const handleResponseItemClick = (item) => {
-    // If the item is already selected, remove it from the selected items
+    // If the item is already selected, deselect it
     if (selectedItems.includes(item)) {
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
+      setSelectedItems([]);
     }
-    // If the item is not selected, add it to the selected items
+    // Otherwise, set the selected item to the currently clicked item
     else {
-      setSelectedItems([...selectedItems, item]);
+      setSelectedItems([item]);
     }
   };
+  
 
   // Add this effect to update nextButtonLabel when selectedItems changes
   useEffect(() => {
@@ -194,11 +193,11 @@ function Hypothesis() {
           </button>
         </div>
         <div
-          className={`input-container2 ${
+          className={`input-container2-single ${
             showProblemStatement ? "show-problem-statement" : ""
           }`}
         >
-          <div className="ai-response">
+          <div className="ai-response-single">
             {Array.isArray(aiResponse) ? (
               aiResponse.map((item, index) => {
                 const itemText = item
