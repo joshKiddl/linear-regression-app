@@ -18,13 +18,16 @@ import Summary from './pages/summary';
 import SignUp from './pages/signUp';
 import ListOfFeatures from './pages/listOfFeatures';
 import Login from './pages/login';
-// import CreateFeature from './pages/createFeature';
 import Board from './pages/board';
 import ViewFeature from './pages/viewFeature';
 import FeatureName from './pages/featureName';
 import Feedback from './pages/feedback';
 import Settings from './pages/settings';
 import Integrations from './pages/integrations';
+import Policies from './pages/policies';
+import About from './pages/about';
+
+
 
 // Initialize Performance Monitoring here
 perf.dataCollectionEnabled = true;
@@ -72,13 +75,14 @@ const AppRoutes = () => {
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/login" element={<Login />} />
       <Route path="/listOfFeatures" element={<ListOfFeatures />} />
-      {/* <Route path="/createFeature" element={<CreateFeature />} /> */}
       <Route path="/viewFeature/:featureId" element={<ViewFeature />} />
       <Route path="/board" element={<Board />} />
       <Route path="/featureName" element={<FeatureName />} />
       <Route path="/feedback" element={<Feedback />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/integrations" element={<Integrations />} />
+      <Route path="/policies" element={<Policies />} />
+      <Route path="/about" element={<About />} />
     </Routes>
   );
 };

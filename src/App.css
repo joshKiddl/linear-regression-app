@@ -7,7 +7,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 60px;  /* Height of your navbar + some extra space */
+  padding-top: 0px;  /* Height of your navbar + some extra space */
 
 }
 .arrow {

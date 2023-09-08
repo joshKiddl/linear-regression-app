@@ -324,9 +324,11 @@ function App() {
           alt="PMAI Logo"
           className="footer-logo"
         />
-        <button className="footer-btn">Privacy Policy</button>
-        <button className="footer-btn">Terms of Use</button>
-        <button className="footer-btn">About</button>
+        <Link to="/policies" className="footer-btn">Privacy Policy</Link>
+        <Link to="/policies" className="footer-btn">Terms of Use</Link>
+        <Link to="/about" className="footer-btn">About</Link>
+        <a href="mailto:joshsparkes6@gmail.com" className="footer-btn">Contact</a>
+
         <p style={{ width: "20%" }}>
           © 2023 Product Manager AI. All rights reserved.
         </p>
