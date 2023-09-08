@@ -7,6 +7,7 @@ import Screenshot1 from "./images/Screenshot1.png";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import PriorityModal from "./components/priorityModal";
+import TryIt from "./components/tryIt";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +59,8 @@ function App() {
     },
     {
       name: "Plug and play",
-      content: "Integrate your reporting tools so that the data co-pilot can keep track of the key data points for each feature… and if the data isn’t there, it’ll automatically add a task to start tracking that data. Impressive right?!",
+      content:
+        "Integrate your reporting tools so that the data co-pilot can keep track of the key data points for each feature… and if the data isn’t there, it’ll automatically add a task to start tracking that data. Impressive right?!",
     },
     {
       name: "Analyse",
@@ -131,38 +133,6 @@ function App() {
             Create a Feature - it's free
           </button>
         </div>
-        {/* <ul
-          style={{
-            border: "1px darkgray solid",
-            borderRadius: "12px",
-            paddingRight: "15px",
-            paddingTop: "10px",
-            paddingBottom: "10px",
-            fontSize: "14px",
-          }}
-        >
-          <li>Well articulated the problem statement</li>
-          <li>Clear and concise acceptance criteria</li>
-          <li>
-            Structured break down of the tasks ready for the delivery team
-          </li>
-          <li>Defined target customer and ideal marketing material</li>
-          <li>
-            Defined key metrics and solution hypothesis to track whether the
-            feature has failed/succeeded
-          </li>
-        </ul> */}
-        {/* <h2 className="subtitle">
-          In 2 minutes you’ll have a feature ready to share with stakeholders
-          and get the delivery work started!
-        </h2> */}
-
-        {/* <FontAwesomeIcon
-          className="arrow"
-          icon={faAngleDown}
-          size="1x"
-          color="black"
-        /> */}
       </div>
       <div className="container1b">
         <video
@@ -296,7 +266,10 @@ function App() {
           <div className="h3AndP">
             <h2 className="section-header">Data Analyser</h2>
             <p className="coming-soon">(Coming soon)</p>
-            <h3>Focus on building outcome driven features. Use data to your advantage!</h3>
+            <h3>
+              Focus on building outcome driven features. Use data to your
+              advantage!
+            </h3>
             <ul>
               {items3.map((item, index) => (
                 <li
@@ -343,44 +316,8 @@ function App() {
         </div>
       </div>
 
-      {/* <div className="container2">
-        <h2 className="header">Key features</h2>
-        <div className="problem-section">
-          <div>
-            <h3>Feature 1</h3>
-            <p>
-              Lorum ipsum text filler Lorum ipsum text filler Lorum ipsum text
-              filler Lorum ipsum text filler Lorum ipsum text filler Lorum ipsum
-              text filler Lorum ipsum text filler{" "}
-            </p>
-          </div>
-          <img src={PMAILogo} alt="PMAI Logo" className="problem-image" />
-        </div>
+      <TryIt />
 
-        <div className="problem-section">
-          <img src={PMAILogo} alt="PMAI Logo" className="problem-image" />
-          <div>
-            <h3>Feature 1</h3>
-            <p>
-              Lorum ipsum text filler Lorum ipsum text filler Lorum ipsum text
-              filler Lorum ipsum text filler Lorum ipsum text filler Lorum ipsum
-              text filler Lorum ipsum text filler{" "}
-            </p>
-          </div>
-        </div>
-
-        <div className="problem-section">
-          <div>
-            <h3>Feature 1</h3>
-            <p>
-              Lorum ipsum text filler Lorum ipsum text filler Lorum ipsum text
-              filler Lorum ipsum text filler Lorum ipsum text filler Lorum ipsum
-              text filler Lorum ipsum text filler{" "}
-            </p>
-          </div>
-          <img src={PMAILogo} alt="PMAI Logo" className="problem-image" />
-        </div> */}
-      {/* </div> */}
       <div className="footer">
         <p>© 2023 Product Manager AI. All rights reserved.</p>
       </div>
