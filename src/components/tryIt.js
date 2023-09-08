@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-function TryIt() {
+function TryIt({ handleAnonSignIn }) {
   return (
     <Box
       sx={{
@@ -49,7 +49,7 @@ function TryIt() {
         >
           The Product Management Co-Pilot
         </h4>
-        <button
+        <button onClick={handleAnonSignIn}
           className="btn"
           style={{
             borderRadius: "0.5rem",

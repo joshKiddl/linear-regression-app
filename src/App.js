@@ -316,7 +316,7 @@ function App() {
         </div>
       </div>
 
-      <TryIt />
+      <TryIt handleAnonSignIn={handleAnonSignIn} />
 
       <div className="footer">
         <img
