@@ -510,7 +510,12 @@ function ViewFeature() {
           </>
         )}
         <hr />
-        <h3 style={{ marginLeft: "15px" }}>Whats next?</h3>
+        <h3 style={{ marginLeft: "15px", marginBottom: '5px' }}>What's next?</h3>
+        <p style={{ marginLeft: "15px", width: '100%' }}>
+          So many decisions, stakeholders, tasks… Click here to see your next
+          best actions to take this feature all the way through 🚀
+        </p>
+
         <div>
           <WhatsNext userId={auth.currentUser?.uid} featureId={featureId} />
           {/* <FeatureAssess userId={auth.currentUser?.uid} featureId={featureId} /> */}
