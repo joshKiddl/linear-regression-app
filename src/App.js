@@ -319,8 +319,19 @@ function App() {
       <TryIt />
 
       <div className="footer">
-        <p>© 2023 Product Manager AI. All rights reserved.</p>
+        <img
+          src="/PMAILogo.png"
+          alt="PMAI Logo"
+          className="footer-logo"
+        />
+        <button className="footer-btn">Privacy Policy</button>
+        <button className="footer-btn">Terms of Use</button>
+        <button className="footer-btn">About</button>
+        <p style={{ width: "20%" }}>
+          © 2023 Product Manager AI. All rights reserved.
+        </p>
       </div>
+
       <PriorityModal
         isOpen={showPriorityModal}
         onClose={() => setShowPriorityModal(false)}
