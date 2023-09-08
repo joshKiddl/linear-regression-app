@@ -9,6 +9,7 @@ function Settings() {
   const [currentUser, setCurrentUser] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [expanded, setExpanded] = useState(false);
 
   // Fetch the current user on component mount
   useEffect(() => {
@@ -44,14 +45,17 @@ function Settings() {
   };
 
   return (
-    <div className="lof-body">
-      <AppSidebar>
+    <div
+      style={{ paddingLeft: expanded ? "195px" : "95px" }}
+      className="lof-body"
+    >
+      <AppSidebar expanded={expanded} setExpanded={setExpanded}>
         <h2 className="lof-h2">Settings</h2>
         <hr />
-        <div style={{marginBottom: '20px'}}>
+        <div style={{ marginBottom: "20px" }}>
           Current Email: {currentUser && currentUser.email}
         </div>
-        <div  style={{marginBottom: '20px'}}>
+        <div style={{ marginBottom: "20px" }}>
           <input
             type="email"
             placeholder="New Email"

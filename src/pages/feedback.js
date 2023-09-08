@@ -13,6 +13,7 @@ function Feedback() {
     company: "",
   });
   const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [expanded, setExpanded] = useState(false);
 
   const handleFeedbackSubmit = useCallback(
     async (event) => {
@@ -52,8 +53,11 @@ function Feedback() {
   };
 
   return (
-    <div className="lof-body">
-      <AppSidebar>
+    <div
+      style={{ paddingLeft: expanded ? "195px" : "95px" }}
+      className="lof-body"
+    >
+      <AppSidebar expanded={expanded} setExpanded={setExpanded}>
         <h2 className="lof-h2">Leave us Feedback</h2>
         <hr />
 
@@ -63,61 +67,74 @@ function Feedback() {
           management practice?
         </p>
         <p>Let us know your thoughts</p>
-        <form id="feedback-form" onSubmit={handleFeedbackSubmit} style={{ display: 'flex', flexDirection: 'column', width: '90%' }}>
-          <label style={{ marginBottom: '10px' }}>
+        <form
+          id="feedback-form"
+          onSubmit={handleFeedbackSubmit}
+          style={{ display: "flex", flexDirection: "column", width: "90%" }}
+        >
+          <label style={{ marginBottom: "10px" }}>
             Name:
             <input
               type="text"
               name="name"
               value={feedbackFormState.name}
               onChange={handleFeedbackChange}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             />
           </label>
-          <label style={{ marginBottom: '10px' }}>
+          <label style={{ marginBottom: "10px" }}>
             Email:
             <input
               type="text"
               name="email"
               value={feedbackFormState.email}
               onChange={handleFeedbackChange}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             />
           </label>
-          <label style={{ marginBottom: '10px' }}>
+          <label style={{ marginBottom: "10px" }}>
             Role:
             <input
               type="text"
               name="role"
               value={feedbackFormState.role}
               onChange={handleFeedbackChange}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             />
           </label>
-          <label style={{ marginBottom: '10px' }}>
+          <label style={{ marginBottom: "10px" }}>
             Company:
             <input
               type="text"
               name="company"
               value={feedbackFormState.company}
               onChange={handleFeedbackChange}
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
             />
           </label>
-          <label style={{ marginBottom: '10px' }}>
+          <label style={{ marginBottom: "10px" }}>
             Feedback:
             <textarea
               name="feedback"
               value={feedbackFormState.feedback}
               onChange={handleFeedbackChange}
-              style={{ width: '100%', minHeight: '100px' }}
+              style={{ width: "100%", minHeight: "100px" }}
             />
           </label>
-          <button className="modal-submit" type="submit" style={{ alignSelf: 'center', marginTop: '20px' }}>
+          <button
+            className="modal-submit"
+            type="submit"
+            style={{ alignSelf: "center", marginTop: "20px" }}
+          >
             Submit
           </button>
           {feedbackMessage && (
-            <p className="modal-message" style={{ textAlign: 'center', marginTop: '15px' }}>{feedbackMessage}</p>
+            <p
+              className="modal-message"
+              style={{ textAlign: "center", marginTop: "15px" }}
+            >
+              {feedbackMessage}
+            </p>
           )}
         </form>
       </AppSidebar>

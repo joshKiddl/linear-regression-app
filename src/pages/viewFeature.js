@@ -23,6 +23,7 @@ function ViewFeature() {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState("Tab1"); // default tab
   const { featureId } = useParams();
+  const [expanded, setExpanded] = useState(false);
 
   // const createJiraIssue = async () => {
   //   const BACKEND_URL =
@@ -100,8 +101,11 @@ function ViewFeature() {
   };
 
   return (
-    <AppSidebar>
-      <div className="view-feature">
+    <AppSidebar expanded={expanded} setExpanded={setExpanded}>
+      <div
+        style={{ paddingLeft: expanded ? "195px" : "95px" }}
+        className="view-feature"
+      >
         {isEditing === "featureName" ? (
           <input
             className="feature-name"
@@ -506,7 +510,7 @@ function ViewFeature() {
           </>
         )}
         <hr />
-        <h3 style={{marginLeft: '15px'}}>Whats next?</h3>
+        <h3 style={{ marginLeft: "15px" }}>Whats next?</h3>
         <div>
           <WhatsNext userId={auth.currentUser?.uid} featureId={featureId} />
           {/* <FeatureAssess userId={auth.currentUser?.uid} featureId={featureId} /> */}

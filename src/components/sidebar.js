@@ -16,6 +16,7 @@ import {
   faColumns,
   faTh,
   faChevronRight,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 // import logo from "../images/white-logo.png";
 import { signOut } from "firebase/auth";
@@ -53,11 +54,10 @@ const NavLinkStyled = styled(NavLink)({
   },
 });
 
-function AppSidebar({ children }) {
+function AppSidebar({ children, expanded, setExpanded }) {
   const navigate = useNavigate();
   const matches = useMediaQuery("(max-width:768px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(!matches);
-  const [expanded, setExpanded] = useState(true);
 
   const handleDrawerToggle = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -83,9 +83,9 @@ function AppSidebar({ children }) {
       <List className="top-links">
         <IconButton onClick={toggleExpansion} className="sidebar-toggle-btn">
           {expanded ? (
-            <FontAwesomeIcon icon={faChevronRight} size="1x" color="#111827" />
+            <FontAwesomeIcon icon={faChevronLeft} size="sm" color="#111827" />
           ) : (
-            <FontAwesomeIcon icon={faChevronRight} size="1x" color="#111827" />
+            <FontAwesomeIcon icon={faChevronRight} size="sm" color="#111827" />
           )}
         </IconButton>
         {/* <img
@@ -187,15 +187,15 @@ function AppSidebar({ children }) {
           <FontAwesomeIcon icon={faBars} size="lg" color="#111827" />
         </IconButton>
       )}
-      <DrawerStyled
-        variant={matches ? "temporary" : "permanent"}
-        open={isSidebarOpen}
-        onClose={handleDrawerToggle}
-        className="draw-styled"
-        expanded={expanded} // Pass the expanded state as prop to DrawerStyled
-      >
-        {drawer}
-      </DrawerStyled>
+        <DrawerStyled
+          variant={matches ? "temporary" : "permanent"}
+          open={isSidebarOpen}
+          onClose={handleDrawerToggle}
+          className="draw-styled"
+          expanded={expanded}
+        >
+          {drawer}
+        </DrawerStyled>
       <main>{children}</main>
     </div>
   );

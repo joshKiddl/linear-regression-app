@@ -15,6 +15,7 @@ function ListOfFeatures() {
   const [features, setFeatures] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [featureToDelete, setFeatureToDelete] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
 
   const handleDeleteFeature = async (id) => {
@@ -103,29 +104,32 @@ function ListOfFeatures() {
   };
 
   return (
-    <div className="lof-body">
-      <AppSidebar>
+    <div
+      style={{ paddingLeft: expanded ? "195px" : "95px" }}
+      className="lof-body"
+    >
+      <AppSidebar expanded={expanded} setExpanded={setExpanded}>
         <h2 className="lof-h2">Feature List</h2>
         <hr />
         <table className="feature-list">
           <thead></thead>
           <tbody>
-          {features.map((feature) => {
-    // Check if createdAt exists
-    if (feature.createdAt) {
-        // convert the timestamp to a date
-        const dateCreated = new Date(feature.createdAt.seconds * 1000);
-        // format the date as a string
-        const dateString = dateCreated.toLocaleDateString("en-US");
-        return (
-            <tr className="data-row" key={feature.id}>
-                <td style={{ fontSize: '14px', fontWeight: "400" }}>
-                    <button
+            {features.map((feature) => {
+              // Check if createdAt exists
+              if (feature.createdAt) {
+                // convert the timestamp to a date
+                const dateCreated = new Date(feature.createdAt.seconds * 1000);
+                // format the date as a string
+                const dateString = dateCreated.toLocaleDateString("en-US");
+                return (
+                  <tr className="data-row" key={feature.id}>
+                    <td style={{ fontSize: "14px", fontWeight: "400" }}>
+                      <button
                         className="feature-name-button"
                         onClick={() => handleEdit(feature.id)}
-                    >
+                      >
                         {feature.featureName || "This feature has no name!"}
-                    </button>
+                      </button>
                     </td>
                     <td
                       style={{
@@ -134,8 +138,10 @@ function ListOfFeatures() {
                         gap: "40px",
                       }}
                     >
-                      <div style={{color: '#717B8A'}}>{feature.status}</div>
-                      <div style={{ fontWeight: "200", color: '#717B8A' }}>{dateString}</div>
+                      <div style={{ color: "#717B8A" }}>{feature.status}</div>
+                      <div style={{ fontWeight: "200", color: "#717B8A" }}>
+                        {dateString}
+                      </div>
                     </td>
                     <td>
                       <button

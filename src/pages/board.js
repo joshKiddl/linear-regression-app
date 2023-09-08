@@ -61,6 +61,7 @@ const transformFeatureDataToBoardData = (featureData) => {
 
 function Board() {
   const [boardData, setBoardData] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -142,8 +143,11 @@ function Board() {
   console.log("Board data:", boardData);
 
   return (
-    <div className="board-body">
-      <AppSidebar>
+    <div
+      style={{ paddingLeft: expanded ? "195px" : "95px" }}
+      className="board-body"
+    >
+      <AppSidebar expanded={expanded} setExpanded={setExpanded}>
         <DndProvider backend={HTML5Backend}>
           <h2 className="lof-h2">Kanban Board</h2>
           <hr />

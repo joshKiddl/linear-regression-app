@@ -170,7 +170,7 @@ function MarketingMaterial() {
           ) : aiResponse && loadingButton === null ? (
             "Generate Post Again"
           ) : (
-            "Social Post"
+            "Social media post"
           )}
         </button>
         <button onClick={() => handleSubmit("blog-post")}>
@@ -185,7 +185,7 @@ function MarketingMaterial() {
           ) : aiResponse && loadingButton === null ? (
             "Generate Blog Again"
           ) : (
-            "Social Blog"
+            "Blog post"
           )}
         </button>
         <button onClick={() => handleSubmit("email-post")}>
@@ -200,7 +200,7 @@ function MarketingMaterial() {
           ) : aiResponse && loadingButton === null ? (
             "Generate Email Again"
           ) : (
-            "Email"
+            "Email campaign"
           )}
         </button>
       </div>

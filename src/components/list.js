@@ -35,14 +35,14 @@ const List = ({ list, boardData, setBoardData, onDragEnd }) => {
       minWidth: '200px',
       height: '100%',
       padding: '12px',
-      borderRadius: '15px',
+      borderRadius: '8px',
       borderStyle:'solid',
       borderColor:'#dadee3',
       borderWidth:'1px',
       margin: '0 10px',
     }} className="column">
       <h3 style={{
-        fontSize: '16px',
+        fontSize: '14px',
         fontWeight: '400'
       }}>{list.title}</h3>
     {list.cards && list.cards.map((card) => (

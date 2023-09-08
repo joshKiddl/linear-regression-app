@@ -30,7 +30,7 @@ const Card = ({ id, text, listId }) => {
         opacity: isDragging ? 0.5 : 1,
         backgroundColor: 'white',
         padding: '8px',
-        borderRadius: '10px',
+        borderRadius: '8px',
         marginBottom: '8px',
         cursor: 'grab',
         borderStyle:'solid',

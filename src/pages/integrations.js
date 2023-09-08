@@ -27,6 +27,7 @@ const integrationsData = [
 
 const Integrations = () => {
   const [showThanks, setShowThanks] = useState(false);
+  const [expanded, setExpanded] = useState(false); // <-- Add this line
 
   const incrementFeedback = async (title) => {
     try {
@@ -53,11 +54,13 @@ const Integrations = () => {
   };
 
   return (
-    <div className="lof-body">
-      <AppSidebar>
+    <div
+      style={{ paddingLeft: expanded ? "195px" : "95px" }}
+      className="lof-body"
+    >
+      <AppSidebar expanded={expanded} setExpanded={setExpanded}>
         <h2 className="lof-h2">Integrations</h2>
         <hr />
-
         <div className="grid-container">
           {integrationsData.map((integration, index) => (
             <div key={index} className="feature-box">
