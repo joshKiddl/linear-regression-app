@@ -61,12 +61,12 @@ function Feedback() {
         <h2 className="lof-h2">Leave us Feedback</h2>
         <hr />
 
-        <h3>How did you like this tool?</h3>
-        <p>
+        <h3 style={{margin:'1.25rem'}}>How did you like this tool?</h3>
+        <p style={{margin:'1.25rem'}}>
           Was it helpful? Do you want to use AI more to help your product
           management practice?
         </p>
-        <p>Let us know your thoughts</p>
+        <p style={{margin:'1.25rem'}}>Let us know your thoughts</p>
         <form
           id="feedback-form"
           onSubmit={handleFeedbackSubmit}
