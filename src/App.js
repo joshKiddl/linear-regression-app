@@ -3,11 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/App.css";
 import PMAILogo from "./images/PMAILogo.png";
-import Screenshot1 from "./images/Screenshot1.png";
 import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import PriorityModal from "./components/priorityModal";
 import TryIt from "./components/tryIt";
+import CaptainImage from './images/1.gif'
+import PilotImage from './images/2.gif'
+import DataImage from './images/3.gif'
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -196,7 +199,7 @@ function App() {
           </div>
           <img
             width={"auto"}
-            height={"250px"}
+            height={"350px"}
             className={"lpimage"}
             style={{
               borderWidth: "1px",
@@ -204,7 +207,7 @@ function App() {
               borderStyle: "solid",
               borderRadius: "10px",
             }}
-            src="https://www.softkraft.co/static/cee02d36ebf9d0d4af095be15317b27b/c74de/steps-process.webp"
+            src={CaptainImage}
             alt="Softkraft process"
           />
         </div>
@@ -249,7 +252,7 @@ function App() {
           </div>
           <img
             width={"auto"}
-            height={"250px"}
+            height={"350px"}
             className={"lpimage"}
             style={{
               borderWidth: "1px",
@@ -257,7 +260,7 @@ function App() {
               borderStyle: "solid",
               borderRadius: "10px",
             }}
-            src="https://www.explorium.ai/wp-content/uploads/2019/12/Decision-Trees-2.png"
+            src={PilotImage}
             alt="Softkraft process"
           />
         </div>
@@ -302,7 +305,7 @@ function App() {
           </div>
           <img
             width={"auto"}
-            height={"250px"}
+            height={"350px"}
             className={"lpimage"}
             style={{
               borderWidth: "1px",
@@ -310,7 +313,7 @@ function App() {
               borderStyle: "solid",
               borderRadius: "10px",
             }}
-            src={Screenshot1}
+            src={DataImage}
             alt="PMAI Logo"
           />
         </div>
