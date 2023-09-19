@@ -7,10 +7,9 @@ import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import PriorityModal from "./components/priorityModal";
 import TryIt from "./components/tryIt";
-import CaptainImage from './images/1.gif'
-import PilotImage from './images/2.gif'
-import DataImage from './images/3.gif'
-
+import CaptainImage from "./images/1.gif";
+import PilotImage from "./images/2.gif";
+import DataImage from "./images/3.gif";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -205,7 +204,7 @@ function App() {
               borderWidth: "1px",
               borderColor: "gray",
               borderStyle: "solid",
-              borderRadius: "10px",
+              borderRadius: "20px",
             }}
             src={CaptainImage}
             alt="Softkraft process"
@@ -254,14 +253,14 @@ function App() {
             width={"auto"}
             height={"350px"}
             className={"lpimage"}
+            src={PilotImage}
+            alt="Softkraft process"
             style={{
               borderWidth: "1px",
               borderColor: "gray",
               borderStyle: "solid",
-              borderRadius: "10px",
+              borderRadius: "20px",
             }}
-            src={PilotImage}
-            alt="Softkraft process"
           />
         </div>
 
@@ -311,7 +310,7 @@ function App() {
               borderWidth: "1px",
               borderColor: "gray",
               borderStyle: "solid",
-              borderRadius: "10px",
+              borderRadius: "20px",
             }}
             src={DataImage}
             alt="PMAI Logo"
@@ -322,15 +321,19 @@ function App() {
       <TryIt handleAnonSignIn={handleAnonSignIn} />
 
       <div className="footer">
-        <img
-          src="/PMAILogo.png"
-          alt="PMAI Logo"
-          className="footer-logo"
-        />
-        <Link to="/policies" className="footer-btn">Privacy Policy</Link>
-        <Link to="/policies" className="footer-btn">Terms of Use</Link>
-        <Link to="/about" className="footer-btn">About</Link>
-        <a href="mailto:joshsparkes6@gmail.com" className="footer-btn">Contact</a>
+        <img src="/PMAILogo.png" alt="PMAI Logo" className="footer-logo" />
+        <Link to="/policies" className="footer-btn">
+          Privacy Policy
+        </Link>
+        <Link to="/policies" className="footer-btn">
+          Terms of Use
+        </Link>
+        <Link to="/about" className="footer-btn">
+          About
+        </Link>
+        <a href="mailto:joshsparkes6@gmail.com" className="footer-btn">
+          Contact
+        </a>
 
         <p style={{ width: "20%" }}>
           © 2023 Product Manager AI. All rights reserved.
