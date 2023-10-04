@@ -7,9 +7,15 @@ import { auth } from "../src/firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import PriorityModal from "./components/priorityModal";
 import TryIt from "./components/tryIt";
-import CaptainImage from "./images/1.gif";
-import PilotImage from "./images/2.gif";
-import DataImage from "./images/3.gif";
+import Gif1 from './images/1-1.gif'
+import Gif2 from './images/1-2.gif'
+import Gif3 from './images/1-3.gif'
+import Gif4 from './images/2-1.gif'
+import Gif5 from './images/2-2.gif'
+import Gif6 from './images/2-3.gif'
+import Gif7 from './images/3-1.gif'
+import Gif8 from './images/3-2.gif'
+import Gif9 from './images/3-2.gif'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -22,16 +28,19 @@ function App() {
       name: "Dev ready",
       content:
         "The only text you have to type is the problem statement, AI then generates the rest; acceptance criteria and breaks down tasks so you don’t have to!",
+      gif: Gif1,
     },
     {
       name: "Market ready",
       content:
         "Define your target market, list competitors, and generate marketing material ready for feature release.",
+      gif: Gif2,
     },
     {
       name: "Release ready",
       content:
         "Feature builder suggests metrics to track and defines a solution hypothesis for each feature, giving you the ammo to unbiasedly make the decision to pivot or persevere.",
+      gif: Gif3,
     },
   ];
 
@@ -40,16 +49,19 @@ function App() {
       name: "People",
       content:
         "Share tasks with dev team, share acceptance criteria with UX/UI designer, send metrics request to data team… PM Assistant helps you identify the right stakeholders to involve at the right time.",
+      gif: Gif4,
     },
     {
       name: "Process",
       content:
         "Run a competitor analysis, generate a LinkedIn post about your next feature release… PM Assistant helps you pre-plan product releases throughout the entire journey; from inception to release.",
+      gif: Gif5,
     },
     {
       name: "Product",
       content:
         "Enable metrics in reporting tool, break down feature into tasks… PM Assistant helps you prepare all the documentation needed in order to ship a feature, and most importantly, analyse the success of it once released.",
+      gif: Gif6,
     },
   ];
 
@@ -58,16 +70,19 @@ function App() {
       name: "Outcomes driven features",
       content:
         "Our data co-pilot suggests metrics you’ll want to analyse on each feature you release. Build out your hypothesis for each feature with key metrics in mind. This helps define what success looks like to you, but more importantly to all the stakeholders involved.",
+      gif: Gif7,
     },
     {
       name: "Plug and play",
       content:
         "Integrate your reporting tools so that the data co-pilot can keep track of the key data points for each feature… and if the data isn’t there, it’ll automatically add a task to start tracking that data. Impressive right?!",
+      gif: Gif8,
     },
     {
       name: "Analyse",
       content:
         "One of the biggest tasks we often overlook as product managers is analysing whether a feature has proven our hypothesis or not. Pivoting/persevering at a feature level is a key part of maintaining an efficient and value adding product.",
+      gif: Gif9,
     },
   ];
 
@@ -83,10 +98,6 @@ function App() {
         console.log("User is logged out or anonymous");
       }
     });
-    // const timer = setTimeout(() => {a
-    //   setShowPriorityModal(true);
-    // }, 100000);
-    // return () => clearTimeout(timer);
   }, []);
 
   const handlePrioritySelect = async (priority) => {
@@ -158,6 +169,7 @@ function App() {
           }}
         />
       </div>
+
       <div className="container2">
         <div className="problem-section">
           <div className="h3AndP">
@@ -166,102 +178,85 @@ function App() {
               Let AI feature builder generate your features, it only takes 2
               minutes!
             </h3>
-            <ul>
-              {items.map((item, index) => (
-                <li
-                  key={index}
-                  style={{
-                    backgroundColor:
-                      selected === index ? "#fff" : "rgba(255,255,255,.2)",
-                  }}
-                  onClick={() => setSelected(index)}
-                >
-                  <strong
+            <div>
+              <ul>
+                {items.map((item, index) => (
+                  <li
+                    key={index}
                     style={{
-                      fontSize: "1.4rem",
+                      display: "flex",
+                      flexDirection: "row", 
+                      backgroundColor:
+                        selected === index
+                          ? "#fff"
+                          : "rgba(255,255,255,.2)",
                     }}
-                  >
-                    {item.name}
-                  </strong>
-                  <div
-                    className="bubble-body"
-                    style={{ display: selected === index ? "block" : "none" }}
-                  >
-                    {item.content}
-                  </div>
-                </li>
+                    onClick={() => setSelected(index)}
+                    ><div>
+                    <strong style={{ fontSize: "1.4rem" }}>{item.name}</strong>
+                    <div
+                      className="bubble-body"
+                      style={{
+                        display: selected === index ? "block" : "none",
+                      }}
+                    >
+                      {item.content}
+                    </div>
+                    </div>
+                    {selected === index && <img style={{width: '400px', height:'auto'}} src={item.gif} alt="Selected Gif" />}
+                  </li>
               ))}
-            </ul>
+              </ul>
+              </div>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
             </button>
           </div>
-          <img
-            width={"auto"}
-            height={"350px"}
-            className={"lpimage"}
-            style={{
-              borderWidth: "1px",
-              borderColor: "gray",
-              borderStyle: "solid",
-              borderRadius: "20px",
-            }}
-            src={CaptainImage}
-            alt="Softkraft process"
-          />
+          
         </div>
 
         <div className="problem-section2">
           <div className="h3AndP">
-            <h2 className="section-header">PM Co-Pilot</h2>
+            <h2 className="section-header">Data Analyser</h2>
             <p className="coming-soon">(Coming soon)</p>
             <h3>
-              So many decisions, stakeholders, tasks… let AI guide you to your
-              next best actions throughout the feature lifecycle.
+              Focus on building outcome driven features. Use data to your
+              advantage!
             </h3>
-            <ul>
-              {items2.map((item, index) => (
-                <li
-                  key={index}
-                  style={{
-                    backgroundColor:
-                      selected === index ? "#fff" : "rgba(255,255,255,.2)",
-                  }}
-                  onClick={() => setSelected(index)}
-                >
-                  <strong
+            <div>
+              <ul>
+                {items2.map((item, index) => (
+                  <li
+                    key={index}
                     style={{
-                      fontSize: "1.4rem",
+                      display: "flex",
+                      flexDirection: "row", 
+                      backgroundColor:
+                        selected === index
+                          ? "#fff"
+                          : "rgba(255,255,255,.2)",
                     }}
-                  >
-                    {item.name}
-                  </strong>
-                  <div
-                    className="bubble-body"
-                    style={{ display: selected === index ? "block" : "none" }}
-                  >
-                    {item.content}
-                  </div>
-                </li>
+                    onClick={() => setSelected(index)}
+                    ><div>
+                    <strong style={{ fontSize: "1.4rem" }}>{item.name}</strong>
+                    <div
+                      className="bubble-body"
+                      style={{
+                        display: selected === index ? "block" : "none",
+                      }}
+                    >
+                      {item.content}
+                    </div>
+                    </div>
+                    {selected === index && <img style={{width: '400px', height:'auto'}} src={item.gif} alt="Selected Gif" />}
+                  </li>
               ))}
-            </ul>
+              </ul>
+              </div>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
             </button>
           </div>
-          <img
-            width={"auto"}
-            height={"350px"}
-            className={"lpimage"}
-            src={PilotImage}
-            alt="Softkraft process"
-            style={{
-              borderWidth: "1px",
-              borderColor: "gray",
-              borderStyle: "solid",
-              borderRadius: "20px",
-            }}
-          />
         </div>
 
         <div className="problem-section3">
@@ -272,49 +267,40 @@ function App() {
               Focus on building outcome driven features. Use data to your
               advantage!
             </h3>
-            <ul>
-              {items3.map((item, index) => (
-                <li
-                  key={index}
-                  style={{
-                    backgroundColor:
-                      selected === index ? "#fff" : "rgba(255,255,255,.2)",
-                  }}
-                  onClick={() => setSelected(index)}
-                >
-                  <strong
+            <div>
+              <ul>
+                {items3.map((item, index) => (
+                  <li
+                    key={index}
                     style={{
-                      fontSize: "1.4rem",
+                      display: "flex",
+                      flexDirection: "row", 
+                      backgroundColor:
+                        selected === index
+                          ? "#fff"
+                          : "rgba(255,255,255,.2)",
                     }}
-                  >
-                    {item.name}
-                  </strong>
-                  <div
-                    className="bubble-body"
-                    style={{ display: selected === index ? "block" : "none" }}
-                  >
-                    {item.content}
-                  </div>
-                </li>
+                    onClick={() => setSelected(index)}
+                    ><div>
+                    <strong style={{ fontSize: "1.4rem" }}>{item.name}</strong>
+                    <div
+                      className="bubble-body"
+                      style={{
+                        display: selected === index ? "block" : "none",
+                      }}
+                    >
+                      {item.content}
+                    </div>
+                    </div>
+                    {selected === index && <img style={{width: '400px', height:'auto'}} src={item.gif} alt="Selected Gif" />}
+                  </li>
               ))}
-            </ul>
+              </ul>
+              </div>
             <button onClick={handleAnonSignIn} className="section-btn">
               Create a Feature
             </button>
           </div>
-          <img
-            width={"auto"}
-            height={"350px"}
-            className={"lpimage"}
-            style={{
-              borderWidth: "1px",
-              borderColor: "gray",
-              borderStyle: "solid",
-              borderRadius: "20px",
-            }}
-            src={DataImage}
-            alt="PMAI Logo"
-          />
         </div>
       </div>
 
