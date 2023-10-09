@@ -15,7 +15,7 @@ import Gif5 from './images/2-2.gif'
 import Gif6 from './images/2-3.gif'
 import Gif7 from './images/3-1.gif'
 import Gif8 from './images/3-2.gif'
-import Gif9 from './images/3-2.gif'
+import Gif9 from './images/3-3.gif'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -115,26 +115,26 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
-        <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
-        <div className="login-btn-container">
-          {loggedIn ? (
-            <Link to="/listOfFeatures" className="dashboard-btn">
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link to="/login" className="create-account-btn">
-                Log In
+    <div style={{justifyContent:'center', width:'100%' }}>
+        <div className="top-bar">
+          <img src={PMAILogo} alt="PMAI Logo" className="spinning-logo" />
+          <div className="login-btn-container">
+            {loggedIn ? (
+              <Link to="/listOfFeatures" className="dashboard-btn">
+                Dashboard
               </Link>
-              <Link to="/signUp" className="sign-up-btn">
-                Sign Up
-              </Link>
-            </>
-          )}
+            ) : (
+              <>
+                <Link to="/login" className="create-account-btn">
+                  Log In
+                </Link>
+                <Link to="/signUp" className="sign-up-btn">
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-      </div>
       <div className="container1">
         <h1 className="title">Product Manager AI</h1>
         <h2 className="subtitle">
@@ -181,11 +181,10 @@ function App() {
             <div>
               <ul>
                 {items.map((item, index) => (
-                  <li
+                  <li  className="list-item"
                     key={index}
                     style={{
                       display: "flex",
-                      flexDirection: "row", 
                       backgroundColor:
                         selected === index
                           ? "#fff"
