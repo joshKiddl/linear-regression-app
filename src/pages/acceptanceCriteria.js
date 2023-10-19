@@ -144,7 +144,7 @@ function AcceptanceCriteria() {
         }}
         now={25}
         variant="info"
-        label="2/8" // Adding the label here
+        label="2/9" // Adding the label here
       />
       <h1>Acceptance Criteria</h1>
       <h5>

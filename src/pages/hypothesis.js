@@ -166,7 +166,7 @@ function Hypothesis() {
           }}
           now={75}
           variant="info"
-          label="6/8" // Adding the label here
+          label="6/9" // Adding the label here
         />
         <h1>Generate potential Solution Hypotheses</h1>
         <h5>

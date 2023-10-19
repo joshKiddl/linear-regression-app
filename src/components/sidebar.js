@@ -81,13 +81,7 @@ function AppSidebar({ children, expanded, setExpanded }) {
   const drawer = (
     <div className="sidebar-content">
       <List className="top-links">
-        <IconButton onClick={toggleExpansion} className="sidebar-toggle-btn">
-          {expanded ? (
-            <FontAwesomeIcon icon={faChevronLeft} size="sm" color="#111827" />
-          ) : (
-            <FontAwesomeIcon icon={faChevronRight} size="sm" color="#111827" />
-          )}
-        </IconButton>
+        
         {/* <img
           src={logo}
           alt="Logo"
@@ -151,6 +145,7 @@ function AppSidebar({ children, expanded, setExpanded }) {
         </ListItem>
       </List>
       <List className="bottom-links">
+        
         <ListItem
           button
           component={NavLinkStyled}
@@ -172,6 +167,13 @@ function AppSidebar({ children, expanded, setExpanded }) {
           </div>
           {expanded && <div className="sidebar-item-text">Sign out</div>}
         </ListItem>
+        <IconButton onClick={toggleExpansion} className="sidebar-toggle-btn">
+          {expanded ? (
+            <FontAwesomeIcon icon={faChevronLeft} size="xs" color="#111827" />
+          ) : (
+            <FontAwesomeIcon icon={faChevronRight} size="xs" color="#111827" />
+          )}
+        </IconButton>
       </List>
     </div>
   );

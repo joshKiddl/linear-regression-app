@@ -26,10 +26,8 @@ import Settings from './pages/settings';
 import Integrations from './pages/integrations';
 import Policies from './pages/policies';
 import About from './pages/about';
+import Code from './pages/code';
 
-
-
-// Initialize Performance Monitoring here
 perf.dataCollectionEnabled = true;
 perf.isPerformanceCollectionEnabled = true;
 
@@ -67,7 +65,7 @@ const AppRoutes = () => {
       {/* <Route path="/technicalRequirements" element={<TechnicalRequirements />} /> */}
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/targetCustomer" element={<TargetCustomer />} />
-      {/* <Route path="/marketSize" element={<MarketSize />} />       */}
+      <Route path="/code" element={<Code />} />      
       <Route path="/dataElements" element={<DataElements />} />      
       <Route path='/marketingMaterial' element={<MarketingMaterial />} />
       <Route path="/hypothesis" element={<Hypothesis />} />

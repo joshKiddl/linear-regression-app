@@ -135,7 +135,7 @@ function MarketingMaterial() {
         { merge: true }
       );
       console.log("Successfully updated document:", documentId);
-      navigate("/featureName");
+      navigate("/code");
     } catch (error) {
       console.error("Error updating document:", error);
     }
@@ -154,7 +154,7 @@ function MarketingMaterial() {
         }}
         now={87.5}
         variant="info"
-        label="7/8" // Adding the label here
+        label="7/9" // Adding the label here
       />
       <h1>Generate Marketing Material for this Feature</h1>
       <div className="input-container-marketing">
@@ -259,7 +259,6 @@ function MarketingMaterial() {
         <button className="next-button" onClick={handleNext}>
           {nextButtonLabel}
         </button>{" "}
-        {/* Use nextButtonLabel */}
       </div>
     </div>
   );

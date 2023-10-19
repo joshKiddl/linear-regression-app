@@ -179,7 +179,7 @@ function FeatureName() {
         }}
         now={12.5}
         variant="info"
-        label="8/8" // Adding the label here
+        label="9/9" // Adding the label here
       >
         <ProgressBar
           style={{

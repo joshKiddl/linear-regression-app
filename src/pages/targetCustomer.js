@@ -136,7 +136,7 @@ function TargetCustomer() {
         }}
         now={50}
         variant="info"
-        label="4/8" // Adding the label here
+        label="4/9" // Adding the label here
 
       />
       <h1>Target Customer</h1>

@@ -142,7 +142,7 @@ function Tasks() {
         }}
         now={37.5}
         variant="info"
-        label="3/8" // Adding the label here
+        label="3/9" // Adding the label here
       />
       <h1>Tasks</h1>
       <h5>
