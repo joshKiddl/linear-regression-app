@@ -180,11 +180,12 @@ function App() {
             </h3>
             <div>
               <ul>
-                {items.map((item, index) => (
-                  <li  className="list-item"
+              {items.map((item, index) => (
+                  <li
                     key={index}
                     style={{
                       display: "flex",
+                      flexDirection: "row", 
                       backgroundColor:
                         selected === index
                           ? "#fff"
